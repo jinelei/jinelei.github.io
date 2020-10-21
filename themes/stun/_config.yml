@@ -647,14 +647,14 @@ canvas_ribbon:
 # Canvas-nest
 # Dependency: https://github.com/hustcc/canvas-nest.js
 canvas_nest:
-  enable: false
+  enable: true
   # Color of lines.
   # RGB values, use `,` to separate.
   color: "0,0,0"
   # The opacity of lines (value: 0 ~ 1)
   opacity: 0.6
   # The number of lines.
-  count: 99
+  count: 199
   # `z-index` property of the background.
   zIndex: -1
 
@@ -792,7 +792,7 @@ shortcuts:
   # `Ctrl + ←` is the shortcuts to prev post.
   # `Ctrl + →` is the shortcuts to next post.
   switch_post:
-    enable: false
+    enable: true
 
 # Tag cloud
 # If not used, comment it or ignore it.
