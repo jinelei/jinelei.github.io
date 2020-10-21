@@ -7,8 +7,8 @@ language: zh-CN
 timezone: ''
 
 # URL
-url: http://jinelei.gitee.io/pages
-root: /pages
+url: https://jinelei.gitee.io/blog
+root: /blog
 permalink: :year/:month/:day/:title/
 permalink_defaults:
 pretty_urls:
