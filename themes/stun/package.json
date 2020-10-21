@@ -1,0 +1,66 @@
+{
+  "name": "hexo-theme-stun",
+  "version": "2.2.0",
+  "description": "A beautiful & simple theme for Hexo",
+  "homepage": "https://liuyib.github.io",
+  "scripts": {
+    "commit": "git cz",
+    "release": "standard-version",
+    "release:lts": "npm run release -- --release-as",
+    "release:pre": "npm run release -- --prerelease",
+    "docs:dev": "vuepress dev docs",
+    "docs:build": "vuepress build docs",
+    "lint": "standard",
+    "lint:fix": "standard --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/liuyib/hexo-theme-stun"
+  },
+  "keywords": [
+    "Stun",
+    "Hexo"
+  ],
+  "author": "liuyib",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/liuyib/hexo-theme-stun/issues"
+  },
+  "dependencies": {
+    "nib": "^1.1.2"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^11.0.0",
+    "commitizen": "^4.2.1",
+    "commitlint-config-cz": "^0.13.2",
+    "cz-customizable": "^6.3.0",
+    "eslint": "^7.10.0",
+    "husky": "^4.3.0",
+    "standard": "^14.3.4",
+    "standard-version": "^9.0.0",
+    "vuepress": "^1.5.2"
+  },
+  "standard": {
+    "globals": [
+      "$",
+      "CONFIG",
+      "hexo",
+      "Stun",
+      "instantsearch"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint:fix",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-customizable"
+    },
+    "cz-customizable": {
+      "config": "./.cz-config.js"
+    }
+  }
+}
