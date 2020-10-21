@@ -99,7 +99,7 @@ theme: stun
 deploy:
   type: git
   repository: https://github.com/jinelei/jinelei.github.io
-  branch: main
+  branch: release
 
 # LocalSearch
 search:
