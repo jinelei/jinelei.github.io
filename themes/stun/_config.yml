@@ -654,7 +654,7 @@ canvas_nest:
   # The opacity of lines (value: 0 ~ 1)
   opacity: 0.6
   # The number of lines.
-  count: 199
+  count: 119
   # `z-index` property of the background.
   zIndex: -1
 
