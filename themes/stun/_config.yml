@@ -142,7 +142,7 @@ header:
     # In theme directory (source/images): /images/avatar.png
     # In site directory (source/uploads): /uploads/avatar.png
     # You can also use a link of image.
-    url: /images/background.jpg
+    url: /images/background.webp
   # Mask effect of the background image.
   mask:
     enable: true
