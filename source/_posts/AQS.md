@@ -5,8 +5,6 @@ categories:
   - Java
   - Concurrent
 tags:
-  - 读书笔记
-tags:
   - 学习笔记
 ---
 
