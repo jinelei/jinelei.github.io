@@ -3,7 +3,8 @@ title:  "更换默认sh为zsh"
 date: 2018-05-10 09:00:00
 categories:
   - Linux
-  - Memo
+tags:
+  - 备忘录
 ---
 ### 1. 检查是否安装zsh
 

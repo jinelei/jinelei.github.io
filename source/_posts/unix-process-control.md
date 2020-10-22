@@ -1,6 +1,10 @@
 ---
 title: Unix 进程控制 fork、vfork
 date: 2017-07-27 09:00:00
+categories:
+  - Linux
+tags:
+  - 学习笔记
 ---
 
 #### 概要

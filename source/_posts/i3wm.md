@@ -3,7 +3,8 @@ title:  "i3wm配置文件"
 date: 2018-11-08 09:00:00
 categories:
   - Linux
-  - i3WM
+tags:
+  - 备忘录
 ---
 
 我的i3wm配置

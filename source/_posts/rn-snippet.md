@@ -1,8 +1,10 @@
 ---
 title:  "react-native代码段"
 date: 2018-05-24 09:00:00
+categories:
+  - RectNative
 tags:
-- react-native
+  - 学习笔记
 ---
 
 - ##### 引用图片

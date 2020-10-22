@@ -1,6 +1,10 @@
 ---
 title:  "centos7设置静态IP"
 date: 2018-05-10 09:00:00
+categories:
+  - Linux
+tags:
+  - 备忘录
 ---
 
 ##### 1. 修改配置文件

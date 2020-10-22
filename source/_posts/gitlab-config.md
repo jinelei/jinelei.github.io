@@ -1,6 +1,11 @@
 ---
 title:  "gitlab修改端口和域名"
 date: 2018-11-12 09:00:00
+categories:
+  - Linux
+  - Git
+tags:
+  - 备忘录
 ---
 
 gitlab默认安装后配置文件在```/etc/gitlab/gitlab.rb```，gitlab内嵌的nginx配置在```/var/opt/gitlab/nginx/conf```

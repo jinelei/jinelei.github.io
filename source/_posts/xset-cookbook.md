@@ -3,7 +3,8 @@ title:  "Linux实用工具 xset"
 date: 2017-07-30 09:00:00
 categories:
   - Linux
-  - Memo
+tags:
+  - 备忘录
 ---
 
 xset是linux中设置X-Window的实用工具。

@@ -1,8 +1,10 @@
 ---
 title:  "react-native troubleshooting"
 date: 2018-05-21 09:00:00
+categories:
+  - RectNative
 tags:
-- react-native
+  - 学习笔记
 ---
 
 - #### Common

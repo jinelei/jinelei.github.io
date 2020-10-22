@@ -4,6 +4,8 @@ date: 2018-12-05 09:00:00
 categories:
   - Java
   - Concurrent
+tags:
+  - 学习笔记
 ---
 
 从java5开始提供了```java.util.concurrnet.atomic```包，这个包中的院子操作类提供了简单、高效、线程安全的更新变量的方式。

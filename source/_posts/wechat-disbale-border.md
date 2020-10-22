@@ -1,6 +1,10 @@
 ---
 title:  "小程序点滴1"
 date: 2018-11-15 09:00:00
+categories:
+  - Develop
+tags:
+  - 学习笔记
 ---
 
 {% raw %}

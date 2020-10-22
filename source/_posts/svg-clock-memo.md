@@ -1,6 +1,10 @@
 ---
 title: js制作svg时钟
 date: 2018-11-07 09:00:00
+categories:
+  - JavaScript
+tags:
+  - 学习笔记
 ---
 
 1. 声明创建表盘函数

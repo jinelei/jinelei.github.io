@@ -1,6 +1,10 @@
 ---
 title:  "plsql程序设计"
 date: 2018-12-09 09:00:00
+categories:
+  - SQL
+tags:
+  - 学习笔记
 ---
 
 1. 基本程序块

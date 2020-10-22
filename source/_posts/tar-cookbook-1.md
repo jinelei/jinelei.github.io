@@ -1,6 +1,10 @@
 ---
 title:  "tar使用相对路径打包"
 date: 2018-05-16 09:00:00
+categories:
+  - Linux
+tags:
+  - 备忘录
 ---
 
 

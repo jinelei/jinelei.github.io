@@ -1,6 +1,10 @@
 ---
 title:  "websocket API"
 date: 2018-05-10 09:00:00
+categories:
+  - Develop
+tags:
+  - 学习笔记
 ---
 
 - 创建websocket

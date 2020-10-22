@@ -1,6 +1,10 @@
 ---
 title:  "firewall-cmd常用命令"
 date: 2018-05-14 09:00:00
+categories:
+  - Linux
+tags:
+  - 备忘录
 ---
 
 - 允许端口访问

@@ -1,6 +1,10 @@
 ---
 title:  "css伪类"
 date: 2018-11-05 09:00:00
+categories:
+  - CSS
+tags:
+  - 学习笔记
 ---
 
 js查看伪类的css样式

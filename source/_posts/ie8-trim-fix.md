@@ -1,6 +1,10 @@
 ---
 title:  "IE8下trim()失效"
 date: 2018-11-08 09:00:00
+categories:
+  - JavaScript
+tags:
+  - 学习笔记
 ---
 
 经测试，IE8不支持trim()方法，先发现两种替代方案。

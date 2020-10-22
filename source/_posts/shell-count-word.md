@@ -1,7 +1,10 @@
 ---
 title:  "shell统计代码字数"
 date: 2017-06-01 09:00:00
-
+categories:
+  - Linux
+tags:
+  - 备忘录
 ---
 
 ```

@@ -4,6 +4,8 @@ date: 2017-07-25 09:00:00
 categories:
   - Java
   - VirtualMachine
+tags:
+  - 学习笔记
 ---
 
 #### JAVA虚拟机内存划分为以下几个运行时数据区域：  

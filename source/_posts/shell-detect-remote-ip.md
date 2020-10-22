@@ -1,6 +1,10 @@
 ---
 title:  "探测远程ip"
 date: 2018-11-07 09:00:00
+categories:
+  - Linux
+tags:
+  - 备忘录
 ---
 
 ```

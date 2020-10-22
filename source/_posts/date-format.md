@@ -1,6 +1,10 @@
 ---
 title:  "javascript date format"
 date: 2018-05-15 09:00:00
+categories:
+  - JavaScript
+tags:
+  - 学习笔记
 ---
 
 - 使用prototype扩展

@@ -1,6 +1,10 @@
 ---
 title:  "eclipse备忘录"
 date: 2017-12-07 09:00:00
+categories:
+  - Java
+tags:
+  - 学习笔记
 ---
 
 1. #### eclipse添加mybatis generator插件

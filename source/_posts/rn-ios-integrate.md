@@ -1,8 +1,10 @@
 ---
 title:  "iOS集成react-native"
 date: 2018-05-23 09:00:00
+categories:
+  - RectNative
 tags:
-- react-native
+  - 学习笔记
 ---
 
 1. 新建react-native工程

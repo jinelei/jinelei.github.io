@@ -1,6 +1,11 @@
 ---
 title: java中的Fork/Join框架
 date: 2018-12-05 09:00:00
+categories:
+  - Java
+  - Concurrent
+tags:
+  - 学习笔记
 ---
 
 Fork/Join框架是Java7中新增的用于并行执行任务的框架，把一个大的任务分割成小任务，最后汇总得到运行结果。  

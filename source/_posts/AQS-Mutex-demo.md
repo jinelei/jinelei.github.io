@@ -4,6 +4,8 @@ date: 2018-12-04 09:00:00
 categories:
   - Java
   - Concurrent
+tags:
+  - 学习笔记
 ---
 
 独占锁的自定义同步组件：

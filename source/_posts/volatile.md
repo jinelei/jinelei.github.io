@@ -1,6 +1,11 @@
 ---
 title: volatile
 date: 2018-12-01 09:00:00
+categories:
+  - Java
+  - VirutalMachine
+tags:
+  - 学习笔记
 ---
 
 重排序是指编译器和处理器为了优化程序性能二队指令序列进行重新排序的一种手段。

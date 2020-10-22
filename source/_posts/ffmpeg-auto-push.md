@@ -1,6 +1,10 @@
 ---
 title:  "ffmpeg自动推流到指定ip"
 date: 2018-11-06 09:00:00
+categories:
+  - Linux
+tags:
+  - 备忘录
 ---
 
 ```

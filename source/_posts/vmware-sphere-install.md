@@ -1,6 +1,10 @@
 ---
 title:  "vSphere hypervisor 6.5安装"
 date: 2018-12-29 09:00:00
+categories:
+  - Linux
+tags:
+  - 学习笔记
 ---
 
 1. #### 前置安装环境：

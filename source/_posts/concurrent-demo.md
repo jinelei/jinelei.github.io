@@ -1,6 +1,11 @@
 ---
 title: java并发编程实例
 date: 2018-12-03 09:00:00
+categories:
+  - Java
+  - Concurrent
+tags:
+  - 学习笔记
 ---
 
 ### 背景知识

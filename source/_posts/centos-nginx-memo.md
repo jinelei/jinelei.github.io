@@ -4,6 +4,8 @@ date: 2017-12-06 09:00:00
 categories:
   - Linux
   - Nginx
+tags:
+  - 备忘录
 ---
 
 - centos7下编译nginx遇到的问题

@@ -1,6 +1,10 @@
 ---
 title:  "vimrc 配置示例"
 date: 2018-11-08 09:00:00
+categories:
+  - Linux
+tags:
+  - 备忘录
 ---
 
 我的vimrc配置

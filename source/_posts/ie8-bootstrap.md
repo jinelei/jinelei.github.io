@@ -1,6 +1,10 @@
 ---
 title:  "ie8 juqery bootstrap兼容性"
 date: 2018-11-01 09:00:00
+categories:
+  - JavaScript
+tags:
+  - 学习笔记
 ---
 
 如何使bootstrap兼容IE8.

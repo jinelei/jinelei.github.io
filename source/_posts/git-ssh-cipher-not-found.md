@@ -1,6 +1,9 @@
 ---
 title:  "ssh加密问题"
 date: 2018-11-12 09:00:00
+categories:
+  - Linux
+  - Git
 ---
 
 mac升级后出现git不可用问题的解决方案,

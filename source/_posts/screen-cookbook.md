@@ -1,6 +1,10 @@
 ---
 title:  "screen命令参考"
 date: 2018-05-23 09:00:00
+categories:
+  - Linux
+tags:
+  - 学习笔记
 ---
 
 #screen常用命令

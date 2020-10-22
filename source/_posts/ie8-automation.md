@@ -1,6 +1,10 @@
 ---
 title:  "IE8下无法创建automation对象"
 date: 2018-11-08 09:00:00
+categories:
+  - JavaScript
+tags:
+  - 学习笔记
 ---
 
 问题描述：使用```new ActiveXObject("Scripting.FileSystemObject");```创建对象时，抱错```automation服务器不能创建对象```

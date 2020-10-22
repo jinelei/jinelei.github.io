@@ -3,7 +3,8 @@ title:  "xrandr调整亮度"
 date: 2018-11-05 09:00:00
 categories:
   - Linux
-  - Memo
+tags:
+  - 备忘录
 ---
 
 ```

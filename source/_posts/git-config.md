@@ -1,6 +1,11 @@
 ---
 title:  "git config配置"
 date: 2018-12-04 09:00:00
+categories:
+  - Linux
+  - Git
+tags:
+  - 备忘录
 ---
 
 #####  git config有下列四个级别

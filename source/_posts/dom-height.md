@@ -1,6 +1,10 @@
 ---
 title:  "javascript 获取页面、窗口大小"
 date: 2018-05-15 09:00:00
+categories:
+  - JavaScript
+tags:
+  - 学习笔记
 ---
 
 #### 获取窗口尺寸

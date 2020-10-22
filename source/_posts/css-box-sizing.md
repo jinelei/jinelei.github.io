@@ -1,6 +1,8 @@
 ---
 title:  "css3 box-sizing说明"
 date: 2018-11-04 09:00:00
+categories:
+  - CSS
 ---
 
 box-sizing 属性用于更改用于计算元素宽度和高度的默认的 CSS 盒子模型。可以使用此属性来模拟不正确支持CSS盒子模型规范的浏览器的行为。

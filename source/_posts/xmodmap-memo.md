@@ -3,7 +3,8 @@ title:  "linux修改按键映射"
 date: 2017-10-13 09:00:00
 categories:
   - Linux
-  - Memo
+tags:
+  - 备忘录
 ---
 
 1. xmodmap

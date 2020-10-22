@@ -1,6 +1,11 @@
 ---
 title:  "hibernate.properties备忘录"
 date: 2017-10-28 09:00:00
+categories:
+  - Java
+  - Hibernate
+tags:
+  - 学习笔记
 ---
 
 ##### jdbc属性

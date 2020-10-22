@@ -1,6 +1,11 @@
 ---
 title:  "锁"
 date: 2018-12-01 09:00:00
+categories:
+  - Java
+  - Concurrent
+tags:
+  - 学习笔记
 ---
 
 锁的获取和释放和volatile是一致的。

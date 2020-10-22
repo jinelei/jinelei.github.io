@@ -4,6 +4,8 @@ date: 2018-12-05 09:00:00
 categories:
   - Java
   - Concurrent
+tags:
+  - 学习笔记
 ---
 
 JDK并发包中提供了几个非常有用的并发工具类。CountDownLatch、CyclicBarrier和Semaphore工具类提供了并发流程控制手段，Exchanger工具类则提供了线程间交换数据的一种手段。

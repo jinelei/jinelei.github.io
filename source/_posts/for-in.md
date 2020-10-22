@@ -1,6 +1,10 @@
 ---
 title:  "javascript检测是否存在属性"
 date: 2018-05-14 09:00:00
+categories:
+  - JavaScript
+tags:
+  - 学习笔记
 ---
 
 - in运算符
