@@ -733,7 +733,7 @@ kbd {
   height: 80vh;
 }
 .header-inner--bgcolor {
-  background-color: #333;
+  background-color: #0f3059;
 }
 .header-inner--height {
   height: 50px !important;
@@ -761,7 +761,7 @@ kbd {
 }
 .header-nav--sticky {
   position: fixed;
-  background-color: #333;
+  background-color: #0f3059;
   -webkit-transform: translateY(-100%);
   -moz-transform: translateY(-100%);
   -o-transform: translateY(-100%);
@@ -917,6 +917,18 @@ kbd {
   z-index: 0;
   width: 100%;
   height: 100%;
+  background: url("/images/background.jpg") no-repeat center/cover;
+}
+.header-banner::before {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.1);
 }
 .header-banner-info {
   position: absolute;
