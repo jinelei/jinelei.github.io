@@ -22,7 +22,7 @@ canonical: true
 # ---------------------------------------------------------------
 # Google Webmaster tools verification setting
 # See: https://www.google.com/webmasters/
-google_site_verification: eh8DrSPPrFgBf5EOylnLmL2NcPe6QTmnwzuMLsbi7n0
+google_site_verification: KtNbyqM1bm1HQWuPnMmgfwPeBWTMHXVL0-OjlyZMMRs
 
 # Bing Webmaster tools verification setting
 # See: https://www.bing.com/webmaster/
@@ -133,26 +133,26 @@ header:
   enable: true
   show_on:
     # Whether to show on the article page.
-    post: true
+    post: false
   # If you set a percentage, it will be calculated based on the height of screen (Supports all CSS units)
   height: 80%
   # Background image of site header.
   bg_image:
-    enable: false
+    enable: true
     # In theme directory (source/images): /images/avatar.png
     # In site directory (source/uploads): /uploads/avatar.png
     # You can also use a link of image.
-    url:
+    url: /images/background.jpg
   # Mask effect of the background image.
   mask:
-    enable: false
+    enable: true
     # Opacity of the mask (value: 0 ~ 1)
-    opacity: 0.5
+    opacity: 0.1
   nav:
     # Height of the navigation bar (Supports all CSS units)
     height: 50px
     # Background color of the navigation bar (Please use "" to wrap the value).
-    bg_color: "#333"
+    bg_color: "#0f3059"
   # The icon that prompts the user to pull down.
   scroll_down_icon:
     enable: false
