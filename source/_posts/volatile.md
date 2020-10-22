@@ -3,7 +3,7 @@ title: volatile
 date: 2018-12-01 09:00:00
 categories:
   - Java
-  - VirutalMachine
+  - VirtualMachine
 tags:
   - 学习笔记
 ---
