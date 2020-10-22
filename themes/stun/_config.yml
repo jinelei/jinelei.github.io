@@ -87,7 +87,7 @@ favicon:
 # Progressive Web Apps
 # See: https://github.com/lavas-project/hexo-pwa/
 pwa:
-  enable: false
+  enable: true
   manifest: /manifest.json
   # (Please use "" to wrap the value)
   theme_color: "#54bcff"
