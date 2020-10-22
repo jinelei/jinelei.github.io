@@ -1,0 +1,575 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><meta name="theme-color" content="#54bcff"><link rel="manifest" href="/manifest.json?v=2.2.0"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.2.0" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.2.0" type="image/png" sizes="32x32"><meta name="google-site-verification" content="eh8DrSPPrFgBf5EOylnLmL2NcPe6QTmnwzuMLsbi7n0"><meta property="og:type" content="website">
+<meta property="og:title" content="Jin&#39;s Blog">
+<meta property="og:url" content="https://jinelei.github.io/page/4/index.html">
+<meta property="og:site_name" content="Jin&#39;s Blog">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="Jinelei">
+<meta name="twitter:card" content="summary"><title>Jin's Blog</title><link ref="canonical" href="https://jinelei.github.io/page/4/index.html"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.2.0"><link rel="dns-prefetch" href="https://www.googletagmanager.com"><script src="https://www.googletagmanager.com/gtag/js?id=UA-180959764-1" async=""></script><script>if (window.location.hostname !== 'localhost') {
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){ dataLayer.push(arguments); }
+  gtag('js', new Date());
+  gtag('config', 'UA-180959764-1');
+}</script><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":true,"scrollDownIcon":false},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"default","highlight":"light","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: {"switchPost":true},
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.2.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">标签</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">Jin's Blog</div><div class="header-banner-info__subtitle"></div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content content-home" id="content"><section class="postlist"><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2018/11/05/pseudo-class/">css伪类</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2018-11-05</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2020-10-22</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">347</span></span><span class="post-meta-item post-meta-item--readtime"><span class="post-meta-item__icon"><i class="far fa-clock"></i></span><span class="post-meta-item__info">阅读时长</span><span class="post-meta-item__value">2分</span></span></div></header><div class="post-body"><div class="post-excerpt"><p>js查看伪类的css样式</p>
+<figure class="highlight js"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">document</span>.defaultView.getComputedStyle(ele, <span class="string">&#x27;:before&#x27;</span>);</span><br></pre></td></tr></table></div></figure>
+<blockquote>
+<p> <code>document.defaultView</code>在浏览器中，该属性返回当前 document 对象所关联的 window 对象，如果没有，会返回 null。</p>
+<blockquote>
+<p>该属性只读.</p>
+</blockquote>
+<blockquote>
+<p>根据 <span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="http://www.quirksmode.org/dom/w3c_html.html" >quirksmode</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>，IE 9 以下版本不支持 defaultView。</p>
+</blockquote>
+<p><code>Window.getComputedStyle(element, [pseudoElt])</code>方法返回一个对象，该对象在应用活动样式表并解析这些值可能包含的任何基本计算后报告元素的所有CSS属性的值。 私有的CSS属性值可以通过对象提供的API或通过简单地使用CSS属性名称进行索引来访问。</p>
+<blockquote>
+<p><code>element</code>用于获取计算样式的<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/API/Element" >Element</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+</blockquote>
+<blockquote>
+<p><code>pseudoElt</code>指定一个要匹配的<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://drafts.csswg.org/css-content-3/#pseudo-elements" >伪元素</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>的字符串。必须对普通元素省略（或null）</p>
+</blockquote>
+<blockquote>
+<p>返回的style是一个实时的<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/API/CSSStyleDeclaration" >CSSStyleDeclaration</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>对象，当元素的样式更改时，它会自动更新本身。</p>
+<blockquote>
+<p>CSS属性值可以使用getPropertyValue(propName)API或直接索引到对象，如cs [‘z-index’]或cs.zIndex。</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<p>伪类的点击事件</p>
+<blockquote>
+<p>通过禁用元素的点击，启用伪类的点击</p>
+</blockquote>
+<figure class="highlight js"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">pre &#123;</span><br><span class="line">  text-indent: -<span class="number">1</span>em;</span><br><span class="line">  &amp; &gt; code &#123;</span><br><span class="line">    pointer-events: none;</span><br><span class="line">    margin: <span class="number">0</span> <span class="number">1</span>em;</span><br><span class="line">    &amp;::before &#123;</span><br><span class="line">      text-indent: <span class="number">0</span>em;</span><br><span class="line">      pointer-events: auto;</span><br><span class="line">      width: <span class="number">3</span>em;</span><br><span class="line">      position: absolute;</span><br><span class="line">      border-radius: <span class="number">5</span>px;</span><br><span class="line">      padding: <span class="number">0.3</span>em <span class="number">.5</span>em;</span><br><span class="line">      margin: <span class="number">0.5</span>em;</span><br><span class="line">      content: <span class="string">&#x27;copy&#x27;</span>;</span><br><span class="line">      background-color: rgba(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0.3</span>);</span><br><span class="line">      color: rgba(<span class="number">255</span>, <span class="number">255</span>, <span class="number">255</span>, <span class="number">0.9</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    &amp;:hover::before &#123;</span><br><span class="line">      background-color: rgba(<span class="number">100</span>, <span class="number">100</span>, <span class="number">100</span>, <span class="number">0.7</span>);</span><br><span class="line">      color: rgba(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0.8</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2018/11/05/xrandr-adjust-brightness/">xrandr调整亮度</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2018-11-05</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2020-10-22</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">66</span></span><span class="post-meta-item post-meta-item--readtime"><span class="post-meta-item__icon"><i class="far fa-clock"></i></span><span class="post-meta-item__info">阅读时长</span><span class="post-meta-item__value">1分</span></span></div></header><div class="post-body"><div class="post-excerpt"><figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">#!&#x2F;bin&#x2F;bash</span><br><span class="line">#default eDP1</span><br><span class="line">DEV&#x3D;&quot;eDP-1&quot;</span><br><span class="line">NUM&#x3D;1</span><br><span class="line">while getopts &quot;o:n:&quot; arg</span><br><span class="line">do</span><br><span class="line">    case $arg in</span><br><span class="line">        o)</span><br><span class="line">            DEV&#x3D;$OPTARG</span><br><span class="line">            ;;</span><br><span class="line">        n)</span><br><span class="line">            tmp&#x3D;&#96;echo &quot;scale&#x3D;1;$OPTARG&#x2F;10&quot;| bc&#96;</span><br><span class="line">            NUM&#x3D;$tmp</span><br><span class="line">            ;;</span><br><span class="line">        ?)</span><br><span class="line">            ;;</span><br><span class="line">    esac</span><br><span class="line">done</span><br><span class="line"></span><br><span class="line">if [ $# -ge 1 ]</span><br><span class="line">then</span><br><span class="line">    xrandr --output $DEV --brightness $NUM</span><br><span class="line">else</span><br><span class="line">    xrandr | grep -v &quot;disconnected&quot; |  grep &quot;connected&quot;  </span><br><span class="line">fi</span><br></pre></td></tr></table></div></figure>
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2018/11/04/css-box-sizing/">css3 box-sizing说明</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2018-11-04</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2020-10-22</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">138</span></span><span class="post-meta-item post-meta-item--readtime"><span class="post-meta-item__icon"><i class="far fa-clock"></i></span><span class="post-meta-item__info">阅读时长</span><span class="post-meta-item__value">1分</span></span></div></header><div class="post-body"><div class="post-excerpt"><p>box-sizing 属性用于更改用于计算元素宽度和高度的默认的 CSS 盒子模型。可以使用此属性来模拟不正确支持CSS盒子模型规范的浏览器的行为。</p>
+<blockquote>
+<p>content-box: <strong><em>默认值</em></strong> 任何边框和内边距的宽度都会被增加到最后绘制出来的元素宽度中 </p>
+<blockquote>
+<ol>
+<li>width = 内容的宽度</li>
+<li>height = 内容的高度。</li>
+</ol>
+</blockquote>
+<p>border-box: 边框和内边距的值是包含在width内</p>
+<blockquote>
+<ol>
+<li>width = border + padding + 内容的  width</li>
+<li>height = border + padding + 内容的 height</li>
+</ol>
+</blockquote>
+</blockquote>
+<p>参考<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/box-sizing" >MDN box-sizing</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2018/11/01/ie8-bootstrap/">ie8 juqery bootstrap兼容性</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2018-11-01</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2020-10-22</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">112</span></span><span class="post-meta-item post-meta-item--readtime"><span class="post-meta-item__icon"><i class="far fa-clock"></i></span><span class="post-meta-item__info">阅读时长</span><span class="post-meta-item__value">1分</span></span></div></header><div class="post-body"><div class="post-excerpt"><p>如何使bootstrap兼容IE8.</p>
+<ol>
+<li>把<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://cdn.bootcss.com/jquery/1.12.0/jquery.min.js" >jquery.min.js</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>下载下来，放在本地资源中，使用本地资源url，而不是用cdn加速，保证同一域名下，不跨域</li>
+<li>下载<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js" >html5shiv.js</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>，并在jquery之后引入</li>
+<li>下载<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js" >response.min.js</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>，并在jquery之后引入</li>
+<li>在</head>之前添加以下代码：</li>
+</ol>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--[if lt IE 9]&gt;</span><br><span class="line">    &lt;script src&#x3D;&quot;js&#x2F;html5shiv.js&quot;&#x2F;&gt;</span><br><span class="line">    &lt;script src&#x3D;&quot;js&#x2F;respond.min.js&quot;&#x2F;&gt;</span><br><span class="line">&lt;![endif]--&gt;</span><br><span class="line"></span><br></pre></td></tr></table></div></figure>
+
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2018/05/24/rn-snippet/">react-native代码段</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2018-05-24</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2020-10-22</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">58</span></span><span class="post-meta-item post-meta-item--readtime"><span class="post-meta-item__icon"><i class="far fa-clock"></i></span><span class="post-meta-item__info">阅读时长</span><span class="post-meta-item__value">1分</span></span></div></header><div class="post-body"><div class="post-excerpt"><ul>
+<li>
+        <h5 id="引用图片"   >
+          <a href="#引用图片" class="heading-link"><i class="fas fa-link"></i></a>引用图片</h5>
+      <ul>
+<li><p>普通方式</p>
+<p><code>&lt;Image source=&#123;require(&#39;../assets/functions/mod_addressbook.imageset/mod_addressbook.webp&#39;)&#125; /&gt;</code></p>
+</li>
+<li><p>动态引用</p>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var icon &#x3D; this.props.active ? require(&#39;.&#x2F;my-icon-active.webp&#39;) : require(&#39;.&#x2F;my-icon-inactive.webp&#39;);</span><br><span class="line">&lt;Image source&#x3D;&#123;icon&#125; &#x2F;&gt;</span><br></pre></td></tr></table></div></figure>
+
+
+
+
+
+</li>
+</ul>
+</li>
+</ul>
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2018/05/23/rn-ios-integrate/">iOS集成react-native</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2018-05-23</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2020-10-22</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">1.7k</span></span><span class="post-meta-item post-meta-item--readtime"><span class="post-meta-item__icon"><i class="far fa-clock"></i></span><span class="post-meta-item__info">阅读时长</span><span class="post-meta-item__value">18分</span></span></div></header><div class="post-body"><div class="post-excerpt"><ol>
+<li>新建react-native工程</li>
+</ol>
+<p><code>react-native init demo --version 0.44.3</code></p>
+<blockquote>
+<p>注意这里指定了版本的react-native，高版本的react-native可能会编译错误主要是自己太菜了。</p>
+</blockquote>
+<ol start="2">
+<li>删除ios目录下的文件，拷贝从xcode创建的新工程的文件到ios目录下，并添加PodFile，样例如下:</li>
+</ol>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">platform :ios, &#39;8.0&#39;</span><br><span class="line">use_frameworks!</span><br><span class="line"></span><br><span class="line"># target的名字一般与你的项目名字相同，我这里项目名是demo</span><br><span class="line">target &#39;demo&#39; do</span><br><span class="line"></span><br><span class="line">  # &#39;node_modules&#39;目录一般位于根目录中</span><br><span class="line">  # 但是如果你的结构不同，那你就要根据实际路径修改下面的&#96;:path&#96;</span><br><span class="line">  pod &#39;React&#39;, :path &#x3D;&gt; &#39;..&#x2F;node_modules&#x2F;react-native&#39;, :subspecs &#x3D;&gt; [</span><br><span class="line">    &#39;Core&#39;,</span><br><span class="line">    &#39;DevSupport&#39;, # 如果RN版本 &gt;&#x3D; 0.43，则需要加入此行才能开启开发者菜单</span><br><span class="line">    &#39;RCTText&#39;,</span><br><span class="line">    &#39;RCTNetwork&#39;,</span><br><span class="line">    &#39;RCTWebSocket&#39;, # 这个模块是用于调试功能的</span><br><span class="line">    # 在这里继续添加你所需要的RN模块</span><br><span class="line">  ]</span><br><span class="line">  # 如果你的RN版本 &gt;&#x3D; 0.42.0，则加入下面这行</span><br><span class="line">  pod &quot;Yoga&quot;, :path &#x3D;&gt; &quot;..&#x2F;node_modules&#x2F;react-native&#x2F;ReactCommon&#x2F;yoga&quot;</span><br><span class="line"></span><br><span class="line">end</span><br><span class="line"></span><br></pre></td></tr></table></div></figure>
+
+<ol start="3">
+<li><p>执行<code>pod install</code>安装依赖，安装完成后会产生Pods、Podfile.lock等文件。</p>
+</li>
+<li><p>使用xcode打开<code>demo.xcworkspac</code>文件，添加一对ViewController，命名为RNViewController.h、RNViewController.m，文件内容如下：</p>
+</li>
+</ol>
+<p>RNViewController.h</p>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#import &lt;Foundation&#x2F;Foundation.h&gt;</span><br><span class="line">#import &lt;React&#x2F;RCTRootView.h&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@interface RNViewController : UIViewController</span><br><span class="line"></span><br><span class="line">@end</span><br></pre></td></tr></table></div></figure>
+
+<p>RNViewController.m</p>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">#import &quot;RNViewController.h&quot;</span><br><span class="line"></span><br><span class="line">@implementation RNViewController</span><br><span class="line"></span><br><span class="line">- (void)viewDidLoad &#123;</span><br><span class="line">    [super viewDidLoad];</span><br><span class="line">    NSString * strUrl &#x3D; @&quot;http:&#x2F;&#x2F;localhost:8081&#x2F;index.ios.bundle?platform&#x3D;ios&amp;dev&#x3D;true&quot;;</span><br><span class="line">    NSURL * jsCodeLocation &#x3D; [NSURL URLWithString:strUrl];</span><br><span class="line">    RCTRootView * rootView &#x3D; [[RCTRootView alloc] initWithBundleURL:jsCodeLocation</span><br><span class="line">                                                         moduleName:@&quot;demo&quot;</span><br><span class="line">                                                  initialProperties:nil</span><br><span class="line">                                                      launchOptions:nil];</span><br><span class="line">    self.view &#x3D; rootView;</span><br><span class="line">    &#x2F;&#x2F; Do any additional setup after loading the view.</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)didReceiveMemoryWarning &#123;</span><br><span class="line">    [super didReceiveMemoryWarning];</span><br><span class="line">    &#x2F;&#x2F; Dispose of any resources that can be recreated.</span><br><span class="line">&#125;</span><br><span class="line">@end</span><br></pre></td></tr></table></div></figure>
+
+<ol start="5">
+<li>添加布局（由于ios不熟，所以使用了<code>main.storyboard</code>编辑，内容如下：</li>
+</ol>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;document type&#x3D;&quot;com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB&quot; version&#x3D;&quot;3.0&quot; toolsVersion&#x3D;&quot;11762&quot; systemVersion&#x3D;&quot;16B2657&quot; targetRuntime&#x3D;&quot;iOS.CocoaTouch&quot; propertyAccessControl&#x3D;&quot;none&quot; useAutolayout&#x3D;&quot;YES&quot; useTraitCollections&#x3D;&quot;YES&quot; colorMatched&#x3D;&quot;YES&quot; initialViewController&#x3D;&quot;Gb4-UD-klr&quot;&gt;</span><br><span class="line">    &lt;device id&#x3D;&quot;retina4_7&quot; orientation&#x3D;&quot;portrait&quot;&gt;</span><br><span class="line">        &lt;adaptation id&#x3D;&quot;fullscreen&quot;&#x2F;&gt;</span><br><span class="line">    &lt;&#x2F;device&gt;</span><br><span class="line">    &lt;dependencies&gt;</span><br><span class="line">        &lt;deployment identifier&#x3D;&quot;iOS&quot;&#x2F;&gt;</span><br><span class="line">        &lt;plugIn identifier&#x3D;&quot;com.apple.InterfaceBuilder.IBCocoaTouchPlugin&quot; version&#x3D;&quot;11757&quot;&#x2F;&gt;</span><br><span class="line">        &lt;capability name&#x3D;&quot;documents saved in the Xcode 8 format&quot; minToolsVersion&#x3D;&quot;8.0&quot;&#x2F;&gt;</span><br><span class="line">    &lt;&#x2F;dependencies&gt;</span><br><span class="line">    &lt;scenes&gt;</span><br><span class="line">        &lt;!--Navigation Controller--&gt;</span><br><span class="line">        &lt;scene sceneID&#x3D;&quot;jZv-Eb-kDK&quot;&gt;</span><br><span class="line">            &lt;objects&gt;</span><br><span class="line">                &lt;navigationController id&#x3D;&quot;Gb4-UD-klr&quot; sceneMemberID&#x3D;&quot;viewController&quot;&gt;</span><br><span class="line">                    &lt;navigationBar key&#x3D;&quot;navigationBar&quot; contentMode&#x3D;&quot;scaleToFill&quot; id&#x3D;&quot;Th1-FI-dxd&quot;&gt;</span><br><span class="line">                        &lt;rect key&#x3D;&quot;frame&quot; x&#x3D;&quot;0.0&quot; y&#x3D;&quot;0.0&quot; width&#x3D;&quot;375&quot; height&#x3D;&quot;44&quot;&#x2F;&gt;</span><br><span class="line">                        &lt;autoresizingMask key&#x3D;&quot;autoresizingMask&quot;&#x2F;&gt;</span><br><span class="line">                    &lt;&#x2F;navigationBar&gt;</span><br><span class="line">                    &lt;connections&gt;</span><br><span class="line">                        &lt;segue destination&#x3D;&quot;BYZ-38-t0r&quot; kind&#x3D;&quot;relationship&quot; relationship&#x3D;&quot;rootViewController&quot; id&#x3D;&quot;UwD-kE-QAJ&quot;&#x2F;&gt;</span><br><span class="line">                    &lt;&#x2F;connections&gt;</span><br><span class="line">                &lt;&#x2F;navigationController&gt;</span><br><span class="line">                &lt;placeholder placeholderIdentifier&#x3D;&quot;IBFirstResponder&quot; id&#x3D;&quot;ma8-aZ-VDt&quot; userLabel&#x3D;&quot;First Responder&quot; sceneMemberID&#x3D;&quot;firstResponder&quot;&#x2F;&gt;</span><br><span class="line">            &lt;&#x2F;objects&gt;</span><br><span class="line">            &lt;point key&#x3D;&quot;canvasLocation&quot; x&#x3D;&quot;-823&quot; y&#x3D;&quot;127&quot;&#x2F;&gt;</span><br><span class="line">        &lt;&#x2F;scene&gt;</span><br><span class="line">        &lt;!--我是原生界面--&gt;</span><br><span class="line">        &lt;scene sceneID&#x3D;&quot;tne-QT-ifu&quot;&gt;</span><br><span class="line">            &lt;objects&gt;</span><br><span class="line">                &lt;viewController id&#x3D;&quot;BYZ-38-t0r&quot; customClass&#x3D;&quot;ViewController&quot; sceneMemberID&#x3D;&quot;viewController&quot;&gt;</span><br><span class="line">                    &lt;layoutGuides&gt;</span><br><span class="line">                        &lt;viewControllerLayoutGuide type&#x3D;&quot;top&quot; id&#x3D;&quot;y3c-jy-aDJ&quot;&#x2F;&gt;</span><br><span class="line">                        &lt;viewControllerLayoutGuide type&#x3D;&quot;bottom&quot; id&#x3D;&quot;wfy-db-euE&quot;&#x2F;&gt;</span><br><span class="line">                    &lt;&#x2F;layoutGuides&gt;</span><br><span class="line">                    &lt;view key&#x3D;&quot;view&quot; contentMode&#x3D;&quot;scaleToFill&quot; id&#x3D;&quot;8bC-Xf-vdC&quot;&gt;</span><br><span class="line">                        &lt;rect key&#x3D;&quot;frame&quot; x&#x3D;&quot;0.0&quot; y&#x3D;&quot;0.0&quot; width&#x3D;&quot;375&quot; height&#x3D;&quot;667&quot;&#x2F;&gt;</span><br><span class="line">                        &lt;autoresizingMask key&#x3D;&quot;autoresizingMask&quot; widthSizable&#x3D;&quot;YES&quot; heightSizable&#x3D;&quot;YES&quot;&#x2F;&gt;</span><br><span class="line">                        &lt;subviews&gt;</span><br><span class="line">                            &lt;button opaque&#x3D;&quot;NO&quot; contentMode&#x3D;&quot;scaleToFill&quot; contentHorizontalAlignment&#x3D;&quot;center&quot; contentVerticalAlignment&#x3D;&quot;center&quot; buttonType&#x3D;&quot;roundedRect&quot; lineBreakMode&#x3D;&quot;middleTruncation&quot; translatesAutoresizingMaskIntoConstraints&#x3D;&quot;NO&quot; id&#x3D;&quot;ewF-NN-AX5&quot;&gt;</span><br><span class="line">                                &lt;rect key&#x3D;&quot;frame&quot; x&#x3D;&quot;139.5&quot; y&#x3D;&quot;318.5&quot; width&#x3D;&quot;97&quot; height&#x3D;&quot;30&quot;&#x2F;&gt;</span><br><span class="line">                                &lt;state key&#x3D;&quot;normal&quot; title&#x3D;&quot;跳转至RN界面&quot;&#x2F;&gt;</span><br><span class="line">                                &lt;connections&gt;</span><br><span class="line">                                    &lt;segue destination&#x3D;&quot;uMO-xq-gw5&quot; kind&#x3D;&quot;show&quot; id&#x3D;&quot;PLm-J8-SMi&quot;&#x2F;&gt;</span><br><span class="line">                                &lt;&#x2F;connections&gt;</span><br><span class="line">                            &lt;&#x2F;button&gt;</span><br><span class="line">                        &lt;&#x2F;subviews&gt;</span><br><span class="line">                        &lt;color key&#x3D;&quot;backgroundColor&quot; red&#x3D;&quot;1&quot; green&#x3D;&quot;1&quot; blue&#x3D;&quot;1&quot; alpha&#x3D;&quot;1&quot; colorSpace&#x3D;&quot;custom&quot; customColorSpace&#x3D;&quot;sRGB&quot;&#x2F;&gt;</span><br><span class="line">                        &lt;constraints&gt;</span><br><span class="line">                            &lt;constraint firstItem&#x3D;&quot;ewF-NN-AX5&quot; firstAttribute&#x3D;&quot;centerY&quot; secondItem&#x3D;&quot;8bC-Xf-vdC&quot; secondAttribute&#x3D;&quot;centerY&quot; id&#x3D;&quot;DvG-OV-XSx&quot;&#x2F;&gt;</span><br><span class="line">                            &lt;constraint firstItem&#x3D;&quot;ewF-NN-AX5&quot; firstAttribute&#x3D;&quot;centerX&quot; secondItem&#x3D;&quot;8bC-Xf-vdC&quot; secondAttribute&#x3D;&quot;centerX&quot; id&#x3D;&quot;QE6-XL-9yD&quot;&#x2F;&gt;</span><br><span class="line">                        &lt;&#x2F;constraints&gt;</span><br><span class="line">                    &lt;&#x2F;view&gt;</span><br><span class="line">                    &lt;navigationItem key&#x3D;&quot;navigationItem&quot; title&#x3D;&quot;我是原生界面&quot; id&#x3D;&quot;A0r-tB-PNQ&quot;&#x2F;&gt;</span><br><span class="line">                &lt;&#x2F;viewController&gt;</span><br><span class="line">                &lt;placeholder placeholderIdentifier&#x3D;&quot;IBFirstResponder&quot; id&#x3D;&quot;dkx-z0-nzr&quot; sceneMemberID&#x3D;&quot;firstResponder&quot;&#x2F;&gt;</span><br><span class="line">            &lt;&#x2F;objects&gt;</span><br><span class="line">            &lt;point key&#x3D;&quot;canvasLocation&quot; x&#x3D;&quot;20&quot; y&#x3D;&quot;129&quot;&#x2F;&gt;</span><br><span class="line">        &lt;&#x2F;scene&gt;</span><br><span class="line">        &lt;!--RN界面--&gt;</span><br><span class="line">        &lt;scene sceneID&#x3D;&quot;blN-Cj-XZY&quot;&gt;</span><br><span class="line">            &lt;objects&gt;</span><br><span class="line">                &lt;viewController id&#x3D;&quot;uMO-xq-gw5&quot; customClass&#x3D;&quot;RNViewController&quot; sceneMemberID&#x3D;&quot;viewController&quot;&gt;</span><br><span class="line">                    &lt;layoutGuides&gt;</span><br><span class="line">                        &lt;viewControllerLayoutGuide type&#x3D;&quot;top&quot; id&#x3D;&quot;xBa-QW-gat&quot;&#x2F;&gt;</span><br><span class="line">                        &lt;viewControllerLayoutGuide type&#x3D;&quot;bottom&quot; id&#x3D;&quot;vP4-I2-cUk&quot;&#x2F;&gt;</span><br><span class="line">                    &lt;&#x2F;layoutGuides&gt;</span><br><span class="line">                    &lt;view key&#x3D;&quot;view&quot; contentMode&#x3D;&quot;scaleToFill&quot; id&#x3D;&quot;F5L-mW-jGp&quot;&gt;</span><br><span class="line">                        &lt;rect key&#x3D;&quot;frame&quot; x&#x3D;&quot;0.0&quot; y&#x3D;&quot;0.0&quot; width&#x3D;&quot;375&quot; height&#x3D;&quot;667&quot;&#x2F;&gt;</span><br><span class="line">                        &lt;autoresizingMask key&#x3D;&quot;autoresizingMask&quot; widthSizable&#x3D;&quot;YES&quot; heightSizable&#x3D;&quot;YES&quot;&#x2F;&gt;</span><br><span class="line">                        &lt;color key&#x3D;&quot;backgroundColor&quot; white&#x3D;&quot;1&quot; alpha&#x3D;&quot;1&quot; colorSpace&#x3D;&quot;calibratedWhite&quot;&#x2F;&gt;</span><br><span class="line">                    &lt;&#x2F;view&gt;</span><br><span class="line">                    &lt;navigationItem key&#x3D;&quot;navigationItem&quot; title&#x3D;&quot;RN界面&quot; id&#x3D;&quot;8QR-M3-z3d&quot;&#x2F;&gt;</span><br><span class="line">                &lt;&#x2F;viewController&gt;</span><br><span class="line">                &lt;placeholder placeholderIdentifier&#x3D;&quot;IBFirstResponder&quot; id&#x3D;&quot;OGb-HK-HWZ&quot; userLabel&#x3D;&quot;First Responder&quot; sceneMemberID&#x3D;&quot;firstResponder&quot;&#x2F;&gt;</span><br><span class="line">            &lt;&#x2F;objects&gt;</span><br><span class="line">            &lt;point key&#x3D;&quot;canvasLocation&quot; x&#x3D;&quot;764&quot; y&#x3D;&quot;128&quot;&#x2F;&gt;</span><br><span class="line">        &lt;&#x2F;scene&gt;</span><br><span class="line">    &lt;&#x2F;scenes&gt;</span><br><span class="line">&lt;&#x2F;document&gt;</span><br></pre></td></tr></table></div></figure>
+
+<ol start="6">
+<li><p>添加以下内容到<code>Info.plist</code>以访问http：</p>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;key&gt;NSAppTransportSecurity&lt;&#x2F;key&gt;</span><br><span class="line">&lt;!--See http:&#x2F;&#x2F;ste.vn&#x2F;2015&#x2F;06&#x2F;10&#x2F;configuring-app-transport-security-ios-9-osx-10-11&#x2F; --&gt;</span><br><span class="line">&lt;dict&gt;</span><br><span class="line">    &lt;key&gt;NSExceptionDomains&lt;&#x2F;key&gt;</span><br><span class="line">    &lt;dict&gt;</span><br><span class="line">        &lt;key&gt;localhost&lt;&#x2F;key&gt;</span><br><span class="line">        &lt;dict&gt;</span><br><span class="line">            &lt;key&gt;NSExceptionAllowsInsecureHTTPLoads&lt;&#x2F;key&gt;</span><br><span class="line">            &lt;true&#x2F;&gt;</span><br><span class="line">        &lt;&#x2F;dict&gt;</span><br><span class="line">    &lt;&#x2F;dict&gt;</span><br><span class="line">&lt;&#x2F;dict&gt;</span><br></pre></td></tr></table></div></figure>
+</li>
+<li><p>根目录下运行<code>npm start</code>和<code>react-native run-ios</code></p>
+</li>
+</ol>
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2018/05/23/screen-cookbook/">screen命令参考</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2018-05-23</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2020-10-22</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">162</span></span><span class="post-meta-item post-meta-item--readtime"><span class="post-meta-item__icon"><i class="far fa-clock"></i></span><span class="post-meta-item__info">阅读时长</span><span class="post-meta-item__value">1分</span></span></div></header><div class="post-body"><div class="post-excerpt"><p>#screen常用命令</p>
+<ul>
+<li>在screen外面使用的命令</li>
+</ul>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th align="left">命令</th>
+<th align="left">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>screen -ls</code></td>
+<td align="left">查看所有screen会话</td>
+</tr>
+<tr>
+<td align="left"><code>screen -S XXX</code></td>
+<td align="left">创建署名screen会话</td>
+</tr>
+<tr>
+<td align="left"><code>screen -r XXX</code></td>
+<td align="left">恢复署名screen会话</td>
+</tr>
+</tbody></table></div>
+<ul>
+<li>在screen里面使用的命令</li>
+</ul>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th align="left">命令</th>
+<th align="left">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>C-a ?</code></td>
+<td align="left">查看帮助</td>
+</tr>
+<tr>
+<td align="left"><code>C-a S</code></td>
+<td align="left">水平分割屏幕</td>
+</tr>
+<tr>
+<td align="left"><code>C-a \</code></td>
+<td align="left">垂直分割屏幕</td>
+</tr>
+<tr>
+<td align="left"><code>C-a c</code></td>
+<td align="left">新建一个窗口</td>
+</tr>
+<tr>
+<td align="left"><code>C-a n</code></td>
+<td align="left">切换下一个窗口</td>
+</tr>
+<tr>
+<td align="left"><code>C-a p</code></td>
+<td align="left">切换上一个窗口</td>
+</tr>
+<tr>
+<td align="left"><code>C-a 0..9</code></td>
+<td align="left">切换到第0..9个窗口</td>
+</tr>
+<tr>
+<td align="left"><code>C-a k</code></td>
+<td align="left">杀死当前窗口</td>
+</tr>
+<tr>
+<td align="left"><code>C-a &quot;</code></td>
+<td align="left">查看所有窗口列表</td>
+</tr>
+<tr>
+<td align="left"><code>C-a d</code></td>
+<td align="left">暂时离开</td>
+</tr>
+<tr>
+<td align="left"><code>C-a [</code></td>
+<td align="left">进入拷贝回滚模式</td>
+</tr>
+</tbody></table></div>
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2018/05/21/rn-troubleshooting/">react-native troubleshooting</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2018-05-21</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2020-10-22</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">369</span></span><span class="post-meta-item post-meta-item--readtime"><span class="post-meta-item__icon"><i class="far fa-clock"></i></span><span class="post-meta-item__info">阅读时长</span><span class="post-meta-item__value">3分</span></span></div></header><div class="post-body"><div class="post-excerpt"><ul>
+<li>
+        <h4 id="Common"   >
+          <a href="#Common" class="heading-link"><i class="fas fa-link"></i></a>Common</h4>
+      <ul>
+<li><p><code>error: bundling: NotFoundError: Cannot find entry file index.js in any of the roots: [&quot;/Users/zhenlei/Projects/rn/FunGuard&quot;]</code></p>
+<blockquote>
+<p>高版本使用index.js代替了index.ios.js和index.android.js了，所以请检查项目根目录下是否存在index.js</p>
+</blockquote>
+</li>
+<li><p><code>Could not connect to development server</code><br>搭建环境后运行项目出现：<code>Could not connect to development server</code>。</p>
+<p>然而使用浏览器打开<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="http://localhost:8081/index.ios.bundle?platform=ios&dev=true" >http://localhost:8081/index.ios.bundle?platform=ios&amp;dev=true</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>发现<code>packager</code>成功运行，<br>浏览器中出现打包完成的内容，最后度娘告诉我，可能是机器对于localhost做了映射，于是将入口文件从<code>http://localhost:8081/index.ios.bundle?platform=ios&amp;dev=true</code>改成<code>http://127.0.0.1:8081/index.ios.bundle?platform=ios&amp;dev=true</code>解决问题。</p>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>
+        <h4 id="IOS"   >
+          <a href="#IOS" class="heading-link"><i class="fas fa-link"></i></a>IOS</h4>
+      <ul>
+<li><p>运行<code>react-native run-ios</code>时，报错：<code>Print: Entry, &quot;:CFBundleIdentifier&quot;, Does Not Exist</code></p>
+<blockquote>
+<p>高版本的react-native依赖库问题。<br>解决方法：使用低版本的react-native <code>react-native init MyApp --version 0.44.3</code></p>
+</blockquote>
+</li>
+<li><p>IOS不能使用http访问</p>
+<blockquote>
+<p>在ios子目录中的Info.plist中最后添加</p>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">   &gt;&lt;key&gt;NSAppTransportSecurity&lt;&#x2F;key&gt;</span><br><span class="line">   &gt;&lt;!--See http:&#x2F;&#x2F;ste.vn&#x2F;2015&#x2F;06&#x2F;10&#x2F;configuring-app-transport-security-ios-9-osx-10-11&#x2F; --&gt;</span><br><span class="line">   &gt;&lt;dict&gt;</span><br><span class="line">&lt;key&gt;NSExceptionDomains&lt;&#x2F;key&gt;</span><br><span class="line">&lt;dict&gt;</span><br><span class="line">	&lt;key&gt;localhost&lt;&#x2F;key&gt;</span><br><span class="line">	&lt;dict&gt;</span><br><span class="line">		&lt;key&gt;NSExceptionAllowsInsecureHTTPLoads&lt;&#x2F;key&gt;</span><br><span class="line">		&lt;true&#x2F;&gt;</span><br><span class="line">	&lt;&#x2F;dict&gt;</span><br><span class="line">&lt;&#x2F;dict&gt;</span><br><span class="line">   &gt;&lt;&#x2F;dict&gt;</span><br></pre></td></tr></table></div></figure>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>
+        <h4 id="Andorid"   >
+          <a href="#Andorid" class="heading-link"><i class="fas fa-link"></i></a>Andorid</h4>
+      <ul>
+<li><code>SDK location not found. Define location with sdk.dir in the local.properties file or with an ANDROID_HOME environment variable.</code><blockquote>
+<p>在环境变量中添加ANDROID_HOME，例如<code>export ANDROID_HOME=/Users/zhenlei/Library/Android/sdk</code></p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2018/05/16/tar-cookbook-1/">tar使用相对路径打包</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2018-05-16</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2020-10-22</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">36</span></span><span class="post-meta-item post-meta-item--readtime"><span class="post-meta-item__icon"><i class="far fa-clock"></i></span><span class="post-meta-item__info">阅读时长</span><span class="post-meta-item__value">1分</span></span></div></header><div class="post-body"><div class="post-excerpt">
+        <h4 id="tar-使用相对路径打包"   >
+          <a href="#tar-使用相对路径打包" class="heading-link"><i class="fas fa-link"></i></a>tar 使用相对路径打包</h4>
+      <p><code>tar -zcvf XXXX.tgz -C /home/dstPath dstDirectory</code></p>
+<blockquote>
+<p>其中<code>-C</code>参数是临时切换目录，即相对于谁打包</p>
+</blockquote>
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2018/05/15/date-format/">javascript date format</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2018-05-15</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2020-10-22</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">753</span></span><span class="post-meta-item post-meta-item--readtime"><span class="post-meta-item__icon"><i class="far fa-clock"></i></span><span class="post-meta-item__info">阅读时长</span><span class="post-meta-item__value">7分</span></span></div></header><div class="post-body"><div class="post-excerpt"><ul>
+<li>使用prototype扩展<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 对Date的扩展，将 Date 转化为指定格式的String</span><br><span class="line">&#x2F;&#x2F; 月(M)、日(d)、小时(h)、分(m)、秒(s)、季度(q) 可以用 1-2 个占位符，</span><br><span class="line">&#x2F;&#x2F; 年(y)可以用 1-4 个占位符，毫秒(S)只能用 1 个占位符(是 1-3 位的数字)</span><br><span class="line">&#x2F;&#x2F; 例子：</span><br><span class="line">&#x2F;&#x2F; new Date().Format(&quot;yyyy-MM-dd hh:mm:ss.S&quot;) &#x3D;&#x3D;&gt; 2018-05-15 10:18:00.013</span><br><span class="line">&#x2F;&#x2F; new Date().Format(&quot;yyyy-M-d h:m:s.S&quot;)      &#x3D;&#x3D;&gt; 2018-5-15 10:18:0.01</span><br><span class="line">Date.prototype.Format &#x3D; function (fmt) &#123;</span><br><span class="line">    var o &#x3D; &#123;</span><br><span class="line">        &quot;M+&quot;: this.getMonth() + 1, &#x2F;&#x2F;月份</span><br><span class="line">        &quot;d+&quot;: this.getDate(), &#x2F;&#x2F;日</span><br><span class="line">        &quot;h+&quot;: this.getHours(), &#x2F;&#x2F;小时</span><br><span class="line">        &quot;m+&quot;: this.getMinutes(), &#x2F;&#x2F;分</span><br><span class="line">        &quot;s+&quot;: this.getSeconds(), &#x2F;&#x2F;秒</span><br><span class="line">        &quot;q+&quot;: Math.floor((this.getMonth() + 3) &#x2F; 3), &#x2F;&#x2F;季度</span><br><span class="line">        &quot;S&quot;: this.getMilliseconds() &#x2F;&#x2F;毫秒</span><br><span class="line">    &#125;;</span><br><span class="line">    if (&#x2F;(y+)&#x2F;.test(fmt)) fmt &#x3D; fmt.replace(RegExp.$1, (this.getFullYear() + &quot;&quot;).substr(4 - RegExp.$1.length));</span><br><span class="line">    for (var k in o)</span><br><span class="line">        if (new RegExp(&quot;(&quot; + k + &quot;)&quot;).test(fmt)) fmt &#x3D; fmt.replace(RegExp.$1, (RegExp.$1.length &#x3D;&#x3D; 1) ? (o[k]) : ((&quot;00&quot; + o[k]).substr((&quot;&quot; + o[k]).length)));</span><br><span class="line">    return fmt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+
+
+
+</li>
+</ul>
+<blockquote>
+<p>核心思想： 使用正则表达式（分组思想）测试格式格式字符串，用分组的长度(RegExp.$1.length：第一组的长度)来设置字符串长度(substr)。</p>
+</blockquote>
+<ul>
+<li>带星期的日期格式化<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; (new Date()).pattern(&quot;yyyy-MM-dd E HH:mm:ss&quot;) &#x3D;&#x3D;&gt; 2018-05-15 二 10:18:00</span><br><span class="line">&#x2F;&#x2F; (new Date()).pattern(&quot;yyyy-MM-dd EE hh:mm:ss&quot;) &#x3D;&#x3D;&gt; 2018-05-15 周二 10:18:00</span><br><span class="line">&#x2F;&#x2F; (new Date()).pattern(&quot;yyyy-MM-dd EEE hh:mm:ss&quot;) &#x3D;&#x3D;&gt; 2018-05-15 星期二 10:18:00</span><br><span class="line">Date.prototype.pattern&#x3D;function(fmt) &#123;</span><br><span class="line">    var o &#x3D; &#123;</span><br><span class="line">    &quot;M+&quot; : this.getMonth()+1, &#x2F;&#x2F;月份</span><br><span class="line">    &quot;d+&quot; : this.getDate(), &#x2F;&#x2F;日</span><br><span class="line">    &quot;h+&quot; : this.getHours()%12 &#x3D;&#x3D; 0 ? 12 : this.getHours()%12, &#x2F;&#x2F;小时</span><br><span class="line">    &quot;H+&quot; : this.getHours(), &#x2F;&#x2F;小时</span><br><span class="line">    &quot;m+&quot; : this.getMinutes(), &#x2F;&#x2F;分</span><br><span class="line">    &quot;s+&quot; : this.getSeconds(), &#x2F;&#x2F;秒</span><br><span class="line">    &quot;q+&quot; : Math.floor((this.getMonth()+3)&#x2F;3), &#x2F;&#x2F;季度</span><br><span class="line">    &quot;S&quot; : this.getMilliseconds() &#x2F;&#x2F;毫秒</span><br><span class="line">    &#125;;</span><br><span class="line">    var week &#x3D; &#123;</span><br><span class="line">    &quot;0&quot; : &quot;&#x2F;u65e5&quot;,</span><br><span class="line">    &quot;1&quot; : &quot;&#x2F;u4e00&quot;,</span><br><span class="line">    &quot;2&quot; : &quot;&#x2F;u4e8c&quot;,</span><br><span class="line">    &quot;3&quot; : &quot;&#x2F;u4e09&quot;,</span><br><span class="line">    &quot;4&quot; : &quot;&#x2F;u56db&quot;,</span><br><span class="line">    &quot;5&quot; : &quot;&#x2F;u4e94&quot;,</span><br><span class="line">    &quot;6&quot; : &quot;&#x2F;u516d&quot;</span><br><span class="line">    &#125;;</span><br><span class="line">    if(&#x2F;(y+)&#x2F;.test(fmt))&#123;</span><br><span class="line">        fmt&#x3D;fmt.replace(RegExp.$1, (this.getFullYear()+&quot;&quot;).substr(4 - RegExp.$1.length));</span><br><span class="line">    &#125;</span><br><span class="line">    if(&#x2F;(E+)&#x2F;.test(fmt))&#123;</span><br><span class="line">        fmt&#x3D;fmt.replace(RegExp.$1, ((RegExp.$1.length&gt;1) ? (RegExp.$1.length&gt;2 ? &quot;&#x2F;u661f&#x2F;u671f&quot; : &quot;&#x2F;u5468&quot;) : &quot;&quot;)+week[this.getDay()+&quot;&quot;]);</span><br><span class="line">    &#125;</span><br><span class="line">    for(var k in o)&#123;</span><br><span class="line">        if(new RegExp(&quot;(&quot;+ k +&quot;)&quot;).test(fmt))&#123;</span><br><span class="line">            fmt &#x3D; fmt.replace(RegExp.$1, (RegExp.$1.length&#x3D;&#x3D;1) ? (o[k]) : ((&quot;00&quot;+ o[k]).substr((&quot;&quot;+ o[k]).length)));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return fmt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<blockquote>
+<p>核心思想：基础同上；区别在于用了一个week保存星期一到星期日的unicode值，测试E的时候动态设置（二/周二/星期二）。</p>
+</blockquote>
+</li>
+</ul>
+
+        <h5 id="通常时间格式化函数都是通过正则表达式-主要是分组测试取长度-测试格式字符串来动态设置显示格式的。"   >
+          <a href="#通常时间格式化函数都是通过正则表达式-主要是分组测试取长度-测试格式字符串来动态设置显示格式的。" class="heading-link"><i class="fas fa-link"></i></a>通常时间格式化函数都是通过正则表达式(主要是分组测试取长度)测试格式字符串来动态设置显示格式的。</h5>
+      </div></div></article></section><nav class="paginator"><div class="paginator-inner"><a class="extend prev" rel="prev" href="/page/3/"><i class="fas fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/5/"><i class="fas fa-angle-right"></i></a></div></nav></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><section class="sidebar-toc hide"></section><!-- ov = overview--><section class="sidebar-ov"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/icons/jinelei-logo.svg" alt="avatar"></div><p class="sidebar-ov-author__text">hello world</p></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">62</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">14</div><div class="sidebar-ov-state-item__name">分类</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">2</div><div class="sidebar-ov-state-item__name">标签</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2020</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Jinelei</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v5.2.0</span><span class="footer__devider">|</span><span>主题 - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.2.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/canvas-nest.js@1.0.1/dist/canvas-nest.min.js" color="0,0,0" opacity="0.6" count="199" zIndex="-1"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.json';
+
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
+
+  var path = '/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
+
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ 文章无标题 ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
+
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
+
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
+
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
+
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
+
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
+
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
+
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
+
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
+
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
+
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
+
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
+      });
+    }
+  });
+}
+
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
+
+      initSearch();
+    });
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
+    });
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
+      }
+    });
+  };
+
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);
+
+function safeOpenUrl(url) {
+  var newTab = window.open();
+  newTab.opener = null;
+  newTab.location = url;
+}
+
+function extSearch(engine) {
+  var engines = {
+    google: 'https://www.google.com/search?q=',
+    bing: 'https://cn.bing.com/search?q=',
+    baidu: 'https://www.baidu.com/s?ie=UTF-8&wd=',
+  };
+  var host = window.location.host;
+  var query = $('.search-input input').val().toLowerCase().trim();
+  var uri = engines[engine] + query + ' site:' + host;
+
+  if (query) {
+    safeOpenUrl(uri);
+  } else {
+    Stun.utils.popAlert('warning', '请输入字符');
+  }
+}
+
+var assistSearchList = window.CONFIG.assistSearch;
+
+if (Array.isArray(assistSearchList)) {
+  assistSearchList.forEach(function (name) {
+    document.querySelector('.search-btns-item--' + name).addEventListener('click', function () {
+      extSearch(name);
+    }, false);
+  });
+}</script><script src="/js/utils.js?v=2.2.0"></script><script src="/js/stun-boot.js?v=2.2.0"></script><script src="/js/scroll.js?v=2.2.0"></script><script src="/js/header.js?v=2.2.0"></script><script src="/js/sidebar.js?v=2.2.0"></script><script type="application/json" src="/search.json"></script></body></html>

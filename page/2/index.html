@@ -1,0 +1,1135 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><meta name="theme-color" content="#54bcff"><link rel="manifest" href="/manifest.json?v=2.2.0"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.2.0" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.2.0" type="image/png" sizes="32x32"><meta name="google-site-verification" content="eh8DrSPPrFgBf5EOylnLmL2NcPe6QTmnwzuMLsbi7n0"><meta property="og:type" content="website">
+<meta property="og:title" content="Jin&#39;s Blog">
+<meta property="og:url" content="https://jinelei.github.io/page/2/index.html">
+<meta property="og:site_name" content="Jin&#39;s Blog">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="Jinelei">
+<meta name="twitter:card" content="summary"><title>Jin's Blog</title><link ref="canonical" href="https://jinelei.github.io/page/2/index.html"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.2.0"><link rel="dns-prefetch" href="https://www.googletagmanager.com"><script src="https://www.googletagmanager.com/gtag/js?id=UA-180959764-1" async=""></script><script>if (window.location.hostname !== 'localhost') {
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){ dataLayer.push(arguments); }
+  gtag('js', new Date());
+  gtag('config', 'UA-180959764-1');
+}</script><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":true,"scrollDownIcon":false},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"default","highlight":"light","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: {"switchPost":true},
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.2.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">标签</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">Jin's Blog</div><div class="header-banner-info__subtitle"></div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content content-home" id="content"><section class="postlist"><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2018/12/03/lock/">java中的锁</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2018-12-03</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2020-10-22</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">611</span></span><span class="post-meta-item post-meta-item--readtime"><span class="post-meta-item__icon"><i class="far fa-clock"></i></span><span class="post-meta-item__info">阅读时长</span><span class="post-meta-item__value">3分</span></span></div></header><div class="post-body"><div class="post-excerpt"><ul>
+<li>
+        <h3 id="Lock接口"   >
+          <a href="#Lock接口" class="heading-link"><i class="fas fa-link"></i></a>Lock接口</h3>
+      锁是由来控制多个线程访问共享资源的方式，一般来书哦，一个锁能够防止多个线程同时访问共享资源，在Lock接口出现之前，java程序是依靠synchronized关键字实现锁功能的，儿java5之后，并发包中新增了Lock接口用来实现锁功能。它提供了与synchronized关键字类似的同步功能，知识在使用时需要显示的获取和释放锁。虽然他缺少了饮食获取释放锁的便捷性，但是却拥有了锁获取与释放的可操作性、可中断性的说去锁以及超时锁获取等多种synchronized关键字多不具备的同步特性。<br>使用synchronized关键字将会饮食的获取锁，但是他讲锁的获取和释放固话了。<br>Lock接口提供的synchronized关键字所不具备的主要特性：  </li>
+</ul>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th align="left">特性</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">尝试非阻塞的获取锁</td>
+<td align="left">当前线程尝试获取锁，如果这一时刻没有被其他线程获取到，则成功获取并持有锁</td>
+</tr>
+<tr>
+<td align="left">能被中断的获取锁</td>
+<td align="left">与synchronized不同，获取到所得线程能够响应中断，当前获取到锁的想爱你城被中断时，中断异常将会被抛出，同时释放锁</td>
+</tr>
+<tr>
+<td align="left">超时获取锁</td>
+<td align="left">在制定上街区时间之前获取锁，如果截止时间到了仍旧无法获取锁，则返回</td>
+</tr>
+</tbody></table></div>
+<p>Lock接口API：  </p>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th align="left">方法名称</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">void lock()</td>
+<td align="left">获取锁，调用该方法当前线程将会获取锁，当锁获得后，从该方法返回</td>
+</tr>
+<tr>
+<td align="left">void lockInterruptibly() throws InterruptException</td>
+<td align="left">可中断的后驱锁，和lock()方法的不同之处在于该方法会响应中断，即在所的获取中可以中断该线程</td>
+</tr>
+<tr>
+<td align="left">void tryLock()</td>
+<td align="left">肠坏死非阻塞的获取锁，调用该方法后立刻返回，如果能够获取则返回true，不能则false</td>
+</tr>
+<tr>
+<td align="left">void tryLock(long time, TimeUnit unit) throws InterruptException</td>
+<td align="left">超时获取锁，下面三种情况会返回：  1. 当地安县城在超时间内获得了锁。2. 当前线程城在超时间内被中断。3. 超时时间结束，返回false</td>
+</tr>
+<tr>
+<td align="left">void unlock()</td>
+<td align="left">释放锁</td>
+</tr>
+<tr>
+<td align="left">Condition newCondition()</td>
+<td align="left">获取等待通知组件，该组件和当前的锁绑定，当前线程只有获取了锁，才能地阿偶用该组件的wait()方法，而调用后，当前线程将释放锁</td>
+</tr>
+</tbody></table></div>
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2018/12/03/AQS/">AQS介绍</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2018-12-03</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2020-10-22</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">4.8k</span></span><span class="post-meta-item post-meta-item--readtime"><span class="post-meta-item__icon"><i class="far fa-clock"></i></span><span class="post-meta-item__info">阅读时长</span><span class="post-meta-item__value">29分</span></span></div></header><div class="post-body"><div class="post-excerpt"><ul>
+<li>
+        <h3 id="队列同步器"   >
+          <a href="#队列同步器" class="heading-link"><i class="fas fa-link"></i></a>队列同步器</h3>
+      队列同步器AbstractQueuedSynchronizer，是用来构建锁或者其他同步组件的基础框架，它使用了一个int成员变量来表示同步状态，通过内置的FIFO队列来完成资源获取线程的排队工作。<br>同步器的主要使用方式是继承，子类通过继承同步器并实现它的抽象方法类管理同步状态，在抽象方法实现过程中免不了要对同步状态进行更改，这还少就需要使用同步器中提供的3个方法(getState()、setState(int newState）、compareAndSetState(int except, int update))来进行操作，因为他们能够保证状态的改变是安全的。自雷推荐被定义为自定义同步组件的静态内部类，同步器吱声没有实现任何同步接口，它仅仅是定义了若干同步状态获取和释放的方法来供自定义同步组件使用，同步器既可以支持度独占式的获取同步状态，也可以支持共享式的获取，这样就可以实现不同类型的同步组件（ReentrantLock、ReentrantReadWriteLock和CountDownLatch等）。<br>同步器是实现锁的关键，在锁的实现中聚合了同步器，利用同步器实现锁的语义，可以这样理解：锁是面向使用者的，他定义了使用者与锁的交互接口，隐藏了实现细节；同步器是面向锁的实现者，它简化了锁的实现方式，屏蔽了同步状态管理、线程的排队、等待与唤醒等底层操作。锁和同步器很好的隔离了使用者和实现者所关注的领域。  </li>
+</ul>
+<ol>
+<li>队列同步器的接口与示例<br>同步器的设计师基于模板方法模式的，也就是说使用者需要继承同步器并重写指定的方法，随后将同步器组合在自定义的同步组件的实现中，并调用同步器提供的模板方法，而这些模板方法将会调用使用者重写的方法。</li>
+</ol>
+<p>重写同步器指定方法时，需要使用同步器提供如下方法。<br>    1. getState()：获取当前同步状态<br>    2. setState(int newState)：设置当前同步器状态<br>    3. compareAndSetState(int expect, int update)：使用CAS设置当前状态，该方法能够保证设置的原子性</p>
+<pre><code>同步器可重写的方法与描述：</code></pre>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th align="left">方法名称</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">protected boolean tryAcquire(int arg)</td>
+<td align="left">独占式获取同步状态，实现该方法需要查询当前状态并判断同步状态是否符合预期，然后在进行CAS设置同步状态</td>
+</tr>
+<tr>
+<td align="left">protected boolean tryRelease(int arg)</td>
+<td align="left">独占式释放同步状态，等待同步状态的线程将有机会获取同步状态</td>
+</tr>
+<tr>
+<td align="left">protected int tryAcquireShared(int arg)</td>
+<td align="left">共享式获取同步状态，返回大于等于0的值，表示获取成功，反之失败</td>
+</tr>
+<tr>
+<td align="left">protected int tryReleaseShared(int arg)</td>
+<td align="left">共享式释放同步状态</td>
+</tr>
+<tr>
+<td align="left">protected boolean isHeldExclusively()</td>
+<td align="left">当前同步器是否在独占模式下被线程占用，一般该方法表示是否被当前线程占用</td>
+</tr>
+</tbody></table></div>
+<p>同步器提供的模板方法基本上分为3类：独占式的获取与释放同步状态、共享式的获取与释放同步状态和查询同步队列中的等待线程情况。自定义同步组件将会使用同步器提供的模板方法来实现自己的同步语义。</p>
+<blockquote>
+<p>这里实现的同步组件只允许一个线程占有锁，Mutex中定义了一个静态内部类，该内部类继承了同步器并实现了独占式后驱和释放同步状态。在tryAcquire(int acquires)中，如果经过CAS设置成功（同步状态设置为1），则代表获取了同步状态，而在tryRelease(int releases)方法中只是将同步状态设置为0。用户使用Mutex时不会直接和内部同步器的实现大脚到，而是直接调用Mutex中提供的方法。</p>
+</blockquote>
+<ul>
+<li>
+        <h4 id="队列同步器实现分析"   >
+          <a href="#队列同步器实现分析" class="heading-link"><i class="fas fa-link"></i></a>队列同步器实现分析</h4>
+      这里重点分析同步器是如何完成线程同步的，主要包括：同步队列、苏展示同步状态的获取与释放、共享式同步状态获取与释放以及超市获取同步状态等同步器的核心数据结构与模板方法。  </li>
+</ul>
+<ol>
+<li>
+        <h5 id="同步队列"   >
+          <a href="#同步队列" class="heading-link"><i class="fas fa-link"></i></a>同步队列</h5>
+      同步器依赖内部的同步队列来完成同步状态的管理，当前线程获取同步状态失败时，同步器将会对当前线程以及等待状态等信息构成一个节点并将其加入同步队列，同时将会阻塞当前线程，当同步状态释放时，会把首节点中的线程唤醒，时期再次尝试获取同步状态。<br>同步队列中的节点Node用来保存获取同步状态失败的线程引用、等待状态以及前驱和后继节点，节点的属性类型及名称以及描述如下：  </li>
+</ol>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th align="left">属性类型以及名称</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">int waitStatus</td>
+<td align="left">等待状态，包含以下状态：</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left">1. CANCELLED，值为1，由于在永不队列中等待的线程鞥带超时或者被中断，需要从同步队列中取消等待，节点进入该状态将不会变化</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left">2. SIGNAL，值为-1，后继节点的线程处于等待状态，而当前节点的线程如果释放了同步状态或者被取消，将会通知后继结点，是后继节点的线程继续运行</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left">3. CONDITION，值为-2，节点在等待队列中，节点线程等待在Condition上，当其他线程对Condition调用了signal()后该节点将会从等待队列中转移到同步队列中，加入到同步状态的获取中</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left">4. PROPAGATE，值为-3，表示下一次共享式同步状态获取将会无条件的传播下去</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left">4. INITIAL，值为0，初始状态</td>
+</tr>
+<tr>
+<td align="left">Node prev</td>
+<td align="left">前驱节点，当节点加入同步队列时被设置（尾部添加）</td>
+</tr>
+<tr>
+<td align="left">Node next</td>
+<td align="left">后继节点</td>
+</tr>
+<tr>
+<td align="left">Node nextWaiter</td>
+<td align="left">等待队列中的后继节点。如果当前节点是共享的，那么这个字段将是一个常量，也就是说节点类型（独占或共享）和等待队列中的后继节点共用同一个字段</td>
+</tr>
+<tr>
+<td align="left">Thread thread</td>
+<td align="left">获取同步状态的线程</td>
+</tr>
+</tbody></table></div>
+<blockquote>
+<p>节点是构成同步队列的基础，同步器将拥有首节点和尾节点，没有成功获取同步状态的线程将会成为节点加入到同步队列的尾部。</p>
+<blockquote>
+<ul>
+<li>同步器提供了一个机遇CAS的设置尾节点的方法：compareAndSetTail(Node expect, Node update)，它需要传递当前线程”认为”的尾节点和当前节点，只有设置成功后，当前节点才正式与之前的尾节点建立关联。  </li>
+<li>同步队列遵守FIFO，首节点是获取同步状态成功的节点，首节点的线程在释放同步状态时，将会唤醒后继节点，而后继节点将会在获取同步状态成功时将自己设置为首节点。PS：首节点的设置是通过获取同步状态成功的线程设置的，因此线程安全。  </li>
+</ul>
+</blockquote>
+</blockquote>
+<ol start="2">
+<li>
+        <h5 id="独占式同步状态的获取与释放"   >
+          <a href="#独占式同步状态的获取与释放" class="heading-link"><i class="fas fa-link"></i></a>独占式同步状态的获取与释放</h5>
+      通过调用同步器的acquire(int arg)方法可以获取同步状态，该方法对中断不敏感，也就是由于线程获取同步状态失败后进图同步队列中，后继对线程进行中断操作时，线程不会从同步队列中移除。</li>
+</ol>
+<ul>
+<li>同步器的acquire方法（同步状态的获取）：<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">acquire</span><span class="params">(<span class="keyword">int</span> arg)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!tryAcquire(arg) &amp;&amp; </span><br><span class="line">        acquireQueued(addWaiter(Node.EXCLUSIVE), arg))</span><br><span class="line">        selfInterrupt();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<blockquote>
+<ul>
+<li>这里先使用!tryAcquire尝试获取同步状态，失败后加入同步队列中</li>
+<li>构造同步节点（独占式：Node.EXCLUSIVE）并通过addWaiter加入到同步队列尾部，最后调用acquireQueued(Node node, int arg)方法，该节点以死循环的方式获取同步状态。如果获取不到阻塞节点中的线程，而被阻塞线程的唤醒主要依靠前驱节点的出队或者阻塞线程被中断来实现。<br>下面是构建Node以及添加入同步队列的实现：</li>
+</ul>
+</blockquote>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> Node <span class="title">addWaiter</span><span class="params">(Node mode)</span></span>&#123;</span><br><span class="line">    Node node = <span class="keyword">new</span> Node(Thread.currentThread(), mode); <span class="comment">//这里构建节点，并使用参数的模式</span></span><br><span class="line">    Node pred = tail; <span class="comment">// 获取尾节点</span></span><br><span class="line">    <span class="keyword">if</span>(pred != <span class="keyword">null</span>)&#123; <span class="comment">// 这里尝试了快速在尾部添加节点</span></span><br><span class="line">        node.prev = pred;</span><br><span class="line">        <span class="keyword">if</span>(compareAndSetTail(pred, node))&#123;</span><br><span class="line">            pred.next = node;</span><br><span class="line">            <span class="keyword">return</span> node;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    enq(node); <span class="comment">// 这里同步器使用死循环来保证节点添加</span></span><br><span class="line">    <span class="keyword">return</span> node;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">private</span> Node <span class="title">enq</span><span class="params">(<span class="keyword">final</span> Node node)</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(;;)&#123;</span><br><span class="line">        Node t = tail;</span><br><span class="line">        <span class="keyword">if</span>(t == <span class="keyword">null</span>)&#123; <span class="comment">// 尾节点为空，将尾节点指向头结点</span></span><br><span class="line">            <span class="keyword">if</span>(compareAndSetHead(<span class="keyword">new</span> Node()))</span><br><span class="line">                tail = head;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123; <span class="comment">// 将需要添加的节点的前驱节点指向tail，并将node添加到队尾</span></span><br><span class="line">            node.prev = t;</span><br><span class="line">            <span class="keyword">if</span>(compareAndSetTail(t, node))&#123;</span><br><span class="line">                t.next = node;</span><br><span class="line">                <span class="keyword">return</span> t;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<blockquote>
+<p>这里enq方法将添加节点变得串行化了。（自旋）<br>接下来我们看acquireQueue(final Node node, int arg)，当前线程在”死循环”中尝试获取同步状态，只有同步队列头结点才能尝试获取同步状态：</p>
+</blockquote>
+</li>
+</ul>
+<ol>
+<li>头结点是成功获取到同步状态的节点，而头结点的线程释放了同步状态之后，将会唤醒其后继节点，后继节点被唤醒之后需要检查自己的前驱节点是否是头结点（即同步队列头）。</li>
+<li>维护同步队列的FIFO原则，该方法中，节点自旋获取同步状态。</li>
+</ol>
+<ul>
+<li>同步器的release方法（同步状态的释放）：<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">boolean</span> <span class="title">release</span><span class="params">(<span class="keyword">int</span> arg)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(tryRelease(arg))&#123; <span class="comment">// 尝试释放</span></span><br><span class="line">        Node h = head;</span><br><span class="line">        <span class="keyword">if</span>(h != <span class="keyword">null</span> &amp;&amp; h.waitStatus != <span class="number">0</span>) </span><br><span class="line">            unparkSuccessor(h); <span class="comment">// 这里使用LockSupport来唤醒处于等待状态的线程</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+</li>
+</ul>
+<ol start="3">
+<li>
+        <h5 id="共享式同步状态的获取与释放"   >
+          <a href="#共享式同步状态的获取与释放" class="heading-link"><i class="fas fa-link"></i></a>共享式同步状态的获取与释放</h5>
+      <p>共享式获取与独占式获取主要的区别在于同一时间能否有多个线程同时获取到同步状态。以为内件的读写为例，如果一个程序正在对文件进行读操作，那么这一时刻对于该文件的写操作均被阻塞，而读操作能够同时进行。写操作要求对资源的独占式访问，而读操作可以是共享式访问。<br>获取同步状态代码如下</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">acquireShared</span><span class="params">(<span class="keyword">int</span> arg)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(tryAcquireShared(arg) &lt; <span class="number">0</span>)&#123; <span class="comment">// 1</span></span><br><span class="line">        doAcquireShared(arg);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">doAcquireShared</span><span class="params">(<span class="keyword">int</span> arg)</span></span>&#123;</span><br><span class="line">    <span class="keyword">final</span> Node node = addWaiter(Node.SHARED); <span class="comment">// 2</span></span><br><span class="line">    <span class="keyword">boolean</span> failed = <span class="keyword">true</span>;</span><br><span class="line">    <span class="keyword">try</span>&#123;</span><br><span class="line">        <span class="keyword">boolean</span> interrupted = <span class="keyword">false</span>;</span><br><span class="line">        <span class="keyword">for</span>(;;)&#123; <span class="comment">// 3</span></span><br><span class="line">            <span class="keyword">final</span> Node p = node.predecessor();</span><br><span class="line">            <span class="keyword">if</span>(p == head)&#123;</span><br><span class="line">                <span class="keyword">int</span> r = tryAcquireShared(arg);</span><br><span class="line">                <span class="keyword">if</span>(r &gt;= <span class="number">0</span>)&#123;</span><br><span class="line">                    setHeadAndPropagate(node, r);</span><br><span class="line">                    p.next = <span class="keyword">null</span>;</span><br><span class="line">                    <span class="keyword">if</span>(interrupted)&#123;</span><br><span class="line">                        selfInterrupt();</span><br><span class="line">                    &#125;</span><br><span class="line">                    failed = <span class="keyword">false</span>;</span><br><span class="line">                    <span class="keyword">return</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(shouldParkAfterFailedAcquire(p, node) &amp;&amp;</span><br><span class="line">                parkAndCheckInterrupt())</span><br><span class="line">                interrupted = <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;<span class="keyword">finally</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(failed)</span><br><span class="line">            cancelAcquire(node);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<blockquote>
+<p>1: 同步器先尝试调用tryAcquireShared(int arg)方法尝试获取同步状态，返回值大于等于0时成功获取状态。因此，在共享式获取的自旋过程中，成功获取到的同步状态并退出自旋的田间就是tryAcquireShared(int arg)返回值大于等于0。可以看到，在doAcquireShared(int arg)方法的自旋过程中吐过当前节点的前去为头结点是，尝试获取去同步状态，如果返回值大于等于0，表示盖茨获取同步状态成功并从自旋过程中退出。<br>与独占式一样，共享式获取也需要释放同步状态，通过调用releaseShared(int arg)方法可以释放同步状态，</p>
+</blockquote>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">boolean</span> releaseShared（<span class="keyword">int</span> arg）&#123;</span><br><span class="line">    <span class="keyword">if</span>(tryReleaseShared(arg))&#123;</span><br><span class="line">        doReleaseShared();</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<blockquote>
+<p>该方法在释放同步状态后，将会唤醒后续处于等待状态的节点。对于呢能够支持多个线程同时访问的并发组件，他和独占式的主要区别在于tryReleaseShared(int arg)方法必须确保同步状态线程安全释放，一般是通过循环和CAS来保证的。因为释放同步状态的操作会同时来自多个线程。</p>
+</blockquote>
+</li>
+<li>
+        <h5 id="独占式超时获取同步状态"   >
+          <a href="#独占式超时获取同步状态" class="heading-link"><i class="fas fa-link"></i></a>独占式超时获取同步状态</h5>
+      <p>通过调用同步器的doAcquireNanos(int arg, long nanosTimeout)方法可以超时获取同步状态，记载指定的时间段内获取同步状态，如果获取到同步状态则返回true，否则返回false。该方法提供传统java同步操作所不具备的特性。</p>
+<blockquote>
+<p>背景知识：<br>响应中断的同步状态获取的过程。在java5之前，当一个线程获取不到锁而被阻塞在synchronized之外时，对该线程进行中断操作，此时该线程的终端标志位会被修改，但是线程依旧会阻塞在synchronized上，等待获取锁。在java5中，同步器提供了acquireInterruptibly(int arg)方法，这个方法在等待获取同步状态时，如果当前线程被中断，会立刻返回，并抛出InterruptedException。  </p>
+</blockquote>
+</li>
+</ol>
+<p>超时后去同步状态过程可以视作响应中断获取同步状态的加强版，doAcquireNanos(int arg, long nanosTimeout)方法在支持响应中断的基础上，增加了超时获取的特性，针对超时获取，主要需要计算出需要睡眠的时间间隔nanosTimeout，为了防止过早通知，nanosTimeous的计算公式为：nanosTimeout -= now - lastTime，其中now为当前唤醒时间，lastTime为上次唤醒时间，如果nanosTimeout大于0则表示超时时间未到，需要继续睡眠nanosTimeout纳秒，反之表示已经超时。</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">doAcquireNanos</span><span class="params">(<span class="keyword">int</span> arg, <span class="keyword">long</span> nanosTimeout)</span> <span class="keyword">throws</span> InterruptedException</span>&#123;</span><br><span class="line">    <span class="keyword">long</span> lastTime = System.nanoTime();</span><br><span class="line">    <span class="keyword">final</span> Node node = addWaiter(node.EXCLUSIVE);</span><br><span class="line">    <span class="keyword">boolean</span> failed = <span class="keyword">true</span>;</span><br><span class="line">    <span class="keyword">try</span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(;;)&#123;</span><br><span class="line">            <span class="keyword">final</span> Node p = node.predecessor();</span><br><span class="line">            <span class="keyword">if</span>(p == head &amp;&amp; tryAcquire(arg))&#123;</span><br><span class="line">                setHead(node);</span><br><span class="line">                p.next = <span class="keyword">null</span>;</span><br><span class="line">                failed = <span class="keyword">false</span>;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(nanosTimeout &lt;= <span class="number">0</span>)</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">            <span class="keyword">if</span>(shouldParkAfterFailedAcquire(p, node)</span><br><span class="line">                &amp;&amp; nanosTimeout &gt; spinForTimeoutThreshold)</span><br><span class="line">                LockSupport.parkNanos(<span class="keyword">this</span>, nanosTimeout);</span><br><span class="line">            <span class="keyword">long</span> now = System.nanoTime();</span><br><span class="line">            nanoTimeout -= now - lastTime;</span><br><span class="line">            lastTime = now;</span><br><span class="line">            <span class="keyword">if</span>(Thread.interrupted())&#123;</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> InterruptException();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;<span class="keyword">finally</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(failed)</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<blockquote>
+<p>该方法自旋的时候会重新计算超时时间</p>
+</blockquote>
+<ul>
+<li>
+        <h3 id="示例：自定义同步组件–-TwinsLock"   >
+          <a href="#示例：自定义同步组件–-TwinsLock" class="heading-link"><i class="fas fa-link"></i></a>示例：自定义同步组件– TwinsLock</h3>
+      这里设计一个同步工具：该工具在同一时刻，只允许之多两个线程同时访问，超过两个线程访问江北阻塞，我们将其称之为TwinsLock。</li>
+</ul>
+<ol>
+<li>首先，确定访问模式，TwinsLock能够在同一时刻允许多个线程访问，显然是共享式访问，因此，需要使用同步器提供的acquireShared(int arg)和Shared相关方法，这就必须要重写tryAcquireShared(int arg)和tryReleaseShared(int arg)方法。</li>
+<li>其次，定义资源数。TwinsLock在同一时刻之多允许两个线程同时访问，表明同步资源数为2，这样可以设置初始状态status为2，当一个线程进行获取后status减1，该线程释放，则加1。合法的status状态范围为0、1、2。使用compareAndSet(int expect, int arg)做原子保障。</li>
+<li>最后，组合同步器完成功能。</li>
+</ol>
+<ol start="5">
+<li>
+        <h3 id="可重入锁"   >
+          <a href="#可重入锁" class="heading-link"><i class="fas fa-link"></i></a>可重入锁</h3>
+      <p>可重入锁的主要在获取锁的时候添加了是否是当前线程的判断，并且把重入的次数写入，在释放锁的时候钱N-1次释放不重置当前线程，最后一次将当前线程置null，并且设置state。</p>
+<blockquote>
+<p>可重入锁中分为公平锁和非公平锁两种，其中公平锁保证了线程不饥饿，但是会增加上下文切换。非公平锁不保证线程饥饿，但是因为其极少的线程切换，保证了更大的吞吐量。</p>
+</blockquote>
+</li>
+<li>
+        <h3 id="读写锁"   >
+          <a href="#读写锁" class="heading-link"><i class="fas fa-link"></i></a>读写锁</h3>
+      <p>之前提到的锁基本上都是拍他锁，这些锁在同一时刻只允许一个线程访问，而读写锁允许多个读线程，但是在写线程访问时只允许一个写线程，其他线程不管读写军备阻塞。通过读写锁是的并发性有了很大提升。  </p>
+<blockquote>
+<p>读写锁内部使用一个32位的变量，将其拆分为高低两个16位，高16位表示读状态，低16位表示写状态，内部使用位运算判断同步状态。  </p>
+</blockquote>
+</li>
+<li>
+        <h3 id="LockSupport工具"   >
+          <a href="#LockSupport工具" class="heading-link"><i class="fas fa-link"></i></a>LockSupport工具</h3>
+      <p>LockSupport定义了一组已park开头的方法用来阻塞当前线程，以及unpark(Thread thread)的方法用来唤醒线程。</p>
+</li>
+</ol>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th align="left">方法名称</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">void park()</td>
+<td align="left">阻塞当前线程，如果调用unpark(Thread thread)方法或者当前线程被中断才能返回</td>
+</tr>
+<tr>
+<td align="left">void parkNanos(long nanos)</td>
+<td align="left">阻塞当前线程直到超时</td>
+</tr>
+<tr>
+<td align="left">void parkUntil(long deadline)</td>
+<td align="left">阻塞当前线程，直到deadline(form UTC)</td>
+</tr>
+<tr>
+<td align="left">void unpark(Thread thread)</td>
+<td align="left">唤醒处于阻塞状态的thread</td>
+</tr>
+</tbody></table></div>
+<ol start="8">
+<li>
+        <h3 id="Condition接口"   >
+          <a href="#Condition接口" class="heading-link"><i class="fas fa-link"></i></a>Condition接口</h3>
+      任意一个java对象都拥有一组监视器方法（在java.lang.Object上），主要包括（wait()、wait(long timeout)、notify()、notifyAll()）方法，这些方法与synchronized配合，可以实现等待/通知模式，但是两个使用方法和功能还是有差别的。<br>通过对比Object的监视器方法和Condition接口，可以更详细的了解Condition特性:</li>
+</ol>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th align="left">对比项</th>
+<th align="left">Object Monitor Methods</th>
+<th align="left">Condition</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">前置条件</td>
+<td align="left">获取对象的锁</td>
+<td align="left">调用Lock.lock()获取锁，调用Lock.newCondition()获取Condition对象</td>
+</tr>
+<tr>
+<td align="left">调用方式</td>
+<td align="left">直接调用</td>
+<td align="left">直接调用</td>
+</tr>
+<tr>
+<td align="left">等待队列个数</td>
+<td align="left">一个</td>
+<td align="left">多个</td>
+</tr>
+<tr>
+<td align="left">当前线程释放锁并进入等待状态</td>
+<td align="left">支持</td>
+<td align="left">支持</td>
+</tr>
+<tr>
+<td align="left">当前线程释放锁并进入等待状态，在等待状态不能响应中断</td>
+<td align="left">不支持</td>
+<td align="left">支持</td>
+</tr>
+<tr>
+<td align="left">当前线程释放锁并进入超时等待状态</td>
+<td align="left">支持</td>
+<td align="left">支持</td>
+</tr>
+<tr>
+<td align="left">当前线程释放锁并进图等待状态到将来某个时间</td>
+<td align="left">不支持</td>
+<td align="left">支持</td>
+</tr>
+<tr>
+<td align="left">唤醒等待队列的一个线程</td>
+<td align="left">支持</td>
+<td align="left">支持</td>
+</tr>
+<tr>
+<td align="left">唤醒等待队列中的全部线程</td>
+<td align="left">支持</td>
+<td align="left">支持</td>
+</tr>
+</tbody></table></div>
+<ol>
+<li>示例<br>Condition定义了等待/通知两种类型的方法，当前线程调用这些方法时，需要提前将获取到的Condition对象关联的锁。Condition对象是由Lock对象（调用Lock对象的newCondition()方法创建，换句话说Condition对象依赖于Lock对象的。  <figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">Lock lock = <span class="keyword">new</span> ReentrantLock();</span><br><span class="line">Condition condition = lock.newCondition();</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">conditionWait</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException</span>&#123;</span><br><span class="line">    lock.lock();</span><br><span class="line">    <span class="keyword">try</span>&#123;</span><br><span class="line">        condition.await(); <span class="comment">// 1</span></span><br><span class="line">    &#125;<span class="keyword">finally</span>&#123;</span><br><span class="line">        lock.unlock();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">conditionSignal</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException</span>&#123;</span><br><span class="line">    lock.lock();</span><br><span class="line">    <span class="keyword">try</span>&#123;</span><br><span class="line">        condition.signal(); <span class="comment">// 2</span></span><br><span class="line">    &#125;<span class="keyword">finally</span>&#123;</span><br><span class="line">        lock.unlock();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<blockquote>
+<p>线程运行到1处是会释放自己已经得到的锁，在其他线程运行到2处时，当前线程才会从await()返回，并且返回前已经获取了锁。</p>
+</blockquote>
+</li>
+</ol>
+<p>Condition实现队列的添加和删除</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BoundedQueue</span>&lt;<span class="title">T</span>&gt;</span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Object[] items;</span><br><span class="line">    <span class="keyword">private</span> addIndex, removeIndex, count;</span><br><span class="line">    <span class="keyword">private</span> Lock lock = <span class="keyword">new</span> ReentrantLock();</span><br><span class="line">    <span class="keyword">private</span> Condition notEmpty = lock.newCondition();</span><br><span class="line">    <span class="keyword">private</span> Condition notFull = lock.newCondition();</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Bounded</span><span class="params">(<span class="keyword">int</span> size)</span></span>&#123;</span><br><span class="line">        items = <span class="keyword">new</span> Object[size];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(T t)</span> <span class="keyword">throws</span> InterruptedException</span>&#123;</span><br><span class="line">        lock.lock();</span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">            <span class="keyword">while</span>(count == items.length)</span><br><span class="line">                notFull.await();</span><br><span class="line">            items[addIndex] = t;</span><br><span class="line">            <span class="keyword">if</span>(++addIndex == items.length)</span><br><span class="line">                addIndex = <span class="number">0</span>;</span><br><span class="line">            ++count;</span><br><span class="line">            notEmpty.singal();</span><br><span class="line">        &#125;<span class="keyword">finally</span>&#123;</span><br><span class="line">            lock.unlock();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> T <span class="title">remove</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException</span>&#123;</span><br><span class="line">        lock.lock();</span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">            <span class="keyword">while</span>(count == <span class="number">0</span>)</span><br><span class="line">                notEmpty.singal();</span><br><span class="line">            Object object = items[removeIndex];</span><br><span class="line">            <span class="keyword">if</span>(++removeIndex == items.length)</span><br><span class="line">                removeIndex = <span class="number">0</span>;</span><br><span class="line">            --count;</span><br><span class="line">            notFull.await();</span><br><span class="line">            <span class="keyword">return</span> (T) object;</span><br><span class="line">        &#125;<span class="keyword">finally</span>&#123;</span><br><span class="line">            lock.unlock();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<blockquote>
+<p>该队列遵循FIFO，使用count变量表示队列实际长度，当count等于数组长时等待notFull的通知，当count等于0时等待数组不为空的通知。使用removeIndex和addIndex可以实现循环添加。</p>
+</blockquote>
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2018/12/03/concurrent-demo/">java并发编程实例</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2018-12-03</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2020-10-22</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">1.8k</span></span><span class="post-meta-item post-meta-item--readtime"><span class="post-meta-item__icon"><i class="far fa-clock"></i></span><span class="post-meta-item__info">阅读时长</span><span class="post-meta-item__value">10分</span></span></div></header><div class="post-body"><div class="post-excerpt">
+        <h3 id="背景知识"   >
+          <a href="#背景知识" class="heading-link"><i class="fas fa-link"></i></a>背景知识</h3>
+      <blockquote>
+<p>java从诞生开始就内置对多线程的支持，线程作为操作系统调度的最小单元，多个线程能同时执行，这将显著提升程序性能，在多核环境中表现的更加明显。</p>
+<blockquote>
+<p>现代操作系统在运行一个程序是，会为其创建一个进程。现代操作系统调度的最小单元是线程，也叫轻量级进程，字啊一个进程里可以创建多个线程，这些线程都拥有各自的计数器、对战和局部变量的那个属性，并且能够访问共享内存变量。处理器在说这些线程上高速切换，让使用者感觉这些线程在同时执行。</p>
+</blockquote>
+</blockquote>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.lang.management.ManagementFactory;</span><br><span class="line"><span class="keyword">import</span> java.lang.management.ThreadInfo;</span><br><span class="line"><span class="keyword">import</span> java.lang.management.ThreadMXBean;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">scratch_1</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        ThreadMXBean threadMXBean = ManagementFactory.getThreadMXBean();</span><br><span class="line">        ThreadInfo[] threadInfos = threadMXBean.dumpAllThreads(<span class="keyword">false</span>, <span class="keyword">false</span>);</span><br><span class="line">        <span class="keyword">for</span> (ThreadInfo threadInfo : threadInfos) &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;[&quot;</span> + threadInfo.getThreadId() + <span class="string">&quot;] &quot;</span> + threadInfo.getThreadName());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<blockquote>
+<p>运行结果：</p>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[5] Monitor Ctrl-Break</span><br><span class="line">[4] Signal Dispatcher</span><br><span class="line">[3] Finalizer</span><br><span class="line">[2] Reference Handler</span><br><span class="line">[1] main</span><br></pre></td></tr></table></div></figure>
+</blockquote>
+<ul>
+<li>
+        <h3 id="线程的优先级"   >
+          <a href="#线程的优先级" class="heading-link"><i class="fas fa-link"></i></a>线程的优先级</h3>
+      现代操作系统基本采用时分的形式调度运行的进程，操作系统会分出一个个时间片，线程会分配若干时间片，当线程的时间片用完了就会发生线程调度，并等待下次分配。线程分配到时间片多少也决定了线程使用处理器资源的多少，儿线程的优先级决定线程需要多或者少扥配一些处理器资源的线程属性。</li>
+</ul>
+<p>在java线程中，通过一个整型成员变量priority来控制优先级，优先级的范围从1~10，在新汉城构建的时候通过setProority(int)方法来修改优先级，默认优先级是5，优先级搞得线程分配的时间片的数量要多于优先级地的线程。设置线程优先级是，针对频繁阻塞的线程需要设计较高的优先级，儿片中计算的线程设计交底的优先级，确保处理器不会被独占，在不同的JVM及操作系统上，线程规划会存在差异，有些操作西永甚至会忽略线程优先级的设定。</p>
+<ul>
+<li>
+        <h3 id="线程的状态"   >
+          <a href="#线程的状态" class="heading-link"><i class="fas fa-link"></i></a>线程的状态</h3>
+      </li>
+</ul>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th align="center">状态名称</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">NEW</td>
+<td align="center">初始状态：线程已经被构建，但是还没有调用start()方法</td>
+</tr>
+<tr>
+<td align="center">RUNNABLE</td>
+<td align="center">运行状态，java线程将操作系统中的就绪和运行两种状态笼统的称作为”运行中”</td>
+</tr>
+<tr>
+<td align="center">BLOCKED</td>
+<td align="center">阻塞状态，表示线程阻塞于锁</td>
+</tr>
+<tr>
+<td align="center">WAITING</td>
+<td align="center">等待状态，表示线程进入等待状态，进图该状态表示当前线程需要等待其他线程做出一些特定操作（通知或者中断）</td>
+</tr>
+<tr>
+<td align="center">TIME_WAITING</td>
+<td align="center">超时等待状态，该状态不同于WAITING，他是可以在指定时间自行返回的</td>
+</tr>
+<tr>
+<td align="center">TERMINATED</td>
+<td align="center">种植状态，表示当前线程已经执行完毕</td>
+</tr>
+</tbody></table></div>
+<ul>
+<li>
+        <h3 id="Daemon线程"   >
+          <a href="#Daemon线程" class="heading-link"><i class="fas fa-link"></i></a>Daemon线程</h3>
+      <p>Daemon线程是一种支持性线程，因为它主要被用于程序中后台调度以及支持性工作，这意味着，当一个java虚拟机中不存在飞Daemon线程的时候，java虚拟机将会退出，使用<code>Thread.setDaemon(true)</code>将线程设置为Daemon线程。</p>
+<blockquote>
+<p>Daemon属性需要在启动线程之前设置，不能再启动线程之后设置。</p>
+<blockquote>
+<p>在购将Daemon线程时，不能依靠finally块中的内容来确保执行关闭或者清理资源。</p>
+</blockquote>
+</blockquote>
+</li>
+<li>
+        <h3 id="线程的启动和终止"   >
+          <a href="#线程的启动和终止" class="heading-link"><i class="fas fa-link"></i></a>线程的启动和终止</h3>
+      <p>使用<code>start()</code>来启动，随着<code>run()</code>执行完毕也随之终止。</p>
+</li>
+<li>
+        <h4 id="线程的启动"   >
+          <a href="#线程的启动" class="heading-link"><i class="fas fa-link"></i></a>线程的启动</h4>
+      <p>在调用<code>start()</code>方法之后，只要java虚拟机认为：线程规划器空闲，就会立刻启动start()</p>
+</li>
+<li>
+        <h4 id="理解中断"   >
+          <a href="#理解中断" class="heading-link"><i class="fas fa-link"></i></a>理解中断</h4>
+      <p>中断可以理解为线程的一个标识位属性，它表示一个运行中的线程是否被其他线程进行了中断操作。中断好比其他线程对该线程打了个招呼，其他线程通过调用该线程的interrupt()方法对其进行中断操作。</p>
+</li>
+</ul>
+<p>线程通过检查自身是否被中断来进行相应，线程通过方法<code>isInterrupted()</code>来进行判断是够被中断，也可以调用静态方法<code>Thread.interrupt()</code>对当前线程的中断表示进行复位。如果该线程已经处于终结状态，即使该线程被中断过，在电泳该线程对象的<code>isInterrupted()</code>时依旧会返回false。</p>
+<p>java API中有很多声明抛出InterruptedException的方法。这些方法在抛出INterruptedException之前，java虚拟机会先将该线程中断标识位清除，然后抛出InterruptedException，此时调用isInterrupted()方法会返回false。</p>
+<ul>
+<li>
+        <h4 id="安全的终止线程"   >
+          <a href="#安全的终止线程" class="heading-link"><i class="fas fa-link"></i></a>安全的终止线程</h4>
+      <p>通过<code>thread.interrupt()</code>和<code>thread.cancel()</code>方法均可以。通过标识位或者中断操作的方法能够使线程在终止时后机会去清理资源。</p>
+</li>
+<li>
+        <h3 id="线线程间通信"   >
+          <a href="#线线程间通信" class="heading-link"><i class="fas fa-link"></i></a>线线程间通信</h3>
+      <ol>
+<li><p>synchronized<br>使用了monitorenter和monitorexit指令来实现，monitorenter失败的线程会进入SynchronizedQueue队列进行等待。</p>
+</li>
+<li><p>等待/通知机制<br>使用生产者/消费者模式，等待通知机制是内置在Object对象上的。  </p>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th align="center">方法名称</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">notify()</td>
+<td align="center">通知一个在对象上等待的线程，使其wait()方法返回，前提是改线程获取到了锁</td>
+</tr>
+<tr>
+<td align="center">notifyAll()</td>
+<td align="center">通知所有等待在该对象上的线程</td>
+</tr>
+<tr>
+<td align="center">wait()</td>
+<td align="center">调用该方法进图WAITTING状态，只有等待另外线程的通知或者被中断才会返回，调用该方法后释放锁</td>
+</tr>
+<tr>
+<td align="center">wait(long)</td>
+<td align="center">超时等待，没有在规定时间内得到通知就返回</td>
+</tr>
+<tr>
+<td align="center">wait(long, int)</td>
+<td align="center">对超时时间更加精细，可以达到纳秒</td>
+</tr>
+</tbody></table></div>
+</li>
+<li><p>管道输入/输出流<br>管道输入输出流和普通文件输入输出流或者网络输入输出流不同的是，它主要用于线程之间的数据传输，而传输的媒介是内存。<br>管道输入输出流包含了下面四种实现：PipiedOuputStream、PipedInputStream、PipedReader、PipedWriter，前两种面向字节，后两种面向字符。</p>
+</li>
+<li><p>Thread.join()的使用<br>使用thread.join()可以等待调用该方法线程结束再执行后面代码。</p>
+</li>
+<li><p>ThreadLocal的使用<br>ThreadLocal，即线程变量，是一个以ThreadLocal对象未见、任意对象为值得存储结构。这个结构被附带在线程上，也就是一个线程可以根据一个ThreadLocal对象查询到值。  </p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Scratch</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> ThreadLocal&lt;Long&gt; TIME_THREADLOCAL = <span class="keyword">new</span> ThreadLocal&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">begin</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        TIME_THREADLOCAL.set(System.currentTimeMillis());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> <span class="title">end</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> System.currentTimeMillis() - TIME_THREADLOCAL.get();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Scratch scratch = <span class="keyword">new</span> Scratch();</span><br><span class="line">        scratch.begin();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">&quot;cost time: &quot;</span> + scratch.end());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<blockquote>
+<p><code>java cost time: 1001 </code></p>
+</blockquote>
+</li>
+</ol>
+</li>
+<li>
+        <h3 id="等待超时模式"   >
+          <a href="#等待超时模式" class="heading-link"><i class="fas fa-link"></i></a>等待超时模式</h3>
+      <p>这里的伪代码是：</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> Object <span class="title">get</span><span class="params">(<span class="keyword">long</span> mills)</span> <span class="keyword">throws</span> InterruptedException </span>&#123; <span class="comment">// mills 作为超时等待时间</span></span><br><span class="line">    <span class="keyword">long</span> future = System.currentTimeMillis() + mills; <span class="comment">// 计算最终的返回时间</span></span><br><span class="line">    <span class="keyword">long</span> remaining = mills; </span><br><span class="line">    <span class="keyword">while</span>((result == <span class="keyword">null</span>) &amp;&amp; remaining &gt; <span class="number">0</span>)&#123;</span><br><span class="line">        wait(remaining); <span class="comment">// 这里使用Object.wait(long)进行等待，如果超过等待时间，再去对比future，超出则返回默认值。</span></span><br><span class="line">        remaining = future - System.currentTimeMillis();</span><br><span class="line">    &#125;</span><br><span class="line">    retrun result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+</li>
+</ul>
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2018/12/01/volatile/">volatile</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2018-12-01</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2020-10-22</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">1.4k</span></span><span class="post-meta-item post-meta-item--readtime"><span class="post-meta-item__icon"><i class="far fa-clock"></i></span><span class="post-meta-item__info">阅读时长</span><span class="post-meta-item__value">7分</span></span></div></header><div class="post-body"><div class="post-excerpt"><p>重排序是指编译器和处理器为了优化程序性能二队指令序列进行重新排序的一种手段。</p>
+<ul>
+<li>
+        <h3 id="数据依赖性"   >
+          <a href="#数据依赖性" class="heading-link"><i class="fas fa-link"></i></a>数据依赖性</h3>
+      <p>如果两个操作访问同一个变量，且两个操作中的一个为写操作。此时就存在数据依赖性。（读写顺序会影响结果）</p>
+</li>
+<li>
+        <h4 id="as-if-serial语义"   >
+          <a href="#as-if-serial语义" class="heading-link"><i class="fas fa-link"></i></a>as-if-serial语义</h4>
+      <p>不管怎么重排序编译器、runtime和处理器都必须遵守as-if-serial语义。这个特性使得单线程程序看起来是按顺序执行的。<br>在happens-before规则中，JMM会进行拓扑排序来推导执行顺序。</p>
+</li>
+<li><p>未同步程序在JMM喝顺序一致性模型中的差异</p>
+</li>
+</ul>
+<ol>
+<li>顺序一致性模型保证单线程内的操作会按照程序的顺序执行，而JMM不保证单线程内的操作会按程序的顺序执行。</li>
+<li>顺序一致性模型保证所有线程智能看到一只的操作执行顺序，而JMM不保证所有线程能看到一只的操作顺序。</li>
+<li>JMM不保证对64位的long型和double型变量的写操作具有原子性，而顺序一致性模型保证对所有的内存读、写都具有原子性。<blockquote>
+<p>第三个差异与处理器总显得工作机制密切相关。在计算机中，数据通过总现在处理器和内存之间传递。每次处理器和内存之间的数据传递都是通过一系列步骤来完成的，这一些列步骤称之为总线事务。总显示无包括读事务和写事务。读事务从内存传递数据到处理器，写事务从处理器出啊地数据到内存，每个事物会读写内存中的一个或多个物理上连续的字。这里的关键是，总线会同步视图并发使用总线的事物。在一个处理器执行总线事务期间，总线会禁止其他的处理器和设备执行内存的读写。（通过总线仲裁来对总线的竞争作出裁决，保证单个总线事务之中的读写具有原子性）。</p>
+<blockquote>
+<p>在一些32位的处理器上，如果要求对64位的数据写操作具有原子性，会有比较大的开销。为了照顾着中处理器，java语言规范鼓励但不强求JVM对64位的变量写操作具有原子性。当JVM在这个处理器上运行时，可能会把一个64位的变量的写操作拆分为两个32位的写操作来执行，这两个写操作可能被分配到不同的总线事务中执行，此时这个写操作将不具有原子性。</p>
+<blockquote>
+<p>64位变量的读操作都具有原子性。</p>
+</blockquote>
+</blockquote>
+</blockquote>
+</li>
+</ol>
+<ul>
+<li>
+        <h3 id="volatile的内存语义"   >
+          <a href="#volatile的内存语义" class="heading-link"><i class="fas fa-link"></i></a>volatile的内存语义</h3>
+      当生命共享变量为volatile后，对这个变量的读写将会特别。</li>
+</ul>
+<ol>
+<li><p>volatile的特性</p>
+<ol>
+<li>可见性：对一个volatile变量的毒，总是能看到人以县城对这个colatile变量最后的写入。</li>
+<li>原子性，对任意单个colatile变量的读写具有原子性，但类似于volatile++这种符合操作不具有原子性。<br>一个volatile变量的单个读写操作，与一个普通变量的读写操作都是用用一个锁来同步的效果相同。<blockquote>
+<p>锁的happens-before规则保证释放锁和获得所的两个线程之间的内存可见性，这意味着一个volatile变量的毒，总能考到人以县城对这个volaile变量最后的写入。</p>
+</blockquote>
+</li>
+</ol>
+</li>
+<li><p>从JSR-133 开始，volatile变量的亵渎可以实现线程之间的通信。<br>从内存语义的角度来说，volatile的读写与锁的释放获取具有相同的内存效果：volatile写和锁的释放有相同的内存语义；volatile毒与锁的获取有相同的内存语义。</p>
+</li>
+<li><p>volatile写-读的内存语义<br>线程在写volatile变量后，会同步到主内存中，<br>线程在读volatile变量时，JMM会把该新城对应的本地内设置为无效，并从主内存中读取。</p>
+<blockquote>
+<p>总结：</p>
+<ol>
+<li>线程A写一个volatile变量，是指山是线程A项接下来将要读这个volatile变量的某个线程发出了（其对共享变量所做修改的）消息。</li>
+<li>线程B读一个volatile变量，是指上是线程B接收了之前某个线程发出的消息。</li>
+<li>线程A写一个volatile变量，随后线程B读取了这个变量，实质上是线程A通过主内存项线程B发送消息（volatile变量）。</li>
+</ol>
+</blockquote>
+</li>
+<li><p>volatile重排序规则</p>
+</li>
+</ol>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th align="center">是否能重排序</th>
+<th align="center"></th>
+<th align="center">第二个操作</th>
+<th align="center"></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">第一个操作</td>
+<td align="center">普通 读/写</td>
+<td align="center">volatile 读</td>
+<td align="center">volatile 写</td>
+</tr>
+<tr>
+<td align="center">普通 读/写</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">NO</td>
+</tr>
+<tr>
+<td align="center">volatile 读</td>
+<td align="center">NO</td>
+<td align="center">NO</td>
+<td align="center">NO</td>
+</tr>
+<tr>
+<td align="center">volatile 写</td>
+<td align="center"></td>
+<td align="center">NO</td>
+<td align="center">NO</td>
+</tr>
+</tbody></table></div>
+<blockquote>
+<p>JMM采取的是一种保守内存屏障策略</p>
+<ol>
+<li>在每个volatile写操作前面插入一个StoreStore屏障。</li>
+<li>在每个volatile写操作后面插入一个StoreLoad屏障。</li>
+<li>在每个volatile读操作前面插入一个LoadLoad屏障。</li>
+<li>在每个volatile读操作后面插入一个LoadStore屏障。</li>
+</ol>
+</blockquote>
+<blockquote>
+<blockquote>
+<p>锁和volatile的区别：</p>
+<ol>
+<li>volatile仅仅保证对单个volatile变量读写具有原子性，锁对整个临界区代码的执行具有原子性。</li>
+<li>在功能上，锁比volatile更强大。</li>
+<li>在可伸缩性和执行性上，volatile比锁更强大。</li>
+</ol>
+</blockquote>
+</blockquote>
+<ul>
+<li>
+        <h3 id="个人对volatile的理解"   >
+          <a href="#个人对volatile的理解" class="heading-link"><i class="fas fa-link"></i></a>个人对volatile的理解</h3>
+      <ol>
+<li>volatile只保证变量的取值、赋值是原子性的</li>
+<li></li>
+</ol>
+</li>
+</ul>
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2018/12/01/java-concurrency-info/">java并发编程艺术</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2018-12-01</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2020-10-22</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">261</span></span><span class="post-meta-item post-meta-item--readtime"><span class="post-meta-item__icon"><i class="far fa-clock"></i></span><span class="post-meta-item__info">阅读时长</span><span class="post-meta-item__value">1分</span></span></div></header><div class="post-body"><div class="post-excerpt"><ul>
+<li>
+        <h4 id="并发不一定比同步程序快"   >
+          <a href="#并发不一定比同步程序快" class="heading-link"><i class="fas fa-link"></i></a>并发不一定比同步程序快</h4>
+      <blockquote>
+<ol>
+<li><p>线程创建需要时间</p>
+</li>
+<li><p>上下文切换需要时间</p>
+</li>
+</ol>
+</blockquote>
+</li>
+<li>
+        <h4 id="如何减少上线文切换"   >
+          <a href="#如何减少上线文切换" class="heading-link"><i class="fas fa-link"></i></a>如何减少上线文切换</h4>
+      <blockquote>
+<ul>
+<li><p>无锁并发编程：使用hash算法将数据分段给不同线程处理，保证每次同一ID数据都由同一个线程处理。</p>
+</li>
+<li><p>CAS算法：java的Atomic包中提供了CAS算法。</p>
+</li>
+<li><p>使用最少线程：减少不必要的线程创建和切换开销</p>
+</li>
+<li><p>协程：在一个线程中实现多任务调度，并在其他线程中维持多个任务间的切换。</p>
+</li>
+</ul>
+</blockquote>
+</li>
+<li>
+        <h4 id="资源限制的挑战"   >
+          <a href="#资源限制的挑战" class="heading-link"><i class="fas fa-link"></i></a>资源限制的挑战</h4>
+      <ul>
+<li>在某些情况下，受限于软硬件资源的限制，我们采取不同的处理方式：</li>
+</ul>
+<ol>
+<li>硬件限制：考虑使用集群来处理</li>
+<li>软件限制：考虑资源复用，如数据库连接、socket等。</li>
+</ol>
+<ul>
+<li>在资源受限的条件下进行并发：核心思想就是根据不同的类型调整并发数。</li>
+</ul>
+</li>
+</ul>
+
+        <h5 id="相关工具"   >
+          <a href="#相关工具" class="heading-link"><i class="fas fa-link"></i></a>相关工具</h5>
+      <ul>
+<li><code>ps -ef|grep Scratch </code> 找到pid</li>
+<li><code>jstack 1498</code> 打印完整内存信息</li>
+</ul>
+<p><img src="/assets/img/deadLock-1.webp" alt="deadLock-1.webp"></p>
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2018/12/01/java-memory-model/">java内存模型</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2018-12-01</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2020-10-22</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">1.3k</span></span><span class="post-meta-item post-meta-item--readtime"><span class="post-meta-item__icon"><i class="far fa-clock"></i></span><span class="post-meta-item__info">阅读时长</span><span class="post-meta-item__value">7分</span></span></div></header><div class="post-body"><div class="post-excerpt"><ul>
+<li>
+        <h3 id="并发编程中的两个关键问题："   >
+          <a href="#并发编程中的两个关键问题：" class="heading-link"><i class="fas fa-link"></i></a>并发编程中的两个关键问题：</h3>
+      <blockquote>
+<ul>
+<li>线程之间如何通信</li>
+<li>线程之间如何同步<blockquote>
+<ul>
+<li>同步是指程序中用于控制不同线程间操作发生的相对顺序的机制.在共享内存的并发模型里同步时显示进行的.在消息传递的并发模型里，由于消息的发送必须在消息接受之前，因此同步时隐式进行的</li>
+<li>在共享内存的并发模型里，线程之间的共享程序的公共状态，通过读写内存中的公共状态进行隐式通信</li>
+<li>在消息传递的并发模型里，线程之间没有公共状态，线程之间必须通过发送消息来显示进行通信<blockquote>
+<p>java的并发采用的是共享内存模型，java线程之间的通信总是隐式进行，整个通信工作机制，很可能会遇到各种奇怪的内存可见性问题.</p>
+</blockquote>
+</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+</blockquote>
+</li>
+<li>
+        <h3 id="java内存模型的抽象结构"   >
+          <a href="#java内存模型的抽象结构" class="heading-link"><i class="fas fa-link"></i></a>java内存模型的抽象结构</h3>
+      <p>在java中，所有的实例域，静态域和数组元素都存在堆内存中，福内存在线程之间共享，局部变量，方法定义参数和异常处理器参数不会再线程之间共享，他们不会有内存可见性问题，也不瘦内存模型的影响.<br>Java线程时间通信有java内存模型（JMM）控制，JMM决定一个线程对共享变量的写入合适对李宁一个线程可见，从抽象的角度来看，JMM定义了线程和主内存之间的抽象关系:线程之间的共享变量存储在主内存中，每个咸亨都有一个私有的本地内存，本地内存中存储了该线程已读/写共享变量的副本.本地本村是JMM的一个抽象概念，并不真实存在.它涵盖了缓存，写缓冲区，寄存器以及其他的硬件和编译器优化.</p>
+</li>
+<li>
+        <h3 id="从源代码到指令序列的重排序"   >
+          <a href="#从源代码到指令序列的重排序" class="heading-link"><i class="fas fa-link"></i></a>从源代码到指令序列的重排序</h3>
+      <p>在执行程序是，为了提高性能，编译器和处理器常常会对指令做重排序，重排序分3种类型</p>
+<blockquote>
+<ol>
+<li>编译器优化的重排序（编译器重排序）.编译器在不改变单线程程序予以的前提下，可以重新安排语句的执行顺序.</li>
+<li>指令集并行的重排序（处理器重排序）.现代处理器采用了指令集并行技术（ILP）来讲多条指令重叠执行.如果不存在数据依赖性，处理器可以改变语句对应机器指令的执行顺序。<br>3。内存系统的重排序（处理器重排序）。由于处理器使用缓存和读/写韩冲去，是的加载和存储操作看上去是在乱序执行。<blockquote>
+<p><code>源代码-&gt;编译器后话重排序-&gt;指令级并行重排序-&gt;内存系统重排序-&gt;最终执行的指令序列</code></p>
+<blockquote>
+<ul>
+<li>对于编译器，JMM的编译器重排序规则会禁止特定类型的编译器重排序（不是所有的）</li>
+<li>对于处理器重排序，JMM的处理器重排序规则会要求java 编译器生成指令序列是，插入特定类型的内存屏障，通过内存屏障指令来禁止特定类型的处理器重排序。</li>
+</ul>
+</blockquote>
+</blockquote>
+</li>
+</ol>
+</blockquote>
+</li>
+<li>
+        <h3 id="并发编程模型的分类"   >
+          <a href="#并发编程模型的分类" class="heading-link"><i class="fas fa-link"></i></a>并发编程模型的分类</h3>
+      <p>现代处理器使用写缓冲区临时保存箱内存写入的数据。写缓冲区可以保证指令流水线吃血运次那个，他可以避免由于处理器停顿下来等待想内存写入数据而产生的延迟。同事通过以批处理的方式刷鞋缓冲区，以及合并写缓冲区中对于同一内存地址的多次写，减少对内存中线的占用。虽然写缓冲区有这么多好处，但每个处理器上的写缓冲区，仅仅对他所在的处理器课件。这个特性会对内存操作的执行顺序产生重要的影响：处理器对内存的读写操作的顺序执行不一定与内存实际发生的读写顺序一致。</p>
+</li>
+<li>
+        <h3 id="happens-before简洁"   >
+          <a href="#happens-before简洁" class="heading-link"><i class="fas fa-link"></i></a>happens-before简洁</h3>
+      <p>从JDK5开始，java使用心得JSR-133内存模型，JSR-133 使用happens-before的概念来阐述操作之间的内存可见性。<br>在JMM中如果一个操作执行额结果需要对另一个操作课件，那么这两个操作之间必须要存在happens-before关系。</p>
+<blockquote>
+<p>常用的happens-before规则</p>
+<ul>
+<li>程序顺序规则：一个线程中的每个操作，happens-before于该线程的任意后续操作</li>
+<li>监视器锁规则：对一个锁的解锁，happens-before于虽有对这个锁的加锁。</li>
+<li>volatile变量规则：对一个volatile域的写happens-before域任意后续对这个volatile域的读</li>
+<li>传递性：如果A happens-before，切Bhappens-before C，那么A happens-before C。<blockquote>
+<p>两个操作之间的happens-before关系，并不意味着掐一个操作必须要在后一个操作之前执行!happens-before仅仅要求前一个操作对后一个操作课件，切前一个操作按顺序排在第二个操作之前。</p>
+</blockquote>
+</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2018/12/01/reentrant-lock/">锁</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2018-12-01</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2020-10-22</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">122</span></span><span class="post-meta-item post-meta-item--readtime"><span class="post-meta-item__icon"><i class="far fa-clock"></i></span><span class="post-meta-item__info">阅读时长</span><span class="post-meta-item__value">1分</span></span></div></header><div class="post-body"><div class="post-excerpt"><p>锁的获取和释放和volatile是一致的。</p>
+<ul>
+<li>
+        <h3 id="锁内存语义的实现"   >
+          <a href="#锁内存语义的实现" class="heading-link"><i class="fas fa-link"></i></a>锁内存语义的实现</h3>
+      <figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ReentrantLockExample</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a = <span class="number">0</span>;</span><br><span class="line">    ReentrantLock lock = <span class="keyword">new</span> ReentrantLock();</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">writer</span><span class="params">()</span></span>&#123;</span><br><span class="line">        lock.lock();</span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">            a++;</span><br><span class="line">        &#125;<span class="keyword">finally</span>&#123;</span><br><span class="line">            lock.unlock();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">reader</span><span class="params">()</span></span>&#123;</span><br><span class="line">        lock.lock();</span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">            <span class="keyword">int</span> i = a;</span><br><span class="line">        &#125;<span class="keyword">finally</span>&#123;</span><br><span class="line">            lock.unlock();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<blockquote>
+<p>在这里的代码中，使用<code>lock()</code>和<code>unlock()</code>方法来实现获取锁和释放锁。<br><code>ReentrantLock</code>的实现依赖于java同步框架AbstractQueuedSynchronizer（AQS)。AQS中使用了一个整型的volatile变量（state）来维护同步状态。</p>
+</blockquote>
+</li>
+</ul>
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2018/11/15/wechat-disbale-border/">小程序点滴1</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2018-11-15</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2020-10-22</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">645</span></span><span class="post-meta-item post-meta-item--readtime"><span class="post-meta-item__icon"><i class="far fa-clock"></i></span><span class="post-meta-item__info">阅读时长</span><span class="post-meta-item__value">7分</span></span></div></header><div class="post-body"><div class="post-excerpt">
+- 去除小程序边框
+
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">button::after&#123;</span><br><span class="line">    border: none;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+- 点击右侧图标展开盒子方案
+
+1. wxml: 
+
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;view wx:key&#x3D;&#39;devices_&#123;&#123;index&#125;&#125;&#39; class&#x3D;&#39;device-info&#39; wx:for&#x3D;&#39;&#123;&#123;devices&#125;&#125;&#39;&gt;</span><br><span class="line">  &lt;view class&#x3D;&#39;device_name_id&#39; wx:key&#x3D;&#39;device_name_id_&#123;&#123;index&#125;&#125;&#39;&gt;</span><br><span class="line">    &lt;text class&#x3D;&#39;name&#39; wx:key&#x3D;&#39;name_&#123;&#123;index&#125;&#125;&#39;&gt;&#123;&#123;item.name&#125;&#125;:&lt;&#x2F;text&gt;</span><br><span class="line">    &lt;text class&#x3D;&#39;deviceId&#39; wx:key&#x3D;&#39;deviceId_&#123;&#123;index&#125;&#125;&#39;&gt;&#123;&#123;item.deviceId&#125;&#125;&lt;&#x2F;text&gt;</span><br><span class="line">  &lt;button class&#x3D;&quot;&#123;&#123; !!item.showDetail ? &#39;toggle-btn-open&#39; : &#39;toggle-btn-close&#39; &#125;&#125;&quot; wx:key&#x3D;&#39;btn_&#123;&#123;index&#125;&#125;&#39; data-device-id&#x3D;&#39;&#123;&#123;item.deviceId&#125;&#125;&#39; bindtap&#x3D;&#39;toggleDetailInfo&#39;&gt;&lt;&#x2F;button&gt;</span><br><span class="line">  &lt;&#x2F;view&gt;</span><br><span class="line">  &lt;view wx:if&#x3D;&#39;&#123;&#123;!!item.showDetail&#125;&#125;&#39;&gt;</span><br><span class="line">    &lt;view class&#x3D;&#39;RSSI&#39; wx:key&#x3D;&#39;RSSI_&#123;&#123;index&#125;&#125;&#39;&gt;RSSI: &#123;&#123;item.RSSI&#125;&#125;&lt;&#x2F;view&gt;</span><br><span class="line">    &lt;view class&#x3D;&#39;advertisServiceUUID&#39; wx:key&#x3D;&#39;advertisServiceUUID_&#123;&#123;index&#125;&#125;&#39;&gt;advertisServiceUUID: &#123;&#123;item.advertisServiceUUID&#125;&#125;&lt;&#x2F;view&gt;</span><br><span class="line">    &lt;view class&#x3D;&#39;advertisData&#39; wx:key&#x3D;&#39;advertisData_&#123;&#123;index&#125;&#125;&#39;&gt;advertisData: &#123;&#123;item.advertisData&#125;&#125;&lt;&#x2F;view&gt;</span><br><span class="line">    &lt;view class&#x3D;&#39;localName&#39; wx:key&#x3D;&#39;localName_&#123;&#123;index&#125;&#125;&#39;&gt;localName: &#123;&#123;item.localName&#125;&#125;&lt;&#x2F;view&gt;</span><br><span class="line">    &lt;view class&#x3D;&#39;serviceData&#39; wx:key&#x3D;&#39;serviceData_&#123;&#123;index&#125;&#125;&#39;&gt;serviceData: &#123;&#123;item.serviceData&#125;&#125; &lt;&#x2F;view&gt;</span><br><span class="line">  &lt;&#x2F;view&gt;</span><br><span class="line">&lt;&#x2F;view&gt;</span><br></pre></td></tr></table></div></figure>
+
+> 使用```wx:if='{!!item.showDetail}'```绑定展开开关
+>
+> 使用```class="{{ !!item.showDetail ? 'toggle-btn-open' : 'toggle-btn-close' }}"```切换class
+> 使用```wx:if='{!!item.showDetail}'```绑定展开开关
+
+2. wxss: 
+
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">.toggle-btn-close, .toggle-btn-open &#123;</span><br><span class="line">  pointer-events: none;</span><br><span class="line">  width: 1rem;</span><br><span class="line">  height: 1rem;</span><br><span class="line">  background-color: transparent;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.toggle-btn-open::after, .toggle-btn-close::after &#123;</span><br><span class="line">  border: none;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.toggle-btn-close::before, .toggle-btn-open::before &#123;</span><br><span class="line">  content: &#39;&#39;;</span><br><span class="line">  position: absolute;</span><br><span class="line">  pointer-events: auto;</span><br><span class="line">  border: 0.5rem transparent solid;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.toggle-btn-open::before &#123;</span><br><span class="line">  border-left-color: red;</span><br><span class="line">  top: 0rem;</span><br><span class="line">  left: 0.6rem;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.toggle-btn-close::before &#123;</span><br><span class="line">  border-top-color: green;</span><br><span class="line">  top: 0.3rem;</span><br><span class="line">  left: 0.25rem;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+> 使用在父元素上设置```pointer-events: none;```，伪类上设置```pointer-events: auto;```将父元素的点击移到伪类中
+> 
+> 使用```border: 0.5rem transparent solid;```和```border-left-color: red;```设置三角形的方向和颜色
+
+3. js
+
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">toggleDetailInfo: function(e) &#123;</span><br><span class="line">  let newDevices &#x3D; []</span><br><span class="line">  for (let i &#x3D; 0; i &lt; this.data.devices.length; i++) &#123;</span><br><span class="line">    if (this.data.devices[i][&#39;deviceId&#39;] &#x3D;&#x3D;&#x3D; e.target.dataset.deviceId) &#123;</span><br><span class="line">      let tmp &#x3D; this.data.devices[i]</span><br><span class="line">      tmp[&#39;showDetail&#39;] &#x3D; !!tmp[&#39;showDetail&#39;] ? false : true;</span><br><span class="line">      newDevices.push(tmp)</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      newDevices.push(this.data.devices[i])</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  this.setData(&#123;</span><br><span class="line">    devices: newDevices</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+> 在data中数组要与原来地址不一致才会触发重新渲染
+
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2018/11/12/css-day1/">css揭秘-第1天</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2018-11-12</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2020-10-22</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">223</span></span><span class="post-meta-item post-meta-item--readtime"><span class="post-meta-item__icon"><i class="far fa-clock"></i></span><span class="post-meta-item__info">阅读时长</span><span class="post-meta-item__value">2分</span></span></div></header><div class="post-body"><div class="post-excerpt"><ul>
+<li>如何时候半透明边框</li>
+</ul>
+<p><img src="/assets/img/css-day1-1.webp" alt="css-day1-1.webp"></p>
+<figure class="highlight css"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">    <span class="attribute">background-color</span>: <span class="number">#ccc</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.main</span> &#123;</span><br><span class="line">    <span class="attribute">border</span>: <span class="number">10px</span> solid <span class="built_in">hsla</span>(<span class="number">0</span>, <span class="number">0%</span>, <span class="number">100%</span>, <span class="number">0.5</span>);</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">100px</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">100px</span>;</span><br><span class="line">    <span class="attribute">background-color</span>: <span class="number">#f00</span>;</span><br><span class="line">    <span class="attribute">background-clip</span>: padding-box;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<ul>
+<li>透明边框外再加边框效果</li>
+</ul>
+<p><img src="/assets/img/css-day1-2.webp" alt="css-day1-2.webp"></p>
+<figure class="highlight css"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">    <span class="attribute">background-color</span>: <span class="number">#ccc</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.main</span> &#123;</span><br><span class="line">    <span class="attribute">border</span>: <span class="number">10px</span> solid transparent;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">100px</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">100px</span>;</span><br><span class="line">    <span class="attribute">background-color</span>: <span class="number">#f00</span>;</span><br><span class="line">    <span class="attribute">background-clip</span>: padding-box;</span><br><span class="line">    <span class="attribute">box-shadow</span>: <span class="number">1px</span> <span class="number">1px</span> <span class="number">0px</span> -<span class="number">1px</span> <span class="number">#f00</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<ul>
+<li>方格棋盘</li>
+</ul>
+<p><img src="/assets/img/css-day1-3.webp" alt="css-day1-3.webp"></p>
+<figure class="highlight css"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">background-image</span>: <span class="selector-tag">linear-gradient</span>(45<span class="selector-tag">deg</span>, <span class="selector-id">#bbb</span> 25%, <span class="selector-tag">transparent</span> 0), </span><br><span class="line">					<span class="selector-tag">linear-gradient</span>(45<span class="selector-tag">deg</span>, <span class="selector-tag">transparent</span> 75%, <span class="selector-id">#bbb</span> 0),</span><br><span class="line">					<span class="selector-tag">linear-gradient</span>(45<span class="selector-tag">deg</span>, <span class="selector-id">#bbb</span> 25%, <span class="selector-tag">transparent</span> 0), </span><br><span class="line">					<span class="selector-tag">linear-gradient</span>(45<span class="selector-tag">deg</span>, <span class="selector-tag">transparent</span> 75%, <span class="selector-id">#bbb</span> 0);</span><br><span class="line"><span class="selector-tag">background-size</span>: 30<span class="selector-tag">px</span> 30<span class="selector-tag">px</span>;</span><br><span class="line"><span class="selector-tag">background-position</span>: 0 0, 15<span class="selector-tag">px</span> 15<span class="selector-tag">px</span>, 15<span class="selector-tag">px</span> 15<span class="selector-tag">px</span>, 30<span class="selector-tag">px</span> 30<span class="selector-tag">px</span>;</span><br></pre></td></tr></table></div></figure>
+<blockquote>
+<p>svg的实现方式</p>
+</blockquote>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">background: #eee url(&#39;data:image&#x2F;svg+xml,\</span><br><span class="line">            &lt;svg xmlns&#x3D;&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&quot; width&#x3D;&quot;100&quot; height&#x3D;&quot;100&quot; fill-opacity&#x3D;&quot;.25&quot; &gt;\</span><br><span class="line">            &lt;rect x&#x3D;&quot;50&quot; width&#x3D;&quot;50&quot; height&#x3D;&quot;50&quot; &#x2F;&gt;\</span><br><span class="line">            &lt;rect y&#x3D;&quot;50&quot; width&#x3D;&quot;50&quot; height&#x3D;&quot;50&quot; &#x2F;&gt;\</span><br><span class="line">            &lt;&#x2F;svg&gt;&#39;);</span><br><span class="line">background-size: 100px 100px;</span><br></pre></td></tr></table></div></figure>
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2018/11/12/gitlab-config/">gitlab修改端口和域名</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2018-11-12</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2020-10-22</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">87</span></span><span class="post-meta-item post-meta-item--readtime"><span class="post-meta-item__icon"><i class="far fa-clock"></i></span><span class="post-meta-item__info">阅读时长</span><span class="post-meta-item__value">1分</span></span></div></header><div class="post-body"><div class="post-excerpt"><p>gitlab默认安装后配置文件在<code>/etc/gitlab/gitlab.rb</code>，gitlab内嵌的nginx配置在<code>/var/opt/gitlab/nginx/conf</code></p>
+<ul>
+<li><p>修改gitlab的端口<code>sudo vim /etc/gitlab/gitlab.rb</code></p>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">external_url &#39;http:&#x2F;&#x2F;jinelei.cn:82&#39;</span><br><span class="line">nginx[&#39;listen_port&#39;] &#x3D; 82</span><br></pre></td></tr></table></div></figure>
+</li>
+<li><p>修改nginx端口<code>sudo vim /var/opt/gitlab/nginx/conf/gitlab-http.conf</code></p>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen *:82;</span><br><span class="line">    server_name jinelei.cn </span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+</li>
+<li><p>执行<code>sudo gitlab-ctl reconfigure</code></p>
+</li>
+<li><p>执行<code>sudo gitlab-ctl restart</code></p>
+</li>
+</ul>
+</div></div></article></section><nav class="paginator"><div class="paginator-inner"><a class="extend prev" rel="prev" href="/"><i class="fas fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/3/"><i class="fas fa-angle-right"></i></a></div></nav></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><section class="sidebar-toc hide"></section><!-- ov = overview--><section class="sidebar-ov"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/icons/jinelei-logo.svg" alt="avatar"></div><p class="sidebar-ov-author__text">hello world</p></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">62</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">14</div><div class="sidebar-ov-state-item__name">分类</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">2</div><div class="sidebar-ov-state-item__name">标签</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2020</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Jinelei</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v5.2.0</span><span class="footer__devider">|</span><span>主题 - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.2.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/canvas-nest.js@1.0.1/dist/canvas-nest.min.js" color="0,0,0" opacity="0.6" count="199" zIndex="-1"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.json';
+
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
+
+  var path = '/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
+
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ 文章无标题 ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
+
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
+
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
+
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
+
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
+
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
+
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
+
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
+
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
+
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
+
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
+
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
+      });
+    }
+  });
+}
+
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
+
+      initSearch();
+    });
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
+    });
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
+      }
+    });
+  };
+
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);
+
+function safeOpenUrl(url) {
+  var newTab = window.open();
+  newTab.opener = null;
+  newTab.location = url;
+}
+
+function extSearch(engine) {
+  var engines = {
+    google: 'https://www.google.com/search?q=',
+    bing: 'https://cn.bing.com/search?q=',
+    baidu: 'https://www.baidu.com/s?ie=UTF-8&wd=',
+  };
+  var host = window.location.host;
+  var query = $('.search-input input').val().toLowerCase().trim();
+  var uri = engines[engine] + query + ' site:' + host;
+
+  if (query) {
+    safeOpenUrl(uri);
+  } else {
+    Stun.utils.popAlert('warning', '请输入字符');
+  }
+}
+
+var assistSearchList = window.CONFIG.assistSearch;
+
+if (Array.isArray(assistSearchList)) {
+  assistSearchList.forEach(function (name) {
+    document.querySelector('.search-btns-item--' + name).addEventListener('click', function () {
+      extSearch(name);
+    }, false);
+  });
+}</script><script src="/js/utils.js?v=2.2.0"></script><script src="/js/stun-boot.js?v=2.2.0"></script><script src="/js/scroll.js?v=2.2.0"></script><script src="/js/header.js?v=2.2.0"></script><script src="/js/sidebar.js?v=2.2.0"></script><script type="application/json" src="/search.json"></script></body></html>
