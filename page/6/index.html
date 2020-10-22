@@ -33,7 +33,449 @@ var CONFIG = {
   sourcePath: {"js":"js","css":"css","images":"images"},
 };
 
-window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.2.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">标签</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">Jin's Blog</div><div class="header-banner-info__subtitle"></div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content content-home" id="content"><section class="postlist"><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2017/10/19/systemd-cookbook/">systemd备忘</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2017-10-19</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2020-10-22</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">85</span></span><span class="post-meta-item post-meta-item--readtime"><span class="post-meta-item__icon"><i class="far fa-clock"></i></span><span class="post-meta-item__info">阅读时长</span><span class="post-meta-item__value">1分</span></span></div></header><div class="post-body"><div class="post-excerpt">
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.2.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">标签</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">Jin's Blog</div><div class="header-banner-info__subtitle"></div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content content-home" id="content"><section class="postlist"><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2017/10/28/hibernate/">hibernate.properties备忘录</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2017-10-28</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2020-10-22</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">1.9k</span></span><span class="post-meta-item post-meta-item--readtime"><span class="post-meta-item__icon"><i class="far fa-clock"></i></span><span class="post-meta-item__info">阅读时长</span><span class="post-meta-item__value">13分</span></span></div></header><div class="post-body"><div class="post-excerpt">
+        <h5 id="jdbc属性"   >
+          <a href="#jdbc属性" class="heading-link"><i class="fas fa-link"></i></a>jdbc属性</h5>
+      <div class="table-container"><table>
+<thead>
+<tr>
+<th>属性名</th>
+<th>用途</th>
+<th>oracle示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>hibernate.connection.driver_class</td>
+<td>jdbc驱动类</td>
+<td>oracle.jdbc.driver.OracleDriver</td>
+</tr>
+<tr>
+<td>hibernate.connection.url</td>
+<td>jdbc URL</td>
+<td>jdbc:oracle:thin:@172.17.0.1:1521:XE</td>
+</tr>
+<tr>
+<td>hibernate.connection.username</td>
+<td>数据库用户名</td>
+<td>system</td>
+</tr>
+<tr>
+<td>hibernate.connection.password</td>
+<td>数据库密码</td>
+<td>oracle</td>
+</tr>
+<tr>
+<td>hibernate.connection.pool_size</td>
+<td>连接池容量上限</td>
+<td>1</td>
+</tr>
+</tbody></table></div>
+
+        <h5 id="hibernate-数据源属性"   >
+          <a href="#hibernate-数据源属性" class="heading-link"><i class="fas fa-link"></i></a>hibernate 数据源属性</h5>
+      <div class="table-container"><table>
+<thead>
+<tr>
+<th>属性名</th>
+<th>用途</th>
+<th>oracle示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>hibernate.connection.datasource</td>
+<td>数据源JNDI名字</td>
+<td></td>
+</tr>
+<tr>
+<td>hibernate.jndi.url</td>
+<td>JNDI提供者的URL</td>
+<td></td>
+</tr>
+<tr>
+<td>hibernate.jndi.class</td>
+<td>JNDI InitialContextFactory类</td>
+<td></td>
+</tr>
+<tr>
+<td>hibernate.connection.username</td>
+<td>数据库用户</td>
+<td></td>
+</tr>
+<tr>
+<td>hibernate.connection.password</td>
+<td>数据库用户密码</td>
+<td></td>
+</tr>
+</tbody></table></div>
+
+        <h5 id="可选的配置属性"   >
+          <a href="#可选的配置属性" class="heading-link"><i class="fas fa-link"></i></a>可选的配置属性</h5>
+      <div class="table-container"><table>
+<thead>
+<tr>
+<th>属性名</th>
+<th>用途</th>
+<th>oracle示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>hibernate.dialect</td>
+<td>一个Hibernate Dialect类名允许Hibernate针对特定的关系数据库生成优化的SQL.</td>
+<td>取值 full.classname.of.Dialect</td>
+</tr>
+<tr>
+<td>hibernate.show_sql</td>
+<td>输出所有SQL语句到控制台. 有一个另外的选择是把org.hibernate.SQL这个log category设为debug。</td>
+<td>eg. true / false</td>
+</tr>
+<tr>
+<td>hibernate.format_sql</td>
+<td>在log和console中打印出更漂亮的SQL。</td>
+<td>取值 true / false</td>
+</tr>
+<tr>
+<td>hibernate.default_schema</td>
+<td>在生成的SQL中, 将给定的schema/tablespace附加于非全限定名的表名上.</td>
+<td>取值 SCHEMA_NAME</td>
+</tr>
+<tr>
+<td>hibernate.default_catalog</td>
+<td>在生成的SQL中, 将给定的catalog附加于非全限定名的表名上.</td>
+<td>取值 CATALOG_NAME</td>
+</tr>
+<tr>
+<td>hibernate.session_factory_name</td>
+<td>SessionFactory创建后，将自动使用这个名字绑定到JNDI中.</td>
+<td>取值 jndi/composite/name</td>
+</tr>
+<tr>
+<td>hibernate.max_fetch_depth</td>
+<td>为单向关联(一对一, 多对一)的外连接抓取（outer join fetch）树设置最大深度. 值为0意味着将关闭默认的外连接抓取.</td>
+<td>取值 建议在0到3之间取值</td>
+</tr>
+<tr>
+<td>hibernate.default_batch_fetch_size</td>
+<td>为Hibernate关联的批量抓取设置默认数量.</td>
+<td>取值 建议的取值为4, 8, 和16</td>
+</tr>
+<tr>
+<td>hibernate.default_entity_mode</td>
+<td>为由这个SessionFactory打开的所有Session指定默认的实体表现模式.</td>
+<td>取值 dynamic-map, dom4j, pojo</td>
+</tr>
+<tr>
+<td>hibernate.order_updates</td>
+<td>强制Hibernate按照被更新数据的主键，为SQL更新排序。这么做将减少在高并发系统中事务的死锁。</td>
+<td>取值 true / false</td>
+</tr>
+<tr>
+<td>hibernate.generate_statistics</td>
+<td>如果开启, Hibernate将收集有助于性能调节的统计数据.</td>
+<td>取值 true / false</td>
+</tr>
+<tr>
+<td>hibernate.use_identifer_rollback</td>
+<td>如果开启, 在对象被删除时生成的标识属性将被重设为默认值.</td>
+<td>取值 true / false</td>
+</tr>
+<tr>
+<td>hibernate.use_sql_comments</td>
+<td>如果开启, Hibernate将在SQL中生成有助于调试的注释信息, 默认值为false.</td>
+<td>取值 true / false</td>
+</tr>
+</tbody></table></div>
+
+        <h4 id="Hibernate-JDBC和连接-connection-属性"   >
+          <a href="#Hibernate-JDBC和连接-connection-属性" class="heading-link"><i class="fas fa-link"></i></a>Hibernate JDBC和连接(connection)属性</h4>
+      <div class="table-container"><table>
+<thead>
+<tr>
+<th>属性名</th>
+<th>用途</th>
+<th>oracle示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>hibernate.jdbc.fetch_size</td>
+<td>非零值，指定JDBC抓取数量的大小 (调用Statement.setFetchSize()).</td>
+<td></td>
+</tr>
+<tr>
+<td>hibernate.jdbc.batch_size</td>
+<td>非零值，允许Hibernate使用JDBC2的批量更新.</td>
+<td>取值 建议取5到30之间的值</td>
+</tr>
+<tr>
+<td>hibernate.jdbc.batch_versioned_data</td>
+<td>如果你想让你的JDBC驱动从executeBatch()返回正确的行计数 , 那么将此属性设为true(开启这个选项通常是安全的). 同时，Hibernate将为自动版本化的数据使用批量DML. 默认值为false.</td>
+<td>eg. true / false</td>
+</tr>
+<tr>
+<td>hibernate.jdbc.factory_class</td>
+<td>选择一个自定义的Batcher. 多数应用程序不需要这个配置属性.</td>
+<td>eg. classname.of.Batcher</td>
+</tr>
+<tr>
+<td>hibernate.jdbc.use_scrollable_resultset</td>
+<td>允许Hibernate使用JDBC2的可滚动结果集. 只有在使用用户提供的JDBC连接时，这个选项才是必要的, 否则Hibernate会使用连接的元数据.</td>
+<td>取值 true / false</td>
+</tr>
+<tr>
+<td>hibernate.jdbc.use_streams_for_binary</td>
+<td>在JDBC读写binary (二进制)或serializable (可序列化) 的类型时使用流(stream)(系统级属性).</td>
+<td>取值 true / false</td>
+</tr>
+<tr>
+<td>hibernate.jdbc.use_get_generated_keys</td>
+<td>在数据插入数据库之后，允许使用JDBC3 PreparedStatement.getGeneratedKeys() 来获取数据库生成的key(键)。需要JDBC3+驱动和JRE1.4+, 如果你的数据库驱动在使用Hibernate的标 识生成器时遇到问题，请将此值设为false. 默认情况下将使用连接的元数据来判定驱动的能力.</td>
+<td>取值 true/false</td>
+</tr>
+<tr>
+<td>hibernate.connection.provider_class</td>
+<td>自定义ConnectionProvider的类名, 此类用来向Hibernate提供JDBC连接.</td>
+<td>取值 classname.of.ConnectionProvider</td>
+</tr>
+<tr>
+<td>hibernate.connection.isolation</td>
+<td>设置JDBC事务隔离级别. 查看java.sql.Connection来了解各个值的具体意义, 但请注意多数数据库都不支持所有的隔离级别.</td>
+<td>取值 1, 2, 4, 8</td>
+</tr>
+<tr>
+<td>hibernate.connection.autocommit</td>
+<td>允许被缓存的JDBC连接开启自动提交(autocommit) (不建议).</td>
+<td>取值 true / false</td>
+</tr>
+<tr>
+<td>hibernate.connection.release_mode</td>
+<td>指定Hibernate在何时释放JDBC连接. 默认情况下,直到Session被显式关闭或被断开连接时,才会释放JDBC连接. 对于应用程序服务器的JTA数据源, 你应当使用after_statement, 这样在每次JDBC调用后，都会主动的释放连接. 对于非JTA的连接, 使用after_transaction在每个事务结束时释放连接是合理的. auto将为JTA和CMT事务策略选择after_statement, 为JDBC事务策略选择after_transaction.</td>
+<td>取值 on_close</td>
+</tr>
+<tr>
+<td>hibernate.connection.<code>&lt;propertyName&gt;</code></td>
+<td>将JDBC属性propertyName传递到DriverManager.getConnection()中去.</td>
+<td></td>
+</tr>
+<tr>
+<td>hibernate.jndi.<code>&lt;propertyName&gt;</code></td>
+<td>将属性propertyName传递到JNDI InitialContextFactory中去.</td>
+<td></td>
+</tr>
+</tbody></table></div>
+
+        <h4 id="Hibernate-缓冲属性"   >
+          <a href="#Hibernate-缓冲属性" class="heading-link"><i class="fas fa-link"></i></a>Hibernate 缓冲属性</h4>
+      <div class="table-container"><table>
+<thead>
+<tr>
+<th>属性名</th>
+<th>用途</th>
+<th>oracle示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>hibernate.cache.provider_class</td>
+<td>自定义的CacheProvider的类名.</td>
+<td>取值 classname.of.CacheProvider</td>
+</tr>
+<tr>
+<td>hibernate.cache.use_minimal_puts</td>
+<td>以频繁的读操作为代价, 优化二级缓存来最小化写操作. 在Hibernate3中，这个设置对的集群缓存非常有用, 对集群缓存的实现而言，默认是开启的.</td>
+<td>取值 true/false</td>
+</tr>
+<tr>
+<td>hibernate.cache.use_query_cache</td>
+<td>允许查询缓存, 个别查询仍然需要被设置为可缓存的.</td>
+<td>取值 true/false</td>
+</tr>
+<tr>
+<td>hibernate.cache.use_second_level_cache</td>
+<td>能用来完全禁止使用二级缓存. 对那些在类的映射定义中指定<cache>的类，会默认开启二级缓存.</td>
+<td>取值 true/false</td>
+</tr>
+<tr>
+<td>hibernate.cache.query_cache_factory</td>
+<td>自定义实现QueryCache接口的类名, 默认为内建的StandardQueryCache.</td>
+<td>取值 classname.of.QueryCache</td>
+</tr>
+<tr>
+<td>hibernate.cache.region_prefix</td>
+<td>二级缓存区域名的前缀.</td>
+<td>取值 prefix</td>
+</tr>
+<tr>
+<td>hibernate.cache.use_structured_entries</td>
+<td>强制Hibernate以更人性化的格式将数据存入二级缓存.</td>
+<td>取值 true/false</td>
+</tr>
+</tbody></table></div>
+
+        <h4 id="Hibernate-事务属性"   >
+          <a href="#Hibernate-事务属性" class="heading-link"><i class="fas fa-link"></i></a>Hibernate 事务属性</h4>
+      <div class="table-container"><table>
+<thead>
+<tr>
+<th>属性名</th>
+<th>用途</th>
+<th>oracle示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>hibernate.transaction.factory_class</td>
+<td>一个TransactionFactory的类名, 用于Hibernate Transaction API (默认为JDBCTransactionFactory).</td>
+<td>取值 classname.of.TransactionFactory</td>
+</tr>
+<tr>
+<td>jta.UserTransaction</td>
+<td>一个JNDI名字，被JTATransactionFactory用来从应用服务器获取JTA UserTransaction.</td>
+<td>取值 jndi/composite/name</td>
+</tr>
+<tr>
+<td>hibernate.transaction.manager_lookup_class</td>
+<td>一个TransactionManagerLookup的类名 - 当使用JVM级缓存，或在JTA环境中使用hilo生成器的时候需要该类.</td>
+<td>取值 classname.of.TransactionManagerLookup</td>
+</tr>
+<tr>
+<td>hibernate.transaction.flush_before_completion</td>
+<td>如果开启, session在事务完成后将被自动清洗(flush)。 现在更好的方法是使用自动session上下文管理。</td>
+<td>取值 true / false</td>
+</tr>
+<tr>
+<td>hibernate.transaction.auto_close_session</td>
+<td>如果开启, session在事务完成后将被自动关闭。 现在更好的方法是使用自动session上下文管理。</td>
+<td>取值 true / false</td>
+</tr>
+</tbody></table></div>
+
+        <h4 id="方言"   >
+          <a href="#方言" class="heading-link"><i class="fas fa-link"></i></a>方言</h4>
+      <div class="table-container"><table>
+<thead>
+<tr>
+<th>属性名</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>DB2</td>
+<td>org.hibernate.dialect.DB2Dialect</td>
+</tr>
+<tr>
+<td>DB2</td>
+<td>AS/400    org.hibernate.dialect.DB2400Dialect</td>
+</tr>
+<tr>
+<td>DB2</td>
+<td>OS390    org.hibernate.dialect.DB2390Dialect</td>
+</tr>
+<tr>
+<td>PostgreSQL</td>
+<td>org.hibernate.dialect.PostgreSQLDialect</td>
+</tr>
+<tr>
+<td>MySQL</td>
+<td>org.hibernate.dialect.MySQLDialect</td>
+</tr>
+<tr>
+<td>MySQL</td>
+<td>with InnoDB    org.hibernate.dialect.MySQLInnoDBDialect</td>
+</tr>
+<tr>
+<td>MySQL</td>
+<td>with MyISAM    org.hibernate.dialect.MySQLMyISAMDialect</td>
+</tr>
+<tr>
+<td>Oracle</td>
+<td>(any version)    org.hibernate.dialect.OracleDialect</td>
+</tr>
+<tr>
+<td>Oracle</td>
+<td>9i/10g    org.hibernate.dialect.Oracle9Dialect</td>
+</tr>
+<tr>
+<td>Sybase</td>
+<td>org.hibernate.dialect.SybaseDialect</td>
+</tr>
+<tr>
+<td>Sybase Anywhere</td>
+<td>org.hibernate.dialect.SybaseAnywhereDialect</td>
+</tr>
+<tr>
+<td>Microsoft SQL Server</td>
+<td>org.hibernate.dialect.SQLServerDialect</td>
+</tr>
+<tr>
+<td>SAP DB</td>
+<td>org.hibernate.dialect.SAPDBDialect</td>
+</tr>
+<tr>
+<td>Informix</td>
+<td>org.hibernate.dialect.InformixDialect</td>
+</tr>
+<tr>
+<td>HypersonicSQL</td>
+<td>org.hibernate.dialect.HSQLDialect</td>
+</tr>
+<tr>
+<td>Ingres</td>
+<td>org.hibernate.dialect.IngresDialect</td>
+</tr>
+<tr>
+<td>Progress</td>
+<td>org.hibernate.dialect.ProgressDialect</td>
+</tr>
+<tr>
+<td>Mckoi SQL</td>
+<td>org.hibernate.dialect.MckoiDialect</td>
+</tr>
+<tr>
+<td>Interbase</td>
+<td>org.hibernate.dialect.InterbaseDialect</td>
+</tr>
+<tr>
+<td>Pointbase</td>
+<td>org.hibernate.dialect.PointbaseDialect</td>
+</tr>
+<tr>
+<td>FrontBase</td>
+<td>org.hibernate.dialect.FrontbaseDialect</td>
+</tr>
+<tr>
+<td>Firebird</td>
+<td>org.hibernate.dialect.FirebirdDialect</td>
+</tr>
+</tbody></table></div>
+
+        <h4 id="其他属性"   >
+          <a href="#其他属性" class="heading-link"><i class="fas fa-link"></i></a>其他属性</h4>
+      <div class="table-container"><table>
+<thead>
+<tr>
+<th>属性名</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>hibernate.current_session_context_class</td>
+<td>为”当前” Session指定一个(自定义的)策略。</td>
+</tr>
+<tr>
+<td>hibernate.query.factory_class</td>
+<td>选择HQL解析器的实现.</td>
+</tr>
+<tr>
+<td>hibernate.query.substitutions</td>
+<td>将Hibernate查询中的符号映射到SQL查询中的符号 (符号可能是函数名或常量名字).</td>
+</tr>
+<tr>
+<td>hibernate.hbm2ddl.auto</td>
+<td>在SessionFactory创建时，自动检查数据库结构，或者将数据库schema的DDL导出到数据库. 使用 create-drop时,在显式关闭SessionFactory时，将drop掉数据库schema.</td>
+</tr>
+<tr>
+<td>hibernate.cglib.use_reflection_optimizer</td>
+<td>开启CGLIB来替代运行时反射机制(系统级属性). 反射机制有时在除错时比较有用. 注意即使关闭这个优化, Hibernate还是需要CGLIB. 你不能在hibernate.cfg.xml中设置此属性.</td>
+</tr>
+</tbody></table></div>
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2017/10/19/systemd-cookbook/">systemd备忘</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2017-10-19</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2020-10-22</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">85</span></span><span class="post-meta-item post-meta-item--readtime"><span class="post-meta-item__icon"><i class="far fa-clock"></i></span><span class="post-meta-item__info">阅读时长</span><span class="post-meta-item__value">1分</span></span></div></header><div class="post-body"><div class="post-excerpt">
         <h4 id="结构"   >
           <a href="#结构" class="heading-link"><i class="fas fa-link"></i></a>结构</h4>
       <p>Systemd服务分为三个部分，控制单元(unit)的定义、服务(service)的定义、安装部分。</p>
@@ -65,6 +507,45 @@ window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.2.0"></he
 <p>XKbOptions参数参考/usr/share/X11/xkb/rulesbase.lst</p>
 <p>新建/etc/X11/xorg.conf.d/00-keyboard.conf</p>
 <figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># Read and parsed by systemd-localed. It&#39;s probably wise not to edit this file</span><br><span class="line"># manually too freely.</span><br><span class="line">#Option &quot;XKbOptions&quot; &quot;grp:alt_caps_toggle,ctrl:swapcap&quot;</span><br><span class="line">#Option &quot;XKbOptions&quot; &quot;caps:ctrl_modifier&quot;</span><br><span class="line">Section &quot;InputClass&quot;</span><br><span class="line">    Identifier &quot;system-keyboard&quot;</span><br><span class="line">    Option &quot;XKbOptions&quot; &quot;ctrl:nocaps&quot;</span><br><span class="line">    MatchIsKeyboard &quot;on&quot;</span><br><span class="line">EndSection</span><br></pre></td></tr></table></div></figure>
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2017/08/02/learn-jvm-chapter7.1/">类加载概述及初始化条件</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2017-08-02</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2020-10-22</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">956</span></span><span class="post-meta-item post-meta-item--readtime"><span class="post-meta-item__icon"><i class="far fa-clock"></i></span><span class="post-meta-item__info">阅读时长</span><span class="post-meta-item__value">5分</span></span></div></header><div class="post-body"><div class="post-excerpt">
+        <h4 id="概述"   >
+          <a href="#概述" class="heading-link"><i class="fas fa-link"></i></a>概述</h4>
+      <p>虚拟机把描述类的数据从Class文件加载到内存，并对数据进行校验、转焊接西和初始化，最终形成可以被虚拟机直接使用的Java类型，这就是虚拟机的类加载机制。  </p>
+<p>在Java中，类型的加载和连接过程都是在程序运行期间完成的，这样虽然会增加一些性能开销，却能为Java应用程序提高灵活性。  </p>
+
+        <h4 id="类加载的时机"   >
+          <a href="#类加载的时机" class="heading-link"><i class="fas fa-link"></i></a>类加载的时机</h4>
+      <p>类从被加载到虚拟机内存开始，到卸载出内存位置，它的整个生命周期包括了：加载（loading）、验证（verification）、准备（preparation）、解析（resolution）、初始化（initialization）、使用（using）和卸载（unloading）七个阶段。其中验证、准备和解析三个部分被称为链接（linking）。  </p>
+<blockquote>
+<p>其中加载、验证、准备、初始化和卸载这五个阶段是顺序确定的。而解析阶段则是不确定的：它在某些情况下可以再初始化阶段之后在开始，这是为了支持Java语言的运行时绑定（动态绑定或晚期绑定）。 而且这些阶段通常是互相交叉的混合式进行的。</p>
+</blockquote>
+<hr>
+
+        <h4 id="类的初始化"   >
+          <a href="#类的初始化" class="heading-link"><i class="fas fa-link"></i></a>类的初始化</h4>
+      <p>虚拟机规范严格规定了有且只有四种情况必须对类进行初始化（而加载、验证、准备需要先开始）：</p>
+<ol>
+<li>遇到new、getstatic、putstatic或invokestatic这四条字节码指令时，如果类没有被初始化，则进行初始化。这4条指令的典型场景是：使用new实例化对象、读取或设置一个类的静态字段（被final修饰、已在编译期把结果放入常量池的静态字段除外）、已在调用一个类的静态方法的时候。</li>
+<li>使用java.lang.reflect包的方法进行类的反射调用时。</li>
+<li>适当初始化一个类的时候，如果发现其父类还没有进行过初始化。</li>
+<li>当虚拟机启动时用户指定要执行的主类（main方法所在类）。</li>
+</ol>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;被动引用1，引用非直接定义的类的静态字段。</span><br><span class="line">public class SuperClass&#123;</span><br><span class="line">	static&#123;</span><br><span class="line">		System.out.println(&quot;SuperClass init&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">	public static int value &#x3D; 123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">public class SubClass extends SuperClass&#123;</span><br><span class="line">	static&#123;</span><br><span class="line">		System.out.println(&quot;SubClass init&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public class NotInitialization&#123;</span><br><span class="line">	public static void main(String[] args)&#123;</span><br><span class="line">		System.out.println(SubClass.value);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<blockquote>
+<p>结果只触发了父类的初始化，子类不会触发初始化，至于子类的加载和验证，取决于虚拟机的具体实现，sun hotspot可以使用-XX：+TraceClassLoading追踪查看。</p>
+</blockquote>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;被动引用2，通过数组定义引用类。</span><br><span class="line">public class NotInitialization1&#123;</span><br><span class="line">	public static void main(String[] args)&#123;</span><br><span class="line">		SuperClass[] ca &#x3D; new SuperClass[10];</span><br><span class="line">	&#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<blockquote>
+<p>输出为空，表明未初始化类。<br>对于数组，虚拟机自动生成了一个直接继承于java.lang.Object的子类，创建动作由字节码指令newarray触发。</p>
+</blockquote>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;被动引用3，常量在编译阶段会存入调用类的常量池中，本质上没用直接引用到定义常量的类，所以不会被初始化。</span><br><span class="line">public class ConstClass&#123;</span><br><span class="line">	static &#123;</span><br><span class="line">		System.out.println(&quot;ConstClass init&quot;);</span><br><span class="line">	&#125; </span><br><span class="line">	public static final String HELLOSTRING &#x3D; &quot;hello world&quot;; </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public class NotInitialization2&#123; </span><br><span class="line">	public static void main(String[] args)&#123;</span><br><span class="line">		System.out.println(ConstClass.HELLOSTRING);</span><br><span class="line">	&#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+
+
+        <h4 id="接口的初始化"   >
+          <a href="#接口的初始化" class="heading-link"><i class="fas fa-link"></i></a>接口的初始化</h4>
+      <p>接口的加载过程与类只有一点不同：类要求子类初始化之前，父类必须全部初始化。借口在初始化时并不要求其父接口全部都完成初始化。只有在真正调用父接口的时候才会进行初始化。<br>接口中不能使用static{}来输出类加载信息，但是编译器会为接口生成<clinit>()的类构造器，用于初始化接口中所定义的成员变量。</p>
 </div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2017/08/02/learn-jvm-chapter7.3/">类加载的过程</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2017-08-02</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2020-10-22</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">1.2k</span></span><span class="post-meta-item post-meta-item--readtime"><span class="post-meta-item__icon"><i class="far fa-clock"></i></span><span class="post-meta-item__info">阅读时长</span><span class="post-meta-item__value">6分</span></span></div></header><div class="post-body"><div class="post-excerpt">
         <h4 id="类加载的过程"   >
           <a href="#类加载的过程" class="heading-link"><i class="fas fa-link"></i></a>类加载的过程</h4>
@@ -148,45 +629,6 @@ window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.2.0"></he
 <blockquote>
 <p>验证阶段是非必要阶段，如果可以保证全部可信，可以使用-Xverify: none来跳过验证他。</p>
 </blockquote>
-</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2017/08/02/learn-jvm-chapter7.1/">类加载概述及初始化条件</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2017-08-02</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2020-10-22</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">956</span></span><span class="post-meta-item post-meta-item--readtime"><span class="post-meta-item__icon"><i class="far fa-clock"></i></span><span class="post-meta-item__info">阅读时长</span><span class="post-meta-item__value">5分</span></span></div></header><div class="post-body"><div class="post-excerpt">
-        <h4 id="概述"   >
-          <a href="#概述" class="heading-link"><i class="fas fa-link"></i></a>概述</h4>
-      <p>虚拟机把描述类的数据从Class文件加载到内存，并对数据进行校验、转焊接西和初始化，最终形成可以被虚拟机直接使用的Java类型，这就是虚拟机的类加载机制。  </p>
-<p>在Java中，类型的加载和连接过程都是在程序运行期间完成的，这样虽然会增加一些性能开销，却能为Java应用程序提高灵活性。  </p>
-
-        <h4 id="类加载的时机"   >
-          <a href="#类加载的时机" class="heading-link"><i class="fas fa-link"></i></a>类加载的时机</h4>
-      <p>类从被加载到虚拟机内存开始，到卸载出内存位置，它的整个生命周期包括了：加载（loading）、验证（verification）、准备（preparation）、解析（resolution）、初始化（initialization）、使用（using）和卸载（unloading）七个阶段。其中验证、准备和解析三个部分被称为链接（linking）。  </p>
-<blockquote>
-<p>其中加载、验证、准备、初始化和卸载这五个阶段是顺序确定的。而解析阶段则是不确定的：它在某些情况下可以再初始化阶段之后在开始，这是为了支持Java语言的运行时绑定（动态绑定或晚期绑定）。 而且这些阶段通常是互相交叉的混合式进行的。</p>
-</blockquote>
-<hr>
-
-        <h4 id="类的初始化"   >
-          <a href="#类的初始化" class="heading-link"><i class="fas fa-link"></i></a>类的初始化</h4>
-      <p>虚拟机规范严格规定了有且只有四种情况必须对类进行初始化（而加载、验证、准备需要先开始）：</p>
-<ol>
-<li>遇到new、getstatic、putstatic或invokestatic这四条字节码指令时，如果类没有被初始化，则进行初始化。这4条指令的典型场景是：使用new实例化对象、读取或设置一个类的静态字段（被final修饰、已在编译期把结果放入常量池的静态字段除外）、已在调用一个类的静态方法的时候。</li>
-<li>使用java.lang.reflect包的方法进行类的反射调用时。</li>
-<li>适当初始化一个类的时候，如果发现其父类还没有进行过初始化。</li>
-<li>当虚拟机启动时用户指定要执行的主类（main方法所在类）。</li>
-</ol>
-<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;被动引用1，引用非直接定义的类的静态字段。</span><br><span class="line">public class SuperClass&#123;</span><br><span class="line">	static&#123;</span><br><span class="line">		System.out.println(&quot;SuperClass init&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">	public static int value &#x3D; 123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">public class SubClass extends SuperClass&#123;</span><br><span class="line">	static&#123;</span><br><span class="line">		System.out.println(&quot;SubClass init&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public class NotInitialization&#123;</span><br><span class="line">	public static void main(String[] args)&#123;</span><br><span class="line">		System.out.println(SubClass.value);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
-
-<blockquote>
-<p>结果只触发了父类的初始化，子类不会触发初始化，至于子类的加载和验证，取决于虚拟机的具体实现，sun hotspot可以使用-XX：+TraceClassLoading追踪查看。</p>
-</blockquote>
-<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;被动引用2，通过数组定义引用类。</span><br><span class="line">public class NotInitialization1&#123;</span><br><span class="line">	public static void main(String[] args)&#123;</span><br><span class="line">		SuperClass[] ca &#x3D; new SuperClass[10];</span><br><span class="line">	&#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
-<blockquote>
-<p>输出为空，表明未初始化类。<br>对于数组，虚拟机自动生成了一个直接继承于java.lang.Object的子类，创建动作由字节码指令newarray触发。</p>
-</blockquote>
-<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;被动引用3，常量在编译阶段会存入调用类的常量池中，本质上没用直接引用到定义常量的类，所以不会被初始化。</span><br><span class="line">public class ConstClass&#123;</span><br><span class="line">	static &#123;</span><br><span class="line">		System.out.println(&quot;ConstClass init&quot;);</span><br><span class="line">	&#125; </span><br><span class="line">	public static final String HELLOSTRING &#x3D; &quot;hello world&quot;; </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public class NotInitialization2&#123; </span><br><span class="line">	public static void main(String[] args)&#123;</span><br><span class="line">		System.out.println(ConstClass.HELLOSTRING);</span><br><span class="line">	&#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
-
-
-
-        <h4 id="接口的初始化"   >
-          <a href="#接口的初始化" class="heading-link"><i class="fas fa-link"></i></a>接口的初始化</h4>
-      <p>接口的加载过程与类只有一点不同：类要求子类初始化之前，父类必须全部初始化。借口在初始化时并不要求其父接口全部都完成初始化。只有在真正调用父接口的时候才会进行初始化。<br>接口中不能使用static{}来输出类加载信息，但是编译器会为接口生成<clinit>()的类构造器，用于初始化接口中所定义的成员变量。</p>
 </div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2017/07/30/xset-cookbook/">Linux实用工具 xset</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2017-07-30</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2020-10-22</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">159</span></span><span class="post-meta-item post-meta-item--readtime"><span class="post-meta-item__icon"><i class="far fa-clock"></i></span><span class="post-meta-item__info">阅读时长</span><span class="post-meta-item__value">1分</span></span></div></header><div class="post-body"><div class="post-excerpt"><p>xset是linux中设置X-Window的实用工具。</p>
 <hr>
 <p>-display display<br>指定这个server用在哪个display上。</p>
@@ -578,69 +1020,7 @@ window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.2.0"></he
 </tbody></table></div>
 </li>
 </ul>
-</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2017/07/26/learn-regex-chapter2_3/">正则表达式基础 字符组</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2017-07-26</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2020-10-22</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">306</span></span><span class="post-meta-item post-meta-item--readtime"><span class="post-meta-item__icon"><i class="far fa-clock"></i></span><span class="post-meta-item__info">阅读时长</span><span class="post-meta-item__value">2分</span></span></div></header><div class="post-body"><div class="post-excerpt">
-        <h4 id="使用方括号的表示法被称为-字符组-character-class-。"   >
-          <a href="#使用方括号的表示法被称为-字符组-character-class-。" class="heading-link"><i class="fas fa-link"></i></a>使用方括号的表示法被称为 **字符组(character class)**。</h4>
-      <blockquote>
-<p>每组可以匹配一个字符。字符之间相互独立。<br> 在一个字符组中，只有4个字符拥有特殊功能：**\ 、^ 、- 、]**。所有其他字符均视为字面量。</p>
-<blockquote>
-<p>在Java和.Net中，&lt;]&gt;也是元字符。  </p>
-</blockquote>
-</blockquote>
-<blockquote>
-<blockquote>
-<p>&lt;\&gt;：在字符组中使用正则表达式记号，如&lt;\r&gt;、&lt;\n&gt;。<br>&lt;-&gt;：连字符将创建一个范围，该范围包括连字符之前的字符、连字符之后的字符，以及这之间的所有字符。如[A-z]、[a-z]、[A-Z]，注意[z-a]这样的反向范围是不允许的。</p>
-<blockquote>
-<p>范围表示的变体：&lt;\d&gt;、&lt;\D&gt;、&lt;\w&gt;、&lt;\W&gt;、&lt;\s&gt;、&lt;\S&gt;。  </p>
-<div class="table-container"><table>
-<thead>
-<tr>
-<th>标识</th>
-<th>表示范围</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>\w</td>
-<td>字母、数字、下划线</td>
-</tr>
-<tr>
-<td>\W</td>
-<td>与\w相反</td>
-</tr>
-<tr>
-<td>\d</td>
-<td>数字</td>
-</tr>
-<tr>
-<td>\D</td>
-<td>与\d相反</td>
-</tr>
-<tr>
-<td>\s</td>
-<td>空格、换行符、制表符</td>
-</tr>
-<tr>
-<td>\S</td>
-<td>与\s相反</td>
-</tr>
-</tbody></table></div>
-</blockquote>
-</blockquote>
-</blockquote>
-
-        <h4 id="更多特性"   >
-          <a href="#更多特性" class="heading-link"><i class="fas fa-link"></i></a>更多特性</h4>
-      <ul>
-<li>.NET字符组补集。<blockquote>
-<p><code>&lt;[class-[substract]]&gt;</code>，例如：[a-zA-Z0-9-[g-zG-Z]]，结果集为：任意字符数字减去从g到z的所有字母。</p>
-</blockquote>
-</li>
-<li>Java字符组并集、交集和补集。  <blockquote>
-<p><code>&lt;[class1[class2]]</code>，并集<br><code>&lt;[class1&amp;&amp;[class2]]</code>，交集<br><code>&lt;[class1&amp;&amp;[^class2]]</code>，补集  </p>
-</blockquote>
-</li>
-</ul>
-</div></div></article></section><nav class="paginator"><div class="paginator-inner"><a class="extend prev" rel="prev" href="/page/5/"><i class="fas fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/7/"><i class="fas fa-angle-right"></i></a></div></nav></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><section class="sidebar-toc hide"></section><!-- ov = overview--><section class="sidebar-ov"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/icons/jinelei-logo.svg" alt="avatar"></div><p class="sidebar-ov-author__text">hello world</p></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">62</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">13</div><div class="sidebar-ov-state-item__name">分类</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">2</div><div class="sidebar-ov-state-item__name">标签</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2020</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Jinelei</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v5.2.0</span><span class="footer__devider">|</span><span>主题 - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.2.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/canvas-nest.js@1.0.1/dist/canvas-nest.min.js" color="0,0,0" opacity="0.6" count="119" zIndex="-1"></script><script>function initSearch() {
+</div></div></article></section><nav class="paginator"><div class="paginator-inner"><a class="extend prev" rel="prev" href="/page/5/"><i class="fas fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/7/"><i class="fas fa-angle-right"></i></a></div></nav></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><section class="sidebar-toc hide"></section><!-- ov = overview--><section class="sidebar-ov"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/icons/jinelei-logo.svg" alt="avatar"></div><p class="sidebar-ov-author__text">hello world</p></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">63</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">14</div><div class="sidebar-ov-state-item__name">分类</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">2</div><div class="sidebar-ov-state-item__name">标签</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2020</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Jinelei</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v5.2.0</span><span class="footer__devider">|</span><span>主题 - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.2.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/canvas-nest.js@1.0.1/dist/canvas-nest.min.js" color="0,0,0" opacity="0.6" count="119" zIndex="-1"></script><script>function initSearch() {
   var isXML = true;
   var search_path = 'search.json';
 
