@@ -7,7 +7,10 @@ tags:
   - 备忘录
 ---
 
-我的vimrc配置
+1. 安装Vbundle
+```git clone https://github.com/gmarik/Vundle.vim.git  ~/.vim/bundle/Vundle.vim```
+
+2. 使用vimrc
 {% raw %}
 ```
 "{{{ 一般设置
@@ -174,3 +177,7 @@ filetype plugin indent on    " required
 "}}}
 ```
 {% endraw %}
+
+
+3. 安装Bundle
+进入vim，进入安装```BundleInstall```
