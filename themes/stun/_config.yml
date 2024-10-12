@@ -75,13 +75,13 @@ menu_settings:
 # ---------------------------------------------------------------
 
 favicon:
-  small: /images/icons/favicon-16x16.png
-  medium: /images/icons/favicon-32x32.png
+  small: /images/icons/favicon-small.ico
+  medium: /images/icons/favicon.ico
   # ! --------------------------------------------------
   # ! If you don't know the following, please ignore it.
   # ! --------------------------------------------------
   # apple_touch_icon: /images/icons/apple-touch-icon.png
-  # safari_pinned_tab: /images/icons/jinelei-logo.svg
+  # safari_pinned_tab: /images/icons/logo.webp
   # msapplication: /images/icons/favicon-144x144.png
 
 # Progressive Web Apps
@@ -286,7 +286,7 @@ author:
     # In theme directory (source/images): /images/avatar.png
     # In site directory (source/uploads): /uploads/avatar.png
     # You can also use a link of image.
-    url: /images/icons/jinelei-logo.svg
+    url: /images/icons/logo.webp
     # If true, the avatar would be displayed in a circle.
     rounded: false
     # Opacity of avatar (value: 0 ~ 1)

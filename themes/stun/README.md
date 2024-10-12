@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://liuyib.github.io/hexo-theme-stun/" target="_blank" rel="noopener noreferrer">
-    <img src="./source/images/icons/jinelei-logo.svg" alt="Stun Logo" width="100">
+    <img src="./source/images/icons/logo.webp" alt="Stun Logo" width="100">
   </a>
 </p>
 
