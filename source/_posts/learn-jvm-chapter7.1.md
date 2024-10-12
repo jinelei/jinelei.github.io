@@ -72,7 +72,7 @@ public class ConstClass{
 	static {
 		System.out.println("ConstClass init");
 	} 
-	public static final String HELLOSTRING = "hello world"; 
+	public static final String HELLOSTRING = "jinelei"; 
 }
 
 public class NotInitialization2{ 
