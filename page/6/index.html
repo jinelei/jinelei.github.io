@@ -1,0 +1,1296 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><meta name="theme-color" content="#54bcff"><link rel="manifest" href="/manifest.json?v=2.2.0"><link rel="icon" href="/images/icons/favicon-small.ico?v=2.2.0" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon.ico?v=2.2.0" type="image/png" sizes="32x32"><meta name="google-site-verification" content="KtNbyqM1bm1HQWuPnMmgfwPeBWTMHXVL0-OjlyZMMRs"><meta property="og:type" content="website">
+<meta property="og:title" content="jinelei&#39;s blog">
+<meta property="og:url" content="https://jinelei.github.io/page/6/index.html">
+<meta property="og:site_name" content="jinelei&#39;s blog">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="jinelei">
+<meta name="twitter:card" content="summary"><title>jinelei's blog</title><link ref="canonical" href="https://jinelei.github.io/page/6/index.html"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.2.0"><link rel="dns-prefetch" href="https://www.googletagmanager.com"><script src="https://www.googletagmanager.com/gtag/js?id=UA-180959764-1" async=""></script><script>if (window.location.hostname !== 'localhost') {
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){ dataLayer.push(arguments); }
+  gtag('js', new Date());
+  gtag('config', 'UA-180959764-1');
+}</script><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":false,"scrollDownIcon":false},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"default","highlight":"light","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: {"switchPost":true},
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.4.2"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">标签</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">jinelei's blog</div><div class="header-banner-info__subtitle"></div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content content-home" id="content"><section class="postlist"><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2017/10/28/hibernate/">hibernate.properties备忘录</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2017-10-28</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2024-10-12</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">1.9k</span></span><span class="post-meta-item post-meta-item--readtime"><span class="post-meta-item__icon"><i class="far fa-clock"></i></span><span class="post-meta-item__info">阅读时长</span><span class="post-meta-item__value">13分</span></span></div></header><div class="post-body"><div class="post-excerpt">
+        <h5 id="jdbc属性"   >
+          <a href="#jdbc属性" class="heading-link"><i class="fas fa-link"></i></a>jdbc属性</h5>
+      <div class="table-container"><table>
+<thead>
+<tr>
+<th>属性名</th>
+<th>用途</th>
+<th>oracle示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>hibernate.connection.driver_class</td>
+<td>jdbc驱动类</td>
+<td>oracle.jdbc.driver.OracleDriver</td>
+</tr>
+<tr>
+<td>hibernate.connection.url</td>
+<td>jdbc URL</td>
+<td>jdbc:oracle:thin:@172.17.0.1:1521:XE</td>
+</tr>
+<tr>
+<td>hibernate.connection.username</td>
+<td>数据库用户名</td>
+<td>system</td>
+</tr>
+<tr>
+<td>hibernate.connection.password</td>
+<td>数据库密码</td>
+<td>oracle</td>
+</tr>
+<tr>
+<td>hibernate.connection.pool_size</td>
+<td>连接池容量上限</td>
+<td>1</td>
+</tr>
+</tbody></table></div>
+
+        <h5 id="hibernate-数据源属性"   >
+          <a href="#hibernate-数据源属性" class="heading-link"><i class="fas fa-link"></i></a>hibernate 数据源属性</h5>
+      <div class="table-container"><table>
+<thead>
+<tr>
+<th>属性名</th>
+<th>用途</th>
+<th>oracle示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>hibernate.connection.datasource</td>
+<td>数据源JNDI名字</td>
+<td></td>
+</tr>
+<tr>
+<td>hibernate.jndi.url</td>
+<td>JNDI提供者的URL</td>
+<td></td>
+</tr>
+<tr>
+<td>hibernate.jndi.class</td>
+<td>JNDI InitialContextFactory类</td>
+<td></td>
+</tr>
+<tr>
+<td>hibernate.connection.username</td>
+<td>数据库用户</td>
+<td></td>
+</tr>
+<tr>
+<td>hibernate.connection.password</td>
+<td>数据库用户密码</td>
+<td></td>
+</tr>
+</tbody></table></div>
+
+        <h5 id="可选的配置属性"   >
+          <a href="#可选的配置属性" class="heading-link"><i class="fas fa-link"></i></a>可选的配置属性</h5>
+      <div class="table-container"><table>
+<thead>
+<tr>
+<th>属性名</th>
+<th>用途</th>
+<th>oracle示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>hibernate.dialect</td>
+<td>一个Hibernate Dialect类名允许Hibernate针对特定的关系数据库生成优化的SQL.</td>
+<td>取值 full.classname.of.Dialect</td>
+</tr>
+<tr>
+<td>hibernate.show_sql</td>
+<td>输出所有SQL语句到控制台. 有一个另外的选择是把org.hibernate.SQL这个log category设为debug。</td>
+<td>eg. true / false</td>
+</tr>
+<tr>
+<td>hibernate.format_sql</td>
+<td>在log和console中打印出更漂亮的SQL。</td>
+<td>取值 true / false</td>
+</tr>
+<tr>
+<td>hibernate.default_schema</td>
+<td>在生成的SQL中, 将给定的schema/tablespace附加于非全限定名的表名上.</td>
+<td>取值 SCHEMA_NAME</td>
+</tr>
+<tr>
+<td>hibernate.default_catalog</td>
+<td>在生成的SQL中, 将给定的catalog附加于非全限定名的表名上.</td>
+<td>取值 CATALOG_NAME</td>
+</tr>
+<tr>
+<td>hibernate.session_factory_name</td>
+<td>SessionFactory创建后，将自动使用这个名字绑定到JNDI中.</td>
+<td>取值 jndi/composite/name</td>
+</tr>
+<tr>
+<td>hibernate.max_fetch_depth</td>
+<td>为单向关联(一对一, 多对一)的外连接抓取（outer join fetch）树设置最大深度. 值为0意味着将关闭默认的外连接抓取.</td>
+<td>取值 建议在0到3之间取值</td>
+</tr>
+<tr>
+<td>hibernate.default_batch_fetch_size</td>
+<td>为Hibernate关联的批量抓取设置默认数量.</td>
+<td>取值 建议的取值为4, 8, 和16</td>
+</tr>
+<tr>
+<td>hibernate.default_entity_mode</td>
+<td>为由这个SessionFactory打开的所有Session指定默认的实体表现模式.</td>
+<td>取值 dynamic-map, dom4j, pojo</td>
+</tr>
+<tr>
+<td>hibernate.order_updates</td>
+<td>强制Hibernate按照被更新数据的主键，为SQL更新排序。这么做将减少在高并发系统中事务的死锁。</td>
+<td>取值 true / false</td>
+</tr>
+<tr>
+<td>hibernate.generate_statistics</td>
+<td>如果开启, Hibernate将收集有助于性能调节的统计数据.</td>
+<td>取值 true / false</td>
+</tr>
+<tr>
+<td>hibernate.use_identifer_rollback</td>
+<td>如果开启, 在对象被删除时生成的标识属性将被重设为默认值.</td>
+<td>取值 true / false</td>
+</tr>
+<tr>
+<td>hibernate.use_sql_comments</td>
+<td>如果开启, Hibernate将在SQL中生成有助于调试的注释信息, 默认值为false.</td>
+<td>取值 true / false</td>
+</tr>
+</tbody></table></div>
+
+        <h4 id="Hibernate-JDBC和连接-connection-属性"   >
+          <a href="#Hibernate-JDBC和连接-connection-属性" class="heading-link"><i class="fas fa-link"></i></a>Hibernate JDBC和连接(connection)属性</h4>
+      <div class="table-container"><table>
+<thead>
+<tr>
+<th>属性名</th>
+<th>用途</th>
+<th>oracle示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>hibernate.jdbc.fetch_size</td>
+<td>非零值，指定JDBC抓取数量的大小 (调用Statement.setFetchSize()).</td>
+<td></td>
+</tr>
+<tr>
+<td>hibernate.jdbc.batch_size</td>
+<td>非零值，允许Hibernate使用JDBC2的批量更新.</td>
+<td>取值 建议取5到30之间的值</td>
+</tr>
+<tr>
+<td>hibernate.jdbc.batch_versioned_data</td>
+<td>如果你想让你的JDBC驱动从executeBatch()返回正确的行计数 , 那么将此属性设为true(开启这个选项通常是安全的). 同时，Hibernate将为自动版本化的数据使用批量DML. 默认值为false.</td>
+<td>eg. true / false</td>
+</tr>
+<tr>
+<td>hibernate.jdbc.factory_class</td>
+<td>选择一个自定义的Batcher. 多数应用程序不需要这个配置属性.</td>
+<td>eg. classname.of.Batcher</td>
+</tr>
+<tr>
+<td>hibernate.jdbc.use_scrollable_resultset</td>
+<td>允许Hibernate使用JDBC2的可滚动结果集. 只有在使用用户提供的JDBC连接时，这个选项才是必要的, 否则Hibernate会使用连接的元数据.</td>
+<td>取值 true / false</td>
+</tr>
+<tr>
+<td>hibernate.jdbc.use_streams_for_binary</td>
+<td>在JDBC读写binary (二进制)或serializable (可序列化) 的类型时使用流(stream)(系统级属性).</td>
+<td>取值 true / false</td>
+</tr>
+<tr>
+<td>hibernate.jdbc.use_get_generated_keys</td>
+<td>在数据插入数据库之后，允许使用JDBC3 PreparedStatement.getGeneratedKeys() 来获取数据库生成的key(键)。需要JDBC3+驱动和JRE1.4+, 如果你的数据库驱动在使用Hibernate的标 识生成器时遇到问题，请将此值设为false. 默认情况下将使用连接的元数据来判定驱动的能力.</td>
+<td>取值 true/false</td>
+</tr>
+<tr>
+<td>hibernate.connection.provider_class</td>
+<td>自定义ConnectionProvider的类名, 此类用来向Hibernate提供JDBC连接.</td>
+<td>取值 classname.of.ConnectionProvider</td>
+</tr>
+<tr>
+<td>hibernate.connection.isolation</td>
+<td>设置JDBC事务隔离级别. 查看java.sql.Connection来了解各个值的具体意义, 但请注意多数数据库都不支持所有的隔离级别.</td>
+<td>取值 1, 2, 4, 8</td>
+</tr>
+<tr>
+<td>hibernate.connection.autocommit</td>
+<td>允许被缓存的JDBC连接开启自动提交(autocommit) (不建议).</td>
+<td>取值 true / false</td>
+</tr>
+<tr>
+<td>hibernate.connection.release_mode</td>
+<td>指定Hibernate在何时释放JDBC连接. 默认情况下,直到Session被显式关闭或被断开连接时,才会释放JDBC连接. 对于应用程序服务器的JTA数据源, 你应当使用after_statement, 这样在每次JDBC调用后，都会主动的释放连接. 对于非JTA的连接, 使用after_transaction在每个事务结束时释放连接是合理的. auto将为JTA和CMT事务策略选择after_statement, 为JDBC事务策略选择after_transaction.</td>
+<td>取值 on_close</td>
+</tr>
+<tr>
+<td>hibernate.connection.<code>&lt;propertyName&gt;</code></td>
+<td>将JDBC属性propertyName传递到DriverManager.getConnection()中去.</td>
+<td></td>
+</tr>
+<tr>
+<td>hibernate.jndi.<code>&lt;propertyName&gt;</code></td>
+<td>将属性propertyName传递到JNDI InitialContextFactory中去.</td>
+<td></td>
+</tr>
+</tbody></table></div>
+
+        <h4 id="Hibernate-缓冲属性"   >
+          <a href="#Hibernate-缓冲属性" class="heading-link"><i class="fas fa-link"></i></a>Hibernate 缓冲属性</h4>
+      <div class="table-container"><table>
+<thead>
+<tr>
+<th>属性名</th>
+<th>用途</th>
+<th>oracle示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>hibernate.cache.provider_class</td>
+<td>自定义的CacheProvider的类名.</td>
+<td>取值 classname.of.CacheProvider</td>
+</tr>
+<tr>
+<td>hibernate.cache.use_minimal_puts</td>
+<td>以频繁的读操作为代价, 优化二级缓存来最小化写操作. 在Hibernate3中，这个设置对的集群缓存非常有用, 对集群缓存的实现而言，默认是开启的.</td>
+<td>取值 true/false</td>
+</tr>
+<tr>
+<td>hibernate.cache.use_query_cache</td>
+<td>允许查询缓存, 个别查询仍然需要被设置为可缓存的.</td>
+<td>取值 true/false</td>
+</tr>
+<tr>
+<td>hibernate.cache.use_second_level_cache</td>
+<td>能用来完全禁止使用二级缓存. 对那些在类的映射定义中指定<cache>的类，会默认开启二级缓存.</td>
+<td>取值 true/false</td>
+</tr>
+<tr>
+<td>hibernate.cache.query_cache_factory</td>
+<td>自定义实现QueryCache接口的类名, 默认为内建的StandardQueryCache.</td>
+<td>取值 classname.of.QueryCache</td>
+</tr>
+<tr>
+<td>hibernate.cache.region_prefix</td>
+<td>二级缓存区域名的前缀.</td>
+<td>取值 prefix</td>
+</tr>
+<tr>
+<td>hibernate.cache.use_structured_entries</td>
+<td>强制Hibernate以更人性化的格式将数据存入二级缓存.</td>
+<td>取值 true/false</td>
+</tr>
+</tbody></table></div>
+
+        <h4 id="Hibernate-事务属性"   >
+          <a href="#Hibernate-事务属性" class="heading-link"><i class="fas fa-link"></i></a>Hibernate 事务属性</h4>
+      <div class="table-container"><table>
+<thead>
+<tr>
+<th>属性名</th>
+<th>用途</th>
+<th>oracle示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>hibernate.transaction.factory_class</td>
+<td>一个TransactionFactory的类名, 用于Hibernate Transaction API (默认为JDBCTransactionFactory).</td>
+<td>取值 classname.of.TransactionFactory</td>
+</tr>
+<tr>
+<td>jta.UserTransaction</td>
+<td>一个JNDI名字，被JTATransactionFactory用来从应用服务器获取JTA UserTransaction.</td>
+<td>取值 jndi/composite/name</td>
+</tr>
+<tr>
+<td>hibernate.transaction.manager_lookup_class</td>
+<td>一个TransactionManagerLookup的类名 - 当使用JVM级缓存，或在JTA环境中使用hilo生成器的时候需要该类.</td>
+<td>取值 classname.of.TransactionManagerLookup</td>
+</tr>
+<tr>
+<td>hibernate.transaction.flush_before_completion</td>
+<td>如果开启, session在事务完成后将被自动清洗(flush)。 现在更好的方法是使用自动session上下文管理。</td>
+<td>取值 true / false</td>
+</tr>
+<tr>
+<td>hibernate.transaction.auto_close_session</td>
+<td>如果开启, session在事务完成后将被自动关闭。 现在更好的方法是使用自动session上下文管理。</td>
+<td>取值 true / false</td>
+</tr>
+</tbody></table></div>
+
+        <h4 id="方言"   >
+          <a href="#方言" class="heading-link"><i class="fas fa-link"></i></a>方言</h4>
+      <div class="table-container"><table>
+<thead>
+<tr>
+<th>属性名</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>DB2</td>
+<td>org.hibernate.dialect.DB2Dialect</td>
+</tr>
+<tr>
+<td>DB2</td>
+<td>AS/400    org.hibernate.dialect.DB2400Dialect</td>
+</tr>
+<tr>
+<td>DB2</td>
+<td>OS390    org.hibernate.dialect.DB2390Dialect</td>
+</tr>
+<tr>
+<td>PostgreSQL</td>
+<td>org.hibernate.dialect.PostgreSQLDialect</td>
+</tr>
+<tr>
+<td>MySQL</td>
+<td>org.hibernate.dialect.MySQLDialect</td>
+</tr>
+<tr>
+<td>MySQL</td>
+<td>with InnoDB    org.hibernate.dialect.MySQLInnoDBDialect</td>
+</tr>
+<tr>
+<td>MySQL</td>
+<td>with MyISAM    org.hibernate.dialect.MySQLMyISAMDialect</td>
+</tr>
+<tr>
+<td>Oracle</td>
+<td>(any version)    org.hibernate.dialect.OracleDialect</td>
+</tr>
+<tr>
+<td>Oracle</td>
+<td>9i/10g    org.hibernate.dialect.Oracle9Dialect</td>
+</tr>
+<tr>
+<td>Sybase</td>
+<td>org.hibernate.dialect.SybaseDialect</td>
+</tr>
+<tr>
+<td>Sybase Anywhere</td>
+<td>org.hibernate.dialect.SybaseAnywhereDialect</td>
+</tr>
+<tr>
+<td>Microsoft SQL Server</td>
+<td>org.hibernate.dialect.SQLServerDialect</td>
+</tr>
+<tr>
+<td>SAP DB</td>
+<td>org.hibernate.dialect.SAPDBDialect</td>
+</tr>
+<tr>
+<td>Informix</td>
+<td>org.hibernate.dialect.InformixDialect</td>
+</tr>
+<tr>
+<td>HypersonicSQL</td>
+<td>org.hibernate.dialect.HSQLDialect</td>
+</tr>
+<tr>
+<td>Ingres</td>
+<td>org.hibernate.dialect.IngresDialect</td>
+</tr>
+<tr>
+<td>Progress</td>
+<td>org.hibernate.dialect.ProgressDialect</td>
+</tr>
+<tr>
+<td>Mckoi SQL</td>
+<td>org.hibernate.dialect.MckoiDialect</td>
+</tr>
+<tr>
+<td>Interbase</td>
+<td>org.hibernate.dialect.InterbaseDialect</td>
+</tr>
+<tr>
+<td>Pointbase</td>
+<td>org.hibernate.dialect.PointbaseDialect</td>
+</tr>
+<tr>
+<td>FrontBase</td>
+<td>org.hibernate.dialect.FrontbaseDialect</td>
+</tr>
+<tr>
+<td>Firebird</td>
+<td>org.hibernate.dialect.FirebirdDialect</td>
+</tr>
+</tbody></table></div>
+
+        <h4 id="其他属性"   >
+          <a href="#其他属性" class="heading-link"><i class="fas fa-link"></i></a>其他属性</h4>
+      <div class="table-container"><table>
+<thead>
+<tr>
+<th>属性名</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>hibernate.current_session_context_class</td>
+<td>为”当前” Session指定一个(自定义的)策略。</td>
+</tr>
+<tr>
+<td>hibernate.query.factory_class</td>
+<td>选择HQL解析器的实现.</td>
+</tr>
+<tr>
+<td>hibernate.query.substitutions</td>
+<td>将Hibernate查询中的符号映射到SQL查询中的符号 (符号可能是函数名或常量名字).</td>
+</tr>
+<tr>
+<td>hibernate.hbm2ddl.auto</td>
+<td>在SessionFactory创建时，自动检查数据库结构，或者将数据库schema的DDL导出到数据库. 使用 create-drop时,在显式关闭SessionFactory时，将drop掉数据库schema.</td>
+</tr>
+<tr>
+<td>hibernate.cglib.use_reflection_optimizer</td>
+<td>开启CGLIB来替代运行时反射机制(系统级属性). 反射机制有时在除错时比较有用. 注意即使关闭这个优化, Hibernate还是需要CGLIB. 你不能在hibernate.cfg.xml中设置此属性.</td>
+</tr>
+</tbody></table></div>
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2017/10/19/systemd-cookbook/">systemd备忘</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2017-10-19</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2024-10-12</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">69</span></span><span class="post-meta-item post-meta-item--readtime"><span class="post-meta-item__icon"><i class="far fa-clock"></i></span><span class="post-meta-item__info">阅读时长</span><span class="post-meta-item__value">1分</span></span></div></header><div class="post-body"><div class="post-excerpt">
+        <h4 id="结构"   >
+          <a href="#结构" class="heading-link"><i class="fas fa-link"></i></a>结构</h4>
+      <p>Systemd服务分为三个部分，控制单元(unit)的定义、服务(service)的定义、安装部分。</p>
+
+        <h4 id="控制单元"   >
+          <a href="#控制单元" class="heading-link"><i class="fas fa-link"></i></a>控制单元</h4>
+      <p>启动Shadowsocks单元</p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=Shadowsocks</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=forking</span><br><span class="line">ExecStart=/usr/bin/sslocal -c /etc/shadowsocks.json -d start</span><br><span class="line">ExecStop=/usr/bin/sslocal -c /etc/shadowsocks.json -d stop</span><br><span class="line">StandardError=null</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></div></figure>
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2017/10/13/firefox-config/">firefox设置缩放</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2017-10-13</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2024-10-12</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">31</span></span><span class="post-meta-item post-meta-item--readtime"><span class="post-meta-item__icon"><i class="far fa-clock"></i></span><span class="post-meta-item__info">阅读时长</span><span class="post-meta-item__value">1分</span></span></div></header><div class="post-body"><div class="post-excerpt"><p>设置firefox缩放比例</p>
+<ol>
+<li><p>在firefox中输入about:config</p>
+</li>
+<li><p>搜索关键字layout.css.devPixelsPerPx</p>
+</li>
+<li><p>设置相应的值：1.1表示110%</p>
+</li>
+</ol>
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2017/10/13/xmodmap-memo/">linux修改按键映射</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2017-10-13</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2024-10-12</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">111</span></span><span class="post-meta-item post-meta-item--readtime"><span class="post-meta-item__icon"><i class="far fa-clock"></i></span><span class="post-meta-item__info">阅读时长</span><span class="post-meta-item__value">1分</span></span></div></header><div class="post-body"><div class="post-excerpt"><ol>
+<li>xmodmap</li>
+</ol>
+<p>参考<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://wiki.archlinux.org/index.php/Xmodmap" >archlinux wiki</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p>将CapsLock映射为Ctrl</p>
+<p>xmodmap脚本样例:</p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">clear lock</span><br><span class="line">clear control</span><br><span class="line">add control = Caps_Lock Control_L Control_R</span><br><span class="line">keycode 66 = Control_L Caps_Lock NoSymbol NoSymbol</span><br></pre></td></tr></table></div></figure>
+
+<ol start="2">
+<li>xorg 参数</li>
+</ol>
+<p>XKbOptions参数参考/usr/share/X11/xkb/rulesbase.lst</p>
+<p>新建/etc/X11/xorg.conf.d/00-keyboard.conf</p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># Read and parsed by systemd-localed. It&#x27;s probably wise not to edit this file</span><br><span class="line"># manually too freely.</span><br><span class="line">#Option &quot;XKbOptions&quot; &quot;grp:alt_caps_toggle,ctrl:swapcap&quot;</span><br><span class="line">#Option &quot;XKbOptions&quot; &quot;caps:ctrl_modifier&quot;</span><br><span class="line">Section &quot;InputClass&quot;</span><br><span class="line">    Identifier &quot;system-keyboard&quot;</span><br><span class="line">    Option &quot;XKbOptions&quot; &quot;ctrl:nocaps&quot;</span><br><span class="line">    MatchIsKeyboard &quot;on&quot;</span><br><span class="line">EndSection</span><br></pre></td></tr></table></div></figure>
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2017/08/02/learn-jvm-chapter7.1/">类加载概述及初始化条件</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2017-08-02</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2024-10-12</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">946</span></span><span class="post-meta-item post-meta-item--readtime"><span class="post-meta-item__icon"><i class="far fa-clock"></i></span><span class="post-meta-item__info">阅读时长</span><span class="post-meta-item__value">5分</span></span></div></header><div class="post-body"><div class="post-excerpt">
+        <h4 id="概述"   >
+          <a href="#概述" class="heading-link"><i class="fas fa-link"></i></a>概述</h4>
+      <p>虚拟机把描述类的数据从Class文件加载到内存，并对数据进行校验、转焊接西和初始化，最终形成可以被虚拟机直接使用的Java类型，这就是虚拟机的类加载机制。  </p>
+<p>在Java中，类型的加载和连接过程都是在程序运行期间完成的，这样虽然会增加一些性能开销，却能为Java应用程序提高灵活性。  </p>
+
+        <h4 id="类加载的时机"   >
+          <a href="#类加载的时机" class="heading-link"><i class="fas fa-link"></i></a>类加载的时机</h4>
+      <p>类从被加载到虚拟机内存开始，到卸载出内存位置，它的整个生命周期包括了：加载（loading）、验证（verification）、准备（preparation）、解析（resolution）、初始化（initialization）、使用（using）和卸载（unloading）七个阶段。其中验证、准备和解析三个部分被称为链接（linking）。  </p>
+<blockquote>
+<p>其中加载、验证、准备、初始化和卸载这五个阶段是顺序确定的。而解析阶段则是不确定的：它在某些情况下可以再初始化阶段之后在开始，这是为了支持Java语言的运行时绑定（动态绑定或晚期绑定）。 而且这些阶段通常是互相交叉的混合式进行的。</p>
+</blockquote>
+<hr>
+
+        <h4 id="类的初始化"   >
+          <a href="#类的初始化" class="heading-link"><i class="fas fa-link"></i></a>类的初始化</h4>
+      <p>虚拟机规范严格规定了有且只有四种情况必须对类进行初始化（而加载、验证、准备需要先开始）：</p>
+<ol>
+<li>遇到new、getstatic、putstatic或invokestatic这四条字节码指令时，如果类没有被初始化，则进行初始化。这4条指令的典型场景是：使用new实例化对象、读取或设置一个类的静态字段（被final修饰、已在编译期把结果放入常量池的静态字段除外）、已在调用一个类的静态方法的时候。</li>
+<li>使用java.lang.reflect包的方法进行类的反射调用时。</li>
+<li>适当初始化一个类的时候，如果发现其父类还没有进行过初始化。</li>
+<li>当虚拟机启动时用户指定要执行的主类（main方法所在类）。</li>
+</ol>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">//被动引用1，引用非直接定义的类的静态字段。</span><br><span class="line">public class SuperClass&#123;</span><br><span class="line">	static&#123;</span><br><span class="line">		System.out.println(&quot;SuperClass init&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">	public static int value = 123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">public class SubClass extends SuperClass&#123;</span><br><span class="line">	static&#123;</span><br><span class="line">		System.out.println(&quot;SubClass init&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public class NotInitialization&#123;</span><br><span class="line">	public static void main(String[] args)&#123;</span><br><span class="line">		System.out.println(SubClass.value);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<blockquote>
+<p>结果只触发了父类的初始化，子类不会触发初始化，至于子类的加载和验证，取决于虚拟机的具体实现，sun hotspot可以使用-XX：+TraceClassLoading追踪查看。</p>
+</blockquote>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">//被动引用2，通过数组定义引用类。</span><br><span class="line">public class NotInitialization1&#123;</span><br><span class="line">	public static void main(String[] args)&#123;</span><br><span class="line">		SuperClass[] ca = new SuperClass[10];</span><br><span class="line">	&#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<blockquote>
+<p>输出为空，表明未初始化类。<br>对于数组，虚拟机自动生成了一个直接继承于java.lang.Object的子类，创建动作由字节码指令newarray触发。</p>
+</blockquote>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">//被动引用3，常量在编译阶段会存入调用类的常量池中，本质上没用直接引用到定义常量的类，所以不会被初始化。</span><br><span class="line">public class ConstClass&#123;</span><br><span class="line">	static &#123;</span><br><span class="line">		System.out.println(&quot;ConstClass init&quot;);</span><br><span class="line">	&#125; </span><br><span class="line">	public static final String HELLOSTRING = &quot;jinelei&quot;; </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public class NotInitialization2&#123; </span><br><span class="line">	public static void main(String[] args)&#123;</span><br><span class="line">		System.out.println(ConstClass.HELLOSTRING);</span><br><span class="line">	&#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+
+
+        <h4 id="接口的初始化"   >
+          <a href="#接口的初始化" class="heading-link"><i class="fas fa-link"></i></a>接口的初始化</h4>
+      <p>接口的加载过程与类只有一点不同：类要求子类初始化之前，父类必须全部初始化。借口在初始化时并不要求其父接口全部都完成初始化。只有在真正调用父接口的时候才会进行初始化。<br>接口中不能使用static{}来输出类加载信息，但是编译器会为接口生成<clinit>()的类构造器，用于初始化接口中所定义的成员变量。</p>
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2017/08/02/learn-jvm-chapter7.3/">类加载的过程</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2017-08-02</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2024-10-12</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">1.2k</span></span><span class="post-meta-item post-meta-item--readtime"><span class="post-meta-item__icon"><i class="far fa-clock"></i></span><span class="post-meta-item__info">阅读时长</span><span class="post-meta-item__value">6分</span></span></div></header><div class="post-body"><div class="post-excerpt">
+        <h4 id="类加载的过程"   >
+          <a href="#类加载的过程" class="heading-link"><i class="fas fa-link"></i></a>类加载的过程</h4>
+      <p>类加载包括：加载、验证、准备、解析、初始化五个阶段。</p>
+
+        <h4 id="加载"   >
+          <a href="#加载" class="heading-link"><i class="fas fa-link"></i></a>加载</h4>
+      <p>加载阶段虚拟机要完成以下三件事情：</p>
+<ol>
+<li>通过一个类的全限定名类获取定义类的二进制字节流。</li>
+<li>将这个字节流所代表的静态存储结构转化为方法区的运行时数据结构。</li>
+<li>在java堆中生成一个代表这个类的Class对象，作为方法区这些数据的访问入口。</li>
+</ol>
+<blockquote>
+<p>java 并不对一个类的全限定名的取得作出具体的要求。 通常有以下几种常见方式：  </p>
+</blockquote>
+<ul>
+<li>从ZIP包中读取，常见的JAR、WAR、EAR。  </li>
+<li>从网络中获取，常见的Applet。  </li>
+<li>运行时计算生成，常见于动态代理技术。  </li>
+<li>由其他文件生成，常见于JSP应用。  </li>
+<li>从数据库中读取，较少见在中间服务器分发程序代码。</li>
+<li>……</li>
+</ul>
+
+        <h4 id="验证"   >
+          <a href="#验证" class="heading-link"><i class="fas fa-link"></i></a>验证</h4>
+      <p>验证是连接的第一步，目的是确保CLass文件流中包含的信息合法无害。<br>java虚拟机规范对于这个重要的步骤的指导和限制比较笼统，只有一句如果验证到输入的字节流不符合Class文件的存储格式，则抛出java.lang.VeriflyError异常或其子类异常。具体检查根据虚拟机不同实现有所差别，但是大致分为以下四个阶段：文件格式验证、元数据验证、字节码验证、符号验证。  </p>
+
+        <h5 id="文件格式验证"   >
+          <a href="#文件格式验证" class="heading-link"><i class="fas fa-link"></i></a>文件格式验证</h5>
+      <ul>
+<li>是否以魔数oxCAFEBABE开头。</li>
+<li>主次版本号是否在当前虚拟机能够处理的范围内。</li>
+<li>常量池的常量中是否有不被支持的常量类型。（检查常量tag标志）。</li>
+<li>指向常量的各种索引值中是否有只想不存在的常量或不符合类型的常量。</li>
+<li>CONSTANT_Utf8-info型的常量中是否有不符合UTF8编码的数据。</li>
+<li>Class文件中的各个部分及文件本身是否有被删除的或附加的其他信息。</li>
+<li>……  </li>
+</ul>
+
+        <h5 id="元数据验证"   >
+          <a href="#元数据验证" class="heading-link"><i class="fas fa-link"></i></a>元数据验证</h5>
+      <p>这一阶段是对字节码描述的信息进行语义分析，以保证其描述的信息符合Java语言规范，可能包含以下验证：</p>
+<ul>
+<li>这个类是否有父类（除Object外）。</li>
+<li>这个类的父类是否继承了不允许被继承的类（final类）。</li>
+<li>如果这个类不是抽象类，是否是现在父类或接口中要求的所有方法。</li>
+<li>类中的字段、方法是否与父类产生矛盾（覆盖final字段、不符合规则的重载等）。  </li>
+</ul>
+
+        <h5 id="字节码验证"   >
+          <a href="#字节码验证" class="heading-link"><i class="fas fa-link"></i></a>字节码验证</h5>
+      <p>这一阶段是整个验证过程中的最复杂的一个阶段。<br>主要是对数据流和控制流分析，以保证被校验类的方法在运行时不会做出危害虚拟机安全的行为。保证不会出现例如以下的情况：  </p>
+<ul>
+<li><p>保证在操作栈中放入了一个int类型的数据，使用时却以long类型来加载入本地变量表中。  </p>
+</li>
+<li><p>保证跳转指令不会跳到方法体以外的字节码指令上。  </p>
+</li>
+<li><p>保证方法体中的类型转换是有效的。</p>
+</li>
+<li><p>……</p>
+<blockquote>
+<p>在JDK1.6之后的javac编译器中进行了一项优化，给方法体的Code属性中添加了StackMapTree属性，这项属性描述了方法体中所有基本快开始是本地变量表和操作栈应有的状态，。<br>HotSpot中提供了-XX: -UseSplitVerifier来关闭优化，或者使用 -XX： +FailOverToOldVerifier要求在类型推到失败时退回到旧的类型推导方式进行校验。<br>在JDK 1.7之后，对于主版本号大于50的CLass文件，不允许退回旧的类型推导验证。</p>
+</blockquote>
+</li>
+</ul>
+
+        <h5 id="符号引用验证"   >
+          <a href="#符号引用验证" class="heading-link"><i class="fas fa-link"></i></a>符号引用验证</h5>
+      <p>最后一个阶段时将符号引用转化为直接引用，这个转化动作将在连接的第三个阶段–解析阶段发生。符号引用验证可以看做是对类自身以外（常量池中的各种符号引用）的信息进行匹配性校验，通常包括以下内容：</p>
+<ul>
+<li>符号引用中通过字符串描述的全限定名是否能找到对应的类。</li>
+<li>在指定类中是否存在符合方法的字段描述符即简单名称所描述的方法和字段。</li>
+<li>符号引用中的类、字段和方法的访问性是否可以被当前类所访问。</li>
+<li>……<blockquote>
+<p>如果无法通过验证，将会抛出java.lang.IncompatibleClassChangeError异常的子类，如java.lang.IllegalAccessError、java.lang.NoSuchFieldError、java.lang.NoSuchMethodError等。</p>
+</blockquote>
+</li>
+</ul>
+<blockquote>
+<p>验证阶段是非必要阶段，如果可以保证全部可信，可以使用-Xverify: none来跳过验证他。</p>
+</blockquote>
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2017/07/30/xset-cookbook/">Linux实用工具 xset</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2017-07-30</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2024-10-12</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">159</span></span><span class="post-meta-item post-meta-item--readtime"><span class="post-meta-item__icon"><i class="far fa-clock"></i></span><span class="post-meta-item__info">阅读时长</span><span class="post-meta-item__value">1分</span></span></div></header><div class="post-body"><div class="post-excerpt"><p>xset是linux中设置X-Window的实用工具。</p>
+<hr>
+<p>-display display<br>指定这个server用在哪个display上。</p>
+<hr>
+<p>b<br>指定开关机的提示音，使用[+/-]前缀，或者[on/off]后缀。</p>
+<blockquote>
+<p>xset +b<br>xset b on</p>
+</blockquote>
+<hr>
+<p>bc<br>调试兼容模式开关，使用[+/-]前缀。  </p>
+<hr>
+<p>c<br>按键声音开关，使用[+/-]前缀，或者[on/off]后缀。</p>
+<hr>
+<p>dmps<br>节能之星开关，使用[+/-]前缀。</p>
+<p>dmps flags…</p>
+<blockquote>
+<p>force 强制进入某种状态。standby、suspend、off、on。</p>
+<blockquote>
+<p>xset dmps force suspend</p>
+</blockquote>
+</blockquote>
+<blockquote>
+<p>数值参数：[standby] [suspend] [off]</p>
+<blockquote>
+<p>设置0禁用。</p>
+</blockquote>
+</blockquote>
+<hr>
+<p>fp=<br>字体路径。</p>
+<blockquote>
+<p>fp default   设置为服务器默认。</p>
+</blockquote>
+<p>fp rehash</p>
+<blockquote>
+<p>刷新font database。 </p>
+</blockquote>
+<hr>
+<p>led<br>设置键盘led，使用[+/-]前缀，数值参数1-32。支持XKB名称。</p>
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2017/07/27/unix-process-control/">Unix 进程控制 fork、vfork</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2017-07-27</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2024-10-12</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">1.9k</span></span><span class="post-meta-item post-meta-item--readtime"><span class="post-meta-item__icon"><i class="far fa-clock"></i></span><span class="post-meta-item__info">阅读时长</span><span class="post-meta-item__value">12分</span></span></div></header><div class="post-body"><div class="post-excerpt">
+        <h4 id="概要"   >
+          <a href="#概要" class="heading-link"><i class="fas fa-link"></i></a>概要</h4>
+      <p>进程控制：创建新进程、执行程序和进程终止。<br>进程属性ID：实际、有效和保存的用户和组ID。<br>进程控制原语、解释器文件、system函数、进程会计机制。</p>
+
+        <h5 id="进程标识符"   >
+          <a href="#进程标识符" class="heading-link"><i class="fas fa-link"></i></a>进程标识符</h5>
+      <p>每个进程都有一个非负整数表示唯一的进程ID。进程ID是唯一的（常用来保证唯一性）、可重用的（系统通常采用延迟重用算法，以避免将新进程误认为使用同一ID的已终止的先前进程）。</p>
+<blockquote>
+<p>特殊进程：<br>调度进程（ID为0）：常常为成为交换进程（swapper）。作为内核的一部分，并不执行任何磁盘上的程序。因此称之为系统进程。<br>init进程（ID为1）：在自举过程中由内核调用（早期系统版本中是/etc/init，在较新版本中是/sbin/init）。此进程负责在自举内核后启动一个unix系统，init通常读取与系统相关的初始化文件（/etc/rc*、/etc/inittab、/etc/init.d），再将系统引导至一个（例如多用户）状态。  </p>
+<blockquote>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th align="left">调度进程和init进程比较</th>
+<th align="left">终止</th>
+<th align="left">进程类别</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">调度进程</td>
+<td align="left">会终止</td>
+<td align="left">内核进程</td>
+</tr>
+<tr>
+<td align="left">init进程</td>
+<td align="left">不会终止</td>
+<td align="left">用户进程（以超级用户特权运行）</td>
+</tr>
+</tbody></table></div>
+</blockquote>
+<p>页守护进程（ID为2）：特殊系统实现，用来支持虚拟存储系统的分页操作。</p>
+</blockquote>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line">pid_t getpid(void);     //返回值：调用进程的进程ID</span><br><span class="line">pid_t getppid(void);    //返回值：调用进程的父进程ID</span><br><span class="line">uid_t getuid(void);     //返回值：调用进程的实际用户ID</span><br><span class="line">uid_t geteuid(void);    //返回值：调用进程的有效用户ID</span><br><span class="line">gid_t getgid(void);     //返回值：调用进程的实际组ID</span><br><span class="line">gid_t getegid(void);    //返回值：调用进程的有效组ID</span><br><span class="line">以上函数均无出错返回。</span><br></pre></td></tr></table></div></figure>
+
+
+        <h5 id="fork函数"   >
+          <a href="#fork函数" class="heading-link"><i class="fas fa-link"></i></a>fork函数</h5>
+      <figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line">pid_t fork(void);       //返回值：子进程中返回0，父进程中返回子进程ID，出错返回-1</span><br></pre></td></tr></table></div></figure>
+<p>fork函数调用一次，返回两次，根据返回进程ID来区别父子进程。</p>
+<blockquote>
+<p>子进程中调用<code>getppid</code>来获得父进程ID。<br>父进程无法获取其所有的子进程ID。</p>
+</blockquote>
+<p>父子进程继续执行forrk之后的指令，子进程是父进程的副本。子进程拥有父进程的数据空间、堆和栈的副本。这里拥有并不共享。父子进程只共享正文段。  </p>
+<blockquote>
+<p>写时复制技术（Copy-On-Write）：由于很多实现子进程并不执行父进程的数据段、堆和栈，所以实现时内核只是将其访问权限改为只读，并不直接复制，当其中任意一个试图修改是，内核才会将修改区域的内存制作一个副本。即通常是虚拟存储器系统的一页。</p>
+<blockquote>
+<p>fork函数变体。<br>Linux 2.4.22提供了新进程创建函数clone(2)系统调用，特点：允许控制父子进程共享段。<br>FreeBSD 5.2.1提供了rfork(2)系统调用，类似于Linux的clone。<br>Solaris 9提供了两个线程库，一个用于POSIX线程（pthread)，另一个用于Solaris线程。</p>
+</blockquote>
+</blockquote>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line"></span><br><span class="line">int glob = 6;</span><br><span class="line">char buf[] = &quot;a write to stdout\n&quot;;</span><br><span class="line"></span><br><span class="line">int main(int argc, char* argv[])</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">    int var;</span><br><span class="line">    pid_t pid;</span><br><span class="line"></span><br><span class="line">    var = 88;</span><br><span class="line">    if(write(STDOUT_FILENO, buf, sizeof(buf)-1) != sizeof(buf)-1)</span><br><span class="line">    &#123;</span><br><span class="line">        printf(&quot;write error\n&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    printf(&quot;before fork\n&quot;);</span><br><span class="line"></span><br><span class="line">    if((pid = fork()) &lt; 0)</span><br><span class="line">    &#123;</span><br><span class="line">        printf(&quot;fork error\n&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    else if( pid == 0 )</span><br><span class="line">    &#123;</span><br><span class="line">        printf(&quot;children process\t\t&quot;);</span><br><span class="line">        glob++;</span><br><span class="line">        var++;</span><br><span class="line">    &#125;</span><br><span class="line">    else&#123;</span><br><span class="line">        printf(&quot;father process  \t\t&quot;);</span><br><span class="line">        sleep(2);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    printf(&quot;pid = %d, blob = %d, var = %d\n&quot;, getpid(), glob, var);</span><br><span class="line"></span><br><span class="line">    exit(0);</span><br><span class="line">&#125;  </span><br></pre></td></tr></table></div></figure>
+<p>输出结果：</p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">a write to stdout</span><br><span class="line">before fork</span><br><span class="line">children process                pid = 25767, blob = 7, var = 89</span><br><span class="line">father process                  pid = 25766, blob = 6, var = 88</span><br></pre></td></tr></table></div></figure>
+
+<blockquote>
+<p>可见父子进程变量并不共享。<br>父子进程的调用顺序取决于内核所使用的调度算法。可以使用进程间通信保证父子进程同步。  </p>
+<blockquote>
+<p>strlen和sizeof比较： strlen不包括终止null字节长度，sizeof包括终止null字节长度；strlen属于函数调用，sizeof属于编译时已知。<br>write函数：write函数不带缓冲，在fork之前调用write函数是为了保证缓冲区干净。<br>子进程会复制父进程缓冲区。<br>子进程复制父进程所有打开的文件描述符。</p>
+<blockquote>
+<p>fork之后处理文件描述符的两种常见情况：  </p>
+<ol>
+<li>父进程等待子进程完成。当子进程终止后，所有进行过读、写操作的任一文件描述符的文件偏移量都已执行了相应的更新。</li>
+<li>父子进程各自执行不同的程序段。在fork之后，父子进程各自关闭它们不需要的文件描述符，这样的不会干扰对方使用的文件描述符。通常在网络服务进程中使用此方法。  </li>
+</ol>
+</blockquote>
+</blockquote>
+<blockquote>
+<p>其他被子进程继承的属性：</p>
+<ul>
+<li>实际用户ID、实际组ID、有效用户ID、有效组ID。</li>
+<li>附加组ID。</li>
+<li>进程组ID。</li>
+<li>会话ID。</li>
+<li>控制终端。</li>
+<li>设置用户ID和设置组ID标志。</li>
+<li>当前工作目录。</li>
+<li>根目录。</li>
+<li>文件模式创建屏蔽字。</li>
+<li>信号屏蔽和安排。</li>
+<li>针对任一打开文件描述符的在执行时关闭标志。</li>
+<li>环境。</li>
+<li>连接的共享存储段。</li>
+<li>存储映射。</li>
+<li>资源限制。</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>父子进程之间的区别：</p>
+<blockquote>
+<ul>
+<li>fork返回值。</li>
+<li>进程ID不同。</li>
+<li>进程父ID不同：子进程父ID是创建它的进程ID，父进程的父ID不变。</li>
+<li>子进程的tms_utime、tms_stime、tms_cutime以及tms_ustime均被设置为0。</li>
+<li>父进程设置的文件锁不被继承。</li>
+<li>子进程的未处理的闹钟被清除。</li>
+<li>子进程未处理的信号集被设置为空集。</li>
+</ul>
+</blockquote>
+</blockquote>
+<blockquote>
+<p>fork失败的主要原因：系统有太多的进程，或者该实际用户ID的进程综述超过了系统限制。（PS：CHILD_MAX控制了每个实际用户ID在任意时刻可具有的最大进程数）。</p>
+</blockquote>
+</blockquote>
+
+        <h5 id="vfork函数"   >
+          <a href="#vfork函数" class="heading-link"><i class="fas fa-link"></i></a>vfork函数</h5>
+      <p>vfork用于创建一个新进程，二该新进程的目的是exec一个新程序。<br>fork、vfork区别：vfork保证子进程现运行，在它调用exec或exit之后父进程才运行（可能导致死锁）；vfork并不完全复制父进程的地址空间。  </p>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th align="left">fork、vfork比较</th>
+<th align="left">复制</th>
+<th align="left">执行顺序</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">fork</td>
+<td align="left">完全复制</td>
+<td align="left">不保证</td>
+</tr>
+<tr>
+<td align="left">vfork</td>
+<td align="left">不完全复制（子进程会立刻调用exec或exit）</td>
+<td align="left">子进程先行，子进程exec或exit后，父进程再运行</td>
+</tr>
+</tbody></table></div>
+<blockquote>
+<p>在子进程exec或exit之前，子进程运行在父进程的地址空间。  </p>
+</blockquote>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line"></span><br><span class="line">int glob = 6;</span><br><span class="line">char buf[] = &quot;a write to stdout\n&quot;;</span><br><span class="line"></span><br><span class="line">int main(int argc, char* argv[])</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">    int var;</span><br><span class="line">    pid_t pid;</span><br><span class="line"></span><br><span class="line">    var = 88;</span><br><span class="line">    if(write(STDOUT_FILENO, buf, sizeof(buf)-1) != sizeof(buf)-1)</span><br><span class="line">    &#123;</span><br><span class="line">        printf(&quot;write error\n&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    printf(&quot;before fork\n&quot;);</span><br><span class="line"></span><br><span class="line">    if((pid = vfork()) &lt; 0)</span><br><span class="line">    &#123;</span><br><span class="line">        printf(&quot;fork error\n&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    else if( pid == 0 )</span><br><span class="line">    &#123;</span><br><span class="line">        printf(&quot;children process\t\t&quot;);</span><br><span class="line">        glob++;</span><br><span class="line">        var++;</span><br><span class="line">        printf(&quot;pid = %d, blob = %d, var = %d\n&quot;, getpid(), glob, var);</span><br><span class="line">        _exit(0);</span><br><span class="line">    &#125;</span><br><span class="line">    else&#123;</span><br><span class="line">        printf(&quot;father process  \t\t&quot;);</span><br><span class="line">        printf(&quot;pid = %d, blob = %d, var = %d\n&quot;, getpid(), glob, var);</span><br><span class="line">        //sleep(2);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    exit(0);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></div></figure>
+
+<p>执行结果</p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">a write to stdout</span><br><span class="line">before fork</span><br><span class="line">children process                pid = 29968, blob = 7, var = 89</span><br><span class="line">father process                  pid = 29967, blob = 7, var = 89</span><br></pre></td></tr></table></div></figure>
+<blockquote>
+<p>可以看出在子进程执行_exit(0)之前，父子进程处于同一片地址空间。</p>
+<blockquote>
+<p>exit和_exit(0)的区别: _exit(0)并不执行标准I/O缓冲的冲洗操作;exit实现了冲洗所有标准I/O流.也可能实现了关闭标准I/O流(取决于系统实现,大多数现代exit实现军不在关闭流,因为进程终止前,内核将关闭所有已打开的文件描述符.在库中关闭没有必要了).</p>
+</blockquote>
+</blockquote>
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2017/07/27/unix-process-terminal/">Unix 进程终止 wait waitpid</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2017-07-27</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2024-10-12</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">1.7k</span></span><span class="post-meta-item post-meta-item--readtime"><span class="post-meta-item__icon"><i class="far fa-clock"></i></span><span class="post-meta-item__info">阅读时长</span><span class="post-meta-item__value">10分</span></span></div></header><div class="post-body"><div class="post-excerpt">
+        <h4 id="概要"   >
+          <a href="#概要" class="heading-link"><i class="fas fa-link"></i></a>概要</h4>
+      <p>进程终止共有8种方式，其中5种为正常终止。</p>
+<ul>
+<li>正常终止：</li>
+</ul>
+<ol>
+<li>从main返回。</li>
+<li>调用exit。</li>
+<li>调用_exit或_Exit。</li>
+<li>最后一个线程从其启动例程返回。</li>
+<li>最后一个线程调用pthread_exit。</li>
+</ol>
+<ul>
+<li>异常终止：</li>
+</ul>
+<ol start="6">
+<li>调用abort。</li>
+<li>接收到一个新号并终止。</li>
+<li>最后一个线程对取消请求做出响应。</li>
+</ol>
+<hr>
+
+        <h4 id="exit-、-exit-和-Exit"   >
+          <a href="#exit-、-exit-和-Exit" class="heading-link"><i class="fas fa-link"></i></a>exit()、_exit()和_Exit()</h4>
+      <figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">void exit(int status);</span><br><span class="line">void _Exit(int status);</span><br><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line">void _exit(int status);</span><br></pre></td></tr></table></div></figure>
+
+<blockquote>
+<ul>
+<li>使用不同的头文件的原因是：exit和_Exit是有ISO C说明的，而_exit则是由POSIX.1说明的。  </li>
+<li>_exit和_Exit立即进入内核，而exit则先执行一些清理处理后(包括执行各种终止处理程序，关闭所有标准I/O流等)进入内核。<blockquote>
+<p>main执行到最后一条语句时返回（隐式返回），那么该进程的终止状态是0(ISO C 1999版引入的，之前的返回值是未定义的，任意值).</p>
+</blockquote>
+</li>
+</ul>
+</blockquote>
+
+        <h5 id="正常终止："   >
+          <a href="#正常终止：" class="heading-link"><i class="fas fa-link"></i></a>正常终止：</h5>
+      <ul>
+<li>在main函数中执行return语句，等效调用exit。</li>
+<li>调用exit函数（ISO C定义），exit函数将会调用各种终止处理程序（atexit函数登记的），然后关闭标准I/O流等。由于ISO C并不处理文件描述符、多进程以及作业控制，所以对于UNIX来说是不完整的。</li>
+<li>调用_exit或_Exit函数（ISO C），目的是为晋城提供一种无序运行终止处理程序或信号处理程序而终止的方法。是否对标准I/O流进程冲洗，取决于具体的实现。（Unix中，_exit和_Exit是同义的，不冲洗标准I/O流）。</li>
+<li>进程的最后一个线程从其启动例程中执行返回语句。但是该返回值不会被作为进程的返回值。其返回值为0.</li>
+<li>进程的最后一个县城嗲聘用pthrea_exit函数，同前一项已知，终止状态始终为0。</li>
+</ul>
+
+        <h5 id="异常终止："   >
+          <a href="#异常终止：" class="heading-link"><i class="fas fa-link"></i></a>异常终止：</h5>
+      <ul>
+<li>调用abort，它将会产生SIGABRT信号。</li>
+<li>当进程接收到某些信号时，信号可有进程自身（如调用abort函数）、其他进程或内核产生。</li>
+<li>最后一个线程对“取消”请求做出相应。按系统默认，“取消”一延迟方式发生。即，被要求取消的线程将会等待一段时间才会终止。</li>
+</ul>
+<hr>
+
+        <h3 id="atexit-函数"   >
+          <a href="#atexit-函数" class="heading-link"><i class="fas fa-link"></i></a>atexit()函数</h3>
+      <p>标准ISO C规定，一个进程可以登记多达32个函数，这些函数将由exit自动调用，我们称这些函数为终止处理程序（exit handler），并调用atexit函数来登记这些函数，执行顺序与登记顺序相反。</p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">int atexit(void (*func)(void));     //返回值：成功返回0，出错非0值</span><br></pre></td></tr></table></div></figure>
+<blockquote>
+<p>调用顺序与登记顺序相反，同一函数多次登记也会被多次调用。</p>
+</blockquote>
+<hr>
+
+        <h4 id="父进程在子进程之前终止（孤儿进程领养）"   >
+          <a href="#父进程在子进程之前终止（孤儿进程领养）" class="heading-link"><i class="fas fa-link"></i></a>父进程在子进程之前终止（孤儿进程领养）</h4>
+      <p>内核在一个进程终止时，内核逐个检查所有活动进程的父进程是否为将要终止的进程，如果是，则将该进程的父进程更改为1（init进程）。</p>
+
+        <h4 id="子进程在父进程之前终止"   >
+          <a href="#子进程在父进程之前终止" class="heading-link"><i class="fas fa-link"></i></a>子进程在父进程之前终止</h4>
+      <p>内核为每个终止的子进程保存了一定量的信息，所以当终止进程的父进程调用wait或waitpid时，可以得到这些信息。其中至少包括：进程ID、进程终止状态、进程使用的CPU时间总量。内核可以释放终止进程所使用的所有存储区，关闭其打开的所有文件。在Unix术语中，称一个已经终止的、但是其父进程尚未对其进行善后处理（获取终止子进程的有关信息，释放它仍占用的资源）的进程为**<em>僵死进程**</em>（zombie）。ps(1)打印状态为Z。</p>
+<blockquote>
+<p>init进程将会调用其wait函数以避免产生僵死进程。</p>
+</blockquote>
+
+        <h4 id="wait、waitpid"   >
+          <a href="#wait、waitpid" class="heading-link"><i class="fas fa-link"></i></a>wait、waitpid</h4>
+      <p>对于任意一种终止情形，内核产生一个指示其异常终止原因的终止状态，在任意情况下，该终止的父进程都能调用wait或waitpid获取其终止状态。</p>
+<blockquote>
+<p>退出状态（_exit、_Exit或main的返回值），在最后调用_Exit时，内核将退出状态转换成终止状态。</p>
+</blockquote>
+<p>当一个进程正常或异常终止时，内核就会向其父进程发送SIGCHLD信号。因为子进程终止是一个异步事件，所以这种信号也是异步通知，父进程可以选择忽略，或是处理该信号（信号处理程序）。系统默认动作是忽略它。</p>
+<p>父进程调用wait或watipid可能出现以下3种情况：</p>
+<ul>
+<li>如果子进程还在运行，则阻塞。</li>
+<li>如果一个子进程已终止，正等待的父进程获取其终止状态，则取得该子进程的终止状态后立刻返回。</li>
+<li>如果没有任何子进程，则立即出错返回。</li>
+</ul>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;sys/wait.h&gt;</span><br><span class="line">pid_t wait(int *statloc);</span><br><span class="line">pid_t waitpid(pid_t pid, int *statloc, int options);</span><br><span class="line">//返回值：成功返回进程ID，0,，出错返回-1</span><br></pre></td></tr></table></div></figure>
+
+<p>这两个函数的区别如下：</p>
+<ul>
+<li>在一个子进程终止前，wait使其调用者阻塞，而waitpif有一个选项，可以使得调用者不阻塞。</li>
+<li>waitpid并不等待在其调用之后的第一个终止子进程，它有若干个选项，可以控制它所等待的进程。</li>
+</ul>
+<p>这两个函数均使用参数statloc这个整形指针作为返回值，如果statloc不是空指针，则将返回值存储在指针指向的单元内，如果不关心终止状态，则可将此参数设置为空指针。<br>返回状态由&lt;sys/wait.h&gt;中提供的各个宏来查看。</p>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th>宏</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>WIFEXITED(status)</td>
+<td>如果为正常终止则为真，接下来可用WEXITSTATUS(status)，取得进程传给exit、_exit或_Exit参数的低8位</td>
+</tr>
+<tr>
+<td>WIFSIGNALED(status)</td>
+<td>如果为异常终止子进程返回的状态则为真。接下来可可以用WTERMSIG(status)，取得子进程终止的信号编号。某些系统定义了WCOREDUMP(status)来检查进程产生的core文件，有则返回真。</td>
+</tr>
+<tr>
+<td>WIFSTOPED(status)</td>
+<td>如果为当前暂停的子进程的返回状态，则为真，接下来可以用WSTOPSIG(status)来取得子进程的信号编号。</td>
+</tr>
+<tr>
+<td>WIFCONTINUED(status)</td>
+<td>如果是在作业控制暂停后已经继续的子进程返回了状态，则为真。（POSIX.1的XSI扩展，仅用于waitpid )</td>
+</tr>
+</tbody></table></div>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;sys/wait&gt;</span><br><span class="line">void pr_exit(int status)</span><br><span class="line">&#123;</span><br><span class="line">    if(WIFEXITED(status))</span><br><span class="line">        printf(&quot;normal termination, exit status = %d\n&quot;, WEXITSTATUS(status));</span><br><span class="line">    else if(WIFSIGNALED(status))</span><br><span class="line">        PRINTF(&quot;abnormal termination, signal number = %d\n&quot;,</span><br><span class="line">        WTERMSIG(status));</span><br><span class="line">    #ifdef WCOREDUMP</span><br><span class="line">        WCOREDUMP(status) ? &quot; (core file generated)&quot; : &quot;&quot;);</span><br><span class="line">    #else</span><br><span class="line">        &quot;&quot;)</span><br><span class="line">    #endif</span><br><span class="line">    else if(WIFSTOPPED(status))</span><br><span class="line">        printf(&quot;child stopped, signal number = %d\n&quot;, WSTOPSIG(status));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<blockquote>
+<p>信号编号可以查&lt;signal.h&gt;头文件。</p>
+</blockquote>
+<p>未完待续…</p>
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2017/07/26/learn-regex-chapter2/">正则表达式基础 元字符</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2017-07-26</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2024-10-12</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">291</span></span><span class="post-meta-item post-meta-item--readtime"><span class="post-meta-item__icon"><i class="far fa-clock"></i></span><span class="post-meta-item__info">阅读时长</span><span class="post-meta-item__value">2分</span></span></div></header><div class="post-body"><div class="post-excerpt"><ul>
+<li>
+        <h4 id="元字符"   >
+          <a href="#元字符" class="heading-link"><i class="fas fa-link"></i></a>元字符: *$()+.?[^{|</h4>
+      <p>元字符：<code>$()*+.?[\^&#123;|</code>共12个。</p>
+<blockquote>
+<p>字符]只有出现在未转义的[之后才是元字符。同理}也是。  </p>
+</blockquote>
+</li>
+<li>
+        <h4 id="块转义（Perl、PCRE和Java都支持-lt-Q-gt-和-lt-E-gt-）"   >
+          <a href="#块转义（Perl、PCRE和Java都支持-lt-Q-gt-和-lt-E-gt-）" class="heading-link"><i class="fas fa-link"></i></a>块转义（Perl、PCRE和Java都支持 &lt;\Q&gt; 和 &lt;\E&gt;）</h4>
+      <blockquote>
+<p>&lt;\Q&gt;和&lt;\E&gt;，在此之间的所有元字符都作为普通字符使用。<br><code>\Q!@#$%^&amp;*()_+\E</code></p>
+</blockquote>
+</li>
+<li>
+        <h4 id="忽略大小写-lt-i-gt"   >
+          <a href="#忽略大小写-lt-i-gt" class="heading-link"><i class="fas fa-link"></i></a>忽略大小写 &lt;(?i)&gt;</h4>
+      <blockquote>
+<p><code>(?i)asdf</code></p>
+</blockquote>
+</li>
+<li>
+        <h4 id="匹配不可打印字符"   >
+          <a href="#匹配不可打印字符" class="heading-link"><i class="fas fa-link"></i></a>匹配不可打印字符</h4>
+      <blockquote>
+<p>包括：<em>振铃符（bell）、转义符（escape）、换页符（formfeed）、换行符（line feed）、回车符（carriage return）、水平制表符（horizontal tab）和垂直制表符（vertical tab）</em>。对应的ASCII编码是：07、1B、0C、0A、0D、09、0B。</p>
+<blockquote>
+<p>不可打印字符变体：Ctrl+字符键对应表示为 **&lt;\cA&gt;到&lt;\cZ&gt;**，其中c字符必须为小写。</p>
+</blockquote>
+</blockquote>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th>表示</th>
+<th>含义</th>
+<th>十六进制表示</th>
+<th>正则流派</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>&lt;\a&gt;</td>
+<td>振铃</td>
+<td>0x07</td>
+<td>.NET、Java、PCRE、Perl、Python、Ruby</td>
+</tr>
+<tr>
+<td>&lt;\e&gt;</td>
+<td>转义</td>
+<td>0x1B</td>
+<td>.NET、Java、PCRE、Perl、Ruby</td>
+</tr>
+<tr>
+<td>&lt;\f&gt;</td>
+<td>换页</td>
+<td>0x0C</td>
+<td>.NET、Java、JavaScript、PCRE、Perl、Python、Ruby</td>
+</tr>
+<tr>
+<td>&lt;\n&gt;</td>
+<td>换行</td>
+<td>0x0A</td>
+<td>.NET、Java、JavaScript、PCRE、Perl、Python、Ruby</td>
+</tr>
+<tr>
+<td>&lt;\r&gt;</td>
+<td>回车</td>
+<td>0x0D</td>
+<td>.NET、Java、JavaScript、PCRE、Perl、Python、Ruby</td>
+</tr>
+<tr>
+<td>&lt;\t&gt;</td>
+<td>水平制表符</td>
+<td>0x09</td>
+<td>.NET、Java、JavaScript、PCRE、Perl、Python、Ruby</td>
+</tr>
+<tr>
+<td>&lt;\v&gt;</td>
+<td>垂直制表符</td>
+<td>0x0B</td>
+<td>.NET、Java、JavaScript、PCRE、Perl、Python、Ruby</td>
+</tr>
+</tbody></table></div>
+</li>
+</ul>
+</div></div></article></section><nav class="paginator"><div class="paginator-inner"><a class="extend prev" rel="prev" href="/page/5/"><i class="fas fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/7/"><i class="fas fa-angle-right"></i></a></div></nav></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><section class="sidebar-toc hide"></section><!-- ov = overview--><section class="sidebar-ov"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/icons/logo.webp" alt="avatar"></div><p class="sidebar-ov-author__text">jinelei</p></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">63</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">14</div><div class="sidebar-ov-state-item__name">分类</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">2</div><div class="sidebar-ov-state-item__name">标签</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2024</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>jinelei</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v5.4.2</span><span class="footer__devider">|</span><span>主题 - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.2.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/canvas-nest.js@1.0.1/dist/canvas-nest.min.js" color="0,0,0" opacity="0.6" count="119" zIndex="-1"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.json';
+
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
+
+  var path = '/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
+
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ 文章无标题 ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
+
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
+
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
+
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
+
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
+
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
+
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
+
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
+
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
+
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
+
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
+
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
+      });
+    }
+  });
+}
+
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
+
+      initSearch();
+    });
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
+    });
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
+      }
+    });
+  };
+
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);
+
+function safeOpenUrl(url) {
+  var newTab = window.open();
+  newTab.opener = null;
+  newTab.location = url;
+}
+
+function extSearch(engine) {
+  var engines = {
+    google: 'https://www.google.com/search?q=',
+    bing: 'https://cn.bing.com/search?q=',
+    baidu: 'https://www.baidu.com/s?ie=UTF-8&wd=',
+  };
+  var host = window.location.host;
+  var query = $('.search-input input').val().toLowerCase().trim();
+  var uri = engines[engine] + query + ' site:' + host;
+
+  if (query) {
+    safeOpenUrl(uri);
+  } else {
+    Stun.utils.popAlert('warning', '请输入字符');
+  }
+}
+
+var assistSearchList = window.CONFIG.assistSearch;
+
+if (Array.isArray(assistSearchList)) {
+  assistSearchList.forEach(function (name) {
+    document.querySelector('.search-btns-item--' + name).addEventListener('click', function () {
+      extSearch(name);
+    }, false);
+  });
+}</script><script src="/js/utils.js?v=2.2.0"></script><script src="/js/stun-boot.js?v=2.2.0"></script><script src="/js/scroll.js?v=2.2.0"></script><script src="/js/header.js?v=2.2.0"></script><script src="/js/sidebar.js?v=2.2.0"></script><script type="application/json" src="/search.json"></script></body></html>

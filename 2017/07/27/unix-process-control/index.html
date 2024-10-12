@@ -1,0 +1,458 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><meta name="theme-color" content="#54bcff"><link rel="manifest" href="/manifest.json?v=2.2.0"><link rel="icon" href="/images/icons/favicon-small.ico?v=2.2.0" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon.ico?v=2.2.0" type="image/png" sizes="32x32"><meta name="google-site-verification" content="KtNbyqM1bm1HQWuPnMmgfwPeBWTMHXVL0-OjlyZMMRs"><meta name="description" content="概要       进程控制：创建新进程、执行程序和进程终止。进程属性ID：实际、有效和保存的用户和组ID。进程控制原语、解释器文件、system函数、进程会计机制。                     进程标识符       每个进程都有一个非负整数表示唯一的进程ID。进程ID是唯一的（常用来保证唯一性）、可重用的（系统通常采用延迟重用算法，以避免将新进">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Unix 进程控制 fork、vfork">
+<meta property="og:url" content="https://jinelei.github.io/2017/07/27/unix-process-control/index.html">
+<meta property="og:site_name" content="jinelei&#39;s blog">
+<meta property="og:description" content="概要       进程控制：创建新进程、执行程序和进程终止。进程属性ID：实际、有效和保存的用户和组ID。进程控制原语、解释器文件、system函数、进程会计机制。                     进程标识符       每个进程都有一个非负整数表示唯一的进程ID。进程ID是唯一的（常用来保证唯一性）、可重用的（系统通常采用延迟重用算法，以避免将新进">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2017-07-27T01:00:00.000Z">
+<meta property="article:modified_time" content="2024-10-12T15:09:54.197Z">
+<meta property="article:author" content="jinelei">
+<meta property="article:tag" content="学习笔记">
+<meta name="twitter:card" content="summary"><title>Unix 进程控制 fork、vfork | jinelei's blog</title><link ref="canonical" href="https://jinelei.github.io/2017/07/27/unix-process-control/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.2.0"><link rel="dns-prefetch" href="https://www.googletagmanager.com"><script src="https://www.googletagmanager.com/gtag/js?id=UA-180959764-1" async=""></script><script>if (window.location.hostname !== 'localhost') {
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){ dataLayer.push(arguments); }
+  gtag('js', new Date());
+  gtag('config', 'UA-180959764-1');
+}</script><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":false,"scrollDownIcon":false},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"default","highlight":"light","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: {"switchPost":true},
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.4.2"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner header-inner--height header-inner--bgcolor"><nav class="header-nav header-nav--sticky"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">标签</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">Unix 进程控制 fork、vfork</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2017-07-27</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2024-10-12</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">1.9k</span></span><span class="post-meta-item post-meta-item--readtime"><span class="post-meta-item__icon"><i class="far fa-clock"></i></span><span class="post-meta-item__info">阅读时长</span><span class="post-meta-item__value">12分</span></span></div></header><div class="post-body">
+        <h4 id="概要"   >
+          <a href="#概要" class="heading-link"><i class="fas fa-link"></i></a>概要</h4>
+      <p>进程控制：创建新进程、执行程序和进程终止。<br>进程属性ID：实际、有效和保存的用户和组ID。<br>进程控制原语、解释器文件、system函数、进程会计机制。</p>
+
+        <h5 id="进程标识符"   >
+          <a href="#进程标识符" class="heading-link"><i class="fas fa-link"></i></a>进程标识符</h5>
+      <p>每个进程都有一个非负整数表示唯一的进程ID。进程ID是唯一的（常用来保证唯一性）、可重用的（系统通常采用延迟重用算法，以避免将新进程误认为使用同一ID的已终止的先前进程）。</p>
+<blockquote>
+<p>特殊进程：<br>调度进程（ID为0）：常常为成为交换进程（swapper）。作为内核的一部分，并不执行任何磁盘上的程序。因此称之为系统进程。<br>init进程（ID为1）：在自举过程中由内核调用（早期系统版本中是/etc/init，在较新版本中是/sbin/init）。此进程负责在自举内核后启动一个unix系统，init通常读取与系统相关的初始化文件（/etc/rc*、/etc/inittab、/etc/init.d），再将系统引导至一个（例如多用户）状态。  </p>
+<blockquote>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th align="left">调度进程和init进程比较</th>
+<th align="left">终止</th>
+<th align="left">进程类别</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">调度进程</td>
+<td align="left">会终止</td>
+<td align="left">内核进程</td>
+</tr>
+<tr>
+<td align="left">init进程</td>
+<td align="left">不会终止</td>
+<td align="left">用户进程（以超级用户特权运行）</td>
+</tr>
+</tbody></table></div>
+</blockquote>
+<p>页守护进程（ID为2）：特殊系统实现，用来支持虚拟存储系统的分页操作。</p>
+</blockquote>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line">pid_t getpid(void);     //返回值：调用进程的进程ID</span><br><span class="line">pid_t getppid(void);    //返回值：调用进程的父进程ID</span><br><span class="line">uid_t getuid(void);     //返回值：调用进程的实际用户ID</span><br><span class="line">uid_t geteuid(void);    //返回值：调用进程的有效用户ID</span><br><span class="line">gid_t getgid(void);     //返回值：调用进程的实际组ID</span><br><span class="line">gid_t getegid(void);    //返回值：调用进程的有效组ID</span><br><span class="line">以上函数均无出错返回。</span><br></pre></td></tr></table></div></figure>
+
+
+        <h5 id="fork函数"   >
+          <a href="#fork函数" class="heading-link"><i class="fas fa-link"></i></a>fork函数</h5>
+      <figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line">pid_t fork(void);       //返回值：子进程中返回0，父进程中返回子进程ID，出错返回-1</span><br></pre></td></tr></table></div></figure>
+<p>fork函数调用一次，返回两次，根据返回进程ID来区别父子进程。</p>
+<blockquote>
+<p>子进程中调用<code>getppid</code>来获得父进程ID。<br>父进程无法获取其所有的子进程ID。</p>
+</blockquote>
+<p>父子进程继续执行forrk之后的指令，子进程是父进程的副本。子进程拥有父进程的数据空间、堆和栈的副本。这里拥有并不共享。父子进程只共享正文段。  </p>
+<blockquote>
+<p>写时复制技术（Copy-On-Write）：由于很多实现子进程并不执行父进程的数据段、堆和栈，所以实现时内核只是将其访问权限改为只读，并不直接复制，当其中任意一个试图修改是，内核才会将修改区域的内存制作一个副本。即通常是虚拟存储器系统的一页。</p>
+<blockquote>
+<p>fork函数变体。<br>Linux 2.4.22提供了新进程创建函数clone(2)系统调用，特点：允许控制父子进程共享段。<br>FreeBSD 5.2.1提供了rfork(2)系统调用，类似于Linux的clone。<br>Solaris 9提供了两个线程库，一个用于POSIX线程（pthread)，另一个用于Solaris线程。</p>
+</blockquote>
+</blockquote>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line"></span><br><span class="line">int glob = 6;</span><br><span class="line">char buf[] = &quot;a write to stdout\n&quot;;</span><br><span class="line"></span><br><span class="line">int main(int argc, char* argv[])</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">    int var;</span><br><span class="line">    pid_t pid;</span><br><span class="line"></span><br><span class="line">    var = 88;</span><br><span class="line">    if(write(STDOUT_FILENO, buf, sizeof(buf)-1) != sizeof(buf)-1)</span><br><span class="line">    &#123;</span><br><span class="line">        printf(&quot;write error\n&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    printf(&quot;before fork\n&quot;);</span><br><span class="line"></span><br><span class="line">    if((pid = fork()) &lt; 0)</span><br><span class="line">    &#123;</span><br><span class="line">        printf(&quot;fork error\n&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    else if( pid == 0 )</span><br><span class="line">    &#123;</span><br><span class="line">        printf(&quot;children process\t\t&quot;);</span><br><span class="line">        glob++;</span><br><span class="line">        var++;</span><br><span class="line">    &#125;</span><br><span class="line">    else&#123;</span><br><span class="line">        printf(&quot;father process  \t\t&quot;);</span><br><span class="line">        sleep(2);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    printf(&quot;pid = %d, blob = %d, var = %d\n&quot;, getpid(), glob, var);</span><br><span class="line"></span><br><span class="line">    exit(0);</span><br><span class="line">&#125;  </span><br></pre></td></tr></table></div></figure>
+<p>输出结果：</p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">a write to stdout</span><br><span class="line">before fork</span><br><span class="line">children process                pid = 25767, blob = 7, var = 89</span><br><span class="line">father process                  pid = 25766, blob = 6, var = 88</span><br></pre></td></tr></table></div></figure>
+
+<blockquote>
+<p>可见父子进程变量并不共享。<br>父子进程的调用顺序取决于内核所使用的调度算法。可以使用进程间通信保证父子进程同步。  </p>
+<blockquote>
+<p>strlen和sizeof比较： strlen不包括终止null字节长度，sizeof包括终止null字节长度；strlen属于函数调用，sizeof属于编译时已知。<br>write函数：write函数不带缓冲，在fork之前调用write函数是为了保证缓冲区干净。<br>子进程会复制父进程缓冲区。<br>子进程复制父进程所有打开的文件描述符。</p>
+<blockquote>
+<p>fork之后处理文件描述符的两种常见情况：  </p>
+<ol>
+<li>父进程等待子进程完成。当子进程终止后，所有进行过读、写操作的任一文件描述符的文件偏移量都已执行了相应的更新。</li>
+<li>父子进程各自执行不同的程序段。在fork之后，父子进程各自关闭它们不需要的文件描述符，这样的不会干扰对方使用的文件描述符。通常在网络服务进程中使用此方法。  </li>
+</ol>
+</blockquote>
+</blockquote>
+<blockquote>
+<p>其他被子进程继承的属性：</p>
+<ul>
+<li>实际用户ID、实际组ID、有效用户ID、有效组ID。</li>
+<li>附加组ID。</li>
+<li>进程组ID。</li>
+<li>会话ID。</li>
+<li>控制终端。</li>
+<li>设置用户ID和设置组ID标志。</li>
+<li>当前工作目录。</li>
+<li>根目录。</li>
+<li>文件模式创建屏蔽字。</li>
+<li>信号屏蔽和安排。</li>
+<li>针对任一打开文件描述符的在执行时关闭标志。</li>
+<li>环境。</li>
+<li>连接的共享存储段。</li>
+<li>存储映射。</li>
+<li>资源限制。</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>父子进程之间的区别：</p>
+<blockquote>
+<ul>
+<li>fork返回值。</li>
+<li>进程ID不同。</li>
+<li>进程父ID不同：子进程父ID是创建它的进程ID，父进程的父ID不变。</li>
+<li>子进程的tms_utime、tms_stime、tms_cutime以及tms_ustime均被设置为0。</li>
+<li>父进程设置的文件锁不被继承。</li>
+<li>子进程的未处理的闹钟被清除。</li>
+<li>子进程未处理的信号集被设置为空集。</li>
+</ul>
+</blockquote>
+</blockquote>
+<blockquote>
+<p>fork失败的主要原因：系统有太多的进程，或者该实际用户ID的进程综述超过了系统限制。（PS：CHILD_MAX控制了每个实际用户ID在任意时刻可具有的最大进程数）。</p>
+</blockquote>
+</blockquote>
+
+        <h5 id="vfork函数"   >
+          <a href="#vfork函数" class="heading-link"><i class="fas fa-link"></i></a>vfork函数</h5>
+      <p>vfork用于创建一个新进程，二该新进程的目的是exec一个新程序。<br>fork、vfork区别：vfork保证子进程现运行，在它调用exec或exit之后父进程才运行（可能导致死锁）；vfork并不完全复制父进程的地址空间。  </p>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th align="left">fork、vfork比较</th>
+<th align="left">复制</th>
+<th align="left">执行顺序</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">fork</td>
+<td align="left">完全复制</td>
+<td align="left">不保证</td>
+</tr>
+<tr>
+<td align="left">vfork</td>
+<td align="left">不完全复制（子进程会立刻调用exec或exit）</td>
+<td align="left">子进程先行，子进程exec或exit后，父进程再运行</td>
+</tr>
+</tbody></table></div>
+<blockquote>
+<p>在子进程exec或exit之前，子进程运行在父进程的地址空间。  </p>
+</blockquote>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line"></span><br><span class="line">int glob = 6;</span><br><span class="line">char buf[] = &quot;a write to stdout\n&quot;;</span><br><span class="line"></span><br><span class="line">int main(int argc, char* argv[])</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">    int var;</span><br><span class="line">    pid_t pid;</span><br><span class="line"></span><br><span class="line">    var = 88;</span><br><span class="line">    if(write(STDOUT_FILENO, buf, sizeof(buf)-1) != sizeof(buf)-1)</span><br><span class="line">    &#123;</span><br><span class="line">        printf(&quot;write error\n&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    printf(&quot;before fork\n&quot;);</span><br><span class="line"></span><br><span class="line">    if((pid = vfork()) &lt; 0)</span><br><span class="line">    &#123;</span><br><span class="line">        printf(&quot;fork error\n&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    else if( pid == 0 )</span><br><span class="line">    &#123;</span><br><span class="line">        printf(&quot;children process\t\t&quot;);</span><br><span class="line">        glob++;</span><br><span class="line">        var++;</span><br><span class="line">        printf(&quot;pid = %d, blob = %d, var = %d\n&quot;, getpid(), glob, var);</span><br><span class="line">        _exit(0);</span><br><span class="line">    &#125;</span><br><span class="line">    else&#123;</span><br><span class="line">        printf(&quot;father process  \t\t&quot;);</span><br><span class="line">        printf(&quot;pid = %d, blob = %d, var = %d\n&quot;, getpid(), glob, var);</span><br><span class="line">        //sleep(2);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    exit(0);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></div></figure>
+
+<p>执行结果</p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">a write to stdout</span><br><span class="line">before fork</span><br><span class="line">children process                pid = 29968, blob = 7, var = 89</span><br><span class="line">father process                  pid = 29967, blob = 7, var = 89</span><br></pre></td></tr></table></div></figure>
+<blockquote>
+<p>可以看出在子进程执行_exit(0)之前，父子进程处于同一片地址空间。</p>
+<blockquote>
+<p>exit和_exit(0)的区别: _exit(0)并不执行标准I/O缓冲的冲洗操作;exit实现了冲洗所有标准I/O流.也可能实现了关闭标准I/O流(取决于系统实现,大多数现代exit实现军不在关闭流,因为进程终止前,内核将关闭所有已打开的文件描述符.在库中关闭没有必要了).</p>
+</blockquote>
+</blockquote>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">本文作者: </span><span class="copyright-author__value"><a href="https://jinelei.github.io">jinelei</a></span></div><div class="copyright-link"><span class="copyright-link__name">本文链接: </span><span class="copyright-link__value"><a href="https://jinelei.github.io/2017/07/27/unix-process-control/">https://jinelei.github.io/2017/07/27/unix-process-control/</a></span></div><div class="copyright-notice"><span class="copyright-notice__name">版权声明: </span><span class="copyright-notice__value">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" rel="external nofollow" target="_blank">BY-NC-SA</a> 许可协议。转载请注明出处！</span></div></div><div class="post-tags"><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="https://jinelei.github.io/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a></span></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/2017/07/30/xset-cookbook/"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">Linux实用工具 xset</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/2017/07/27/unix-process-terminal/"><span class="paginator-prev__text">Unix 进程终止 wait waitpid</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A6%82%E8%A6%81"><span class="toc-number">1.</span> <span class="toc-text">
+          概要</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E6%A0%87%E8%AF%86%E7%AC%A6"><span class="toc-number">1.1.</span> <span class="toc-text">
+          进程标识符</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#fork%E5%87%BD%E6%95%B0"><span class="toc-number">1.2.</span> <span class="toc-text">
+          fork函数</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#vfork%E5%87%BD%E6%95%B0"><span class="toc-number">1.3.</span> <span class="toc-text">
+          vfork函数</span></a></li></ol></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/icons/logo.webp" alt="avatar"></div><p class="sidebar-ov-author__text">jinelei</p></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">63</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">14</div><div class="sidebar-ov-state-item__name">分类</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">2</div><div class="sidebar-ov-state-item__name">标签</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2024</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>jinelei</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v5.4.2</span><span class="footer__devider">|</span><span>主题 - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.2.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/canvas-nest.js@1.0.1/dist/canvas-nest.min.js" color="0,0,0" opacity="0.6" count="119" zIndex="-1"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.json';
+
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
+
+  var path = '/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
+
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ 文章无标题 ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
+
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
+
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
+
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
+
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
+
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
+
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
+
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
+
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
+
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
+
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
+
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
+      });
+    }
+  });
+}
+
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
+
+      initSearch();
+    });
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
+    });
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
+      }
+    });
+  };
+
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);
+
+function safeOpenUrl(url) {
+  var newTab = window.open();
+  newTab.opener = null;
+  newTab.location = url;
+}
+
+function extSearch(engine) {
+  var engines = {
+    google: 'https://www.google.com/search?q=',
+    bing: 'https://cn.bing.com/search?q=',
+    baidu: 'https://www.baidu.com/s?ie=UTF-8&wd=',
+  };
+  var host = window.location.host;
+  var query = $('.search-input input').val().toLowerCase().trim();
+  var uri = engines[engine] + query + ' site:' + host;
+
+  if (query) {
+    safeOpenUrl(uri);
+  } else {
+    Stun.utils.popAlert('warning', '请输入字符');
+  }
+}
+
+var assistSearchList = window.CONFIG.assistSearch;
+
+if (Array.isArray(assistSearchList)) {
+  assistSearchList.forEach(function (name) {
+    document.querySelector('.search-btns-item--' + name).addEventListener('click', function () {
+      extSearch(name);
+    }, false);
+  });
+}</script><script src="/js/utils.js?v=2.2.0"></script><script src="/js/stun-boot.js?v=2.2.0"></script><script src="/js/scroll.js?v=2.2.0"></script><script src="/js/header.js?v=2.2.0"></script><script src="/js/sidebar.js?v=2.2.0"></script><script type="application/json" src="/search.json"></script></body></html>

@@ -1,0 +1,441 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><meta name="theme-color" content="#54bcff"><link rel="manifest" href="/manifest.json?v=2.2.0"><link rel="icon" href="/images/icons/favicon-small.ico?v=2.2.0" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon.ico?v=2.2.0" type="image/png" sizes="32x32"><meta name="google-site-verification" content="KtNbyqM1bm1HQWuPnMmgfwPeBWTMHXVL0-OjlyZMMRs"><meta name="description" content="重排序是指编译器和处理器为了优化程序性能二队指令序列进行重新排序的一种手段。                      数据依赖性       如果两个操作访问同一个变量，且两个操作中的一个为写操作。此时就存在数据依赖性。（读写顺序会影响结果）                      as-if-serial语义       不管怎么重排序编译器、runtime和处理器都必须遵守as-if-se">
+<meta property="og:type" content="article">
+<meta property="og:title" content="volatile">
+<meta property="og:url" content="https://jinelei.github.io/2018/12/01/volatile/index.html">
+<meta property="og:site_name" content="jinelei&#39;s blog">
+<meta property="og:description" content="重排序是指编译器和处理器为了优化程序性能二队指令序列进行重新排序的一种手段。                      数据依赖性       如果两个操作访问同一个变量，且两个操作中的一个为写操作。此时就存在数据依赖性。（读写顺序会影响结果）                      as-if-serial语义       不管怎么重排序编译器、runtime和处理器都必须遵守as-if-se">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-12-01T01:00:00.000Z">
+<meta property="article:modified_time" content="2024-10-12T15:09:54.198Z">
+<meta property="article:author" content="jinelei">
+<meta property="article:tag" content="学习笔记">
+<meta name="twitter:card" content="summary"><title>volatile | jinelei's blog</title><link ref="canonical" href="https://jinelei.github.io/2018/12/01/volatile/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.2.0"><link rel="dns-prefetch" href="https://www.googletagmanager.com"><script src="https://www.googletagmanager.com/gtag/js?id=UA-180959764-1" async=""></script><script>if (window.location.hostname !== 'localhost') {
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){ dataLayer.push(arguments); }
+  gtag('js', new Date());
+  gtag('config', 'UA-180959764-1');
+}</script><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":false,"scrollDownIcon":false},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"default","highlight":"light","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: {"switchPost":true},
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.4.2"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner header-inner--height header-inner--bgcolor"><nav class="header-nav header-nav--sticky"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">标签</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">volatile</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2018-12-01</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2024-10-12</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">1.4k</span></span><span class="post-meta-item post-meta-item--readtime"><span class="post-meta-item__icon"><i class="far fa-clock"></i></span><span class="post-meta-item__info">阅读时长</span><span class="post-meta-item__value">7分</span></span></div></header><div class="post-body"><p>重排序是指编译器和处理器为了优化程序性能二队指令序列进行重新排序的一种手段。</p>
+<ul>
+<li>
+        <h3 id="数据依赖性"   >
+          <a href="#数据依赖性" class="heading-link"><i class="fas fa-link"></i></a>数据依赖性</h3>
+      <p>如果两个操作访问同一个变量，且两个操作中的一个为写操作。此时就存在数据依赖性。（读写顺序会影响结果）</p>
+</li>
+<li>
+        <h4 id="as-if-serial语义"   >
+          <a href="#as-if-serial语义" class="heading-link"><i class="fas fa-link"></i></a>as-if-serial语义</h4>
+      <p>不管怎么重排序编译器、runtime和处理器都必须遵守as-if-serial语义。这个特性使得单线程程序看起来是按顺序执行的。<br>在happens-before规则中，JMM会进行拓扑排序来推导执行顺序。</p>
+</li>
+<li><p>未同步程序在JMM喝顺序一致性模型中的差异</p>
+</li>
+</ul>
+<ol>
+<li>顺序一致性模型保证单线程内的操作会按照程序的顺序执行，而JMM不保证单线程内的操作会按程序的顺序执行。</li>
+<li>顺序一致性模型保证所有线程智能看到一只的操作执行顺序，而JMM不保证所有线程能看到一只的操作顺序。</li>
+<li>JMM不保证对64位的long型和double型变量的写操作具有原子性，而顺序一致性模型保证对所有的内存读、写都具有原子性。<blockquote>
+<p>第三个差异与处理器总显得工作机制密切相关。在计算机中，数据通过总现在处理器和内存之间传递。每次处理器和内存之间的数据传递都是通过一系列步骤来完成的，这一些列步骤称之为总线事务。总显示无包括读事务和写事务。读事务从内存传递数据到处理器，写事务从处理器出啊地数据到内存，每个事物会读写内存中的一个或多个物理上连续的字。这里的关键是，总线会同步视图并发使用总线的事物。在一个处理器执行总线事务期间，总线会禁止其他的处理器和设备执行内存的读写。（通过总线仲裁来对总线的竞争作出裁决，保证单个总线事务之中的读写具有原子性）。</p>
+<blockquote>
+<p>在一些32位的处理器上，如果要求对64位的数据写操作具有原子性，会有比较大的开销。为了照顾着中处理器，java语言规范鼓励但不强求JVM对64位的变量写操作具有原子性。当JVM在这个处理器上运行时，可能会把一个64位的变量的写操作拆分为两个32位的写操作来执行，这两个写操作可能被分配到不同的总线事务中执行，此时这个写操作将不具有原子性。</p>
+<blockquote>
+<p>64位变量的读操作都具有原子性。</p>
+</blockquote>
+</blockquote>
+</blockquote>
+</li>
+</ol>
+<ul>
+<li>
+        <h3 id="volatile的内存语义"   >
+          <a href="#volatile的内存语义" class="heading-link"><i class="fas fa-link"></i></a>volatile的内存语义</h3>
+      当生命共享变量为volatile后，对这个变量的读写将会特别。</li>
+</ul>
+<ol>
+<li><p>volatile的特性</p>
+<ol>
+<li>可见性：对一个volatile变量的毒，总是能看到人以县城对这个colatile变量最后的写入。</li>
+<li>原子性，对任意单个colatile变量的读写具有原子性，但类似于volatile++这种符合操作不具有原子性。<br>一个volatile变量的单个读写操作，与一个普通变量的读写操作都是用用一个锁来同步的效果相同。<blockquote>
+<p>锁的happens-before规则保证释放锁和获得所的两个线程之间的内存可见性，这意味着一个volatile变量的毒，总能考到人以县城对这个volaile变量最后的写入。</p>
+</blockquote>
+</li>
+</ol>
+</li>
+<li><p>从JSR-133 开始，volatile变量的亵渎可以实现线程之间的通信。<br>从内存语义的角度来说，volatile的读写与锁的释放获取具有相同的内存效果：volatile写和锁的释放有相同的内存语义；volatile毒与锁的获取有相同的内存语义。</p>
+</li>
+<li><p>volatile写-读的内存语义<br>线程在写volatile变量后，会同步到主内存中，<br>线程在读volatile变量时，JMM会把该新城对应的本地内设置为无效，并从主内存中读取。</p>
+<blockquote>
+<p>总结：</p>
+<ol>
+<li>线程A写一个volatile变量，是指山是线程A项接下来将要读这个volatile变量的某个线程发出了（其对共享变量所做修改的）消息。</li>
+<li>线程B读一个volatile变量，是指上是线程B接收了之前某个线程发出的消息。</li>
+<li>线程A写一个volatile变量，随后线程B读取了这个变量，实质上是线程A通过主内存项线程B发送消息（volatile变量）。</li>
+</ol>
+</blockquote>
+</li>
+<li><p>volatile重排序规则</p>
+</li>
+</ol>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th align="center">是否能重排序</th>
+<th align="center"></th>
+<th align="center">第二个操作</th>
+<th align="center"></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">第一个操作</td>
+<td align="center">普通 读/写</td>
+<td align="center">volatile 读</td>
+<td align="center">volatile 写</td>
+</tr>
+<tr>
+<td align="center">普通 读/写</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">NO</td>
+</tr>
+<tr>
+<td align="center">volatile 读</td>
+<td align="center">NO</td>
+<td align="center">NO</td>
+<td align="center">NO</td>
+</tr>
+<tr>
+<td align="center">volatile 写</td>
+<td align="center"></td>
+<td align="center">NO</td>
+<td align="center">NO</td>
+</tr>
+</tbody></table></div>
+<blockquote>
+<p>JMM采取的是一种保守内存屏障策略</p>
+<ol>
+<li>在每个volatile写操作前面插入一个StoreStore屏障。</li>
+<li>在每个volatile写操作后面插入一个StoreLoad屏障。</li>
+<li>在每个volatile读操作前面插入一个LoadLoad屏障。</li>
+<li>在每个volatile读操作后面插入一个LoadStore屏障。</li>
+</ol>
+</blockquote>
+<blockquote>
+<blockquote>
+<p>锁和volatile的区别：</p>
+<ol>
+<li>volatile仅仅保证对单个volatile变量读写具有原子性，锁对整个临界区代码的执行具有原子性。</li>
+<li>在功能上，锁比volatile更强大。</li>
+<li>在可伸缩性和执行性上，volatile比锁更强大。</li>
+</ol>
+</blockquote>
+</blockquote>
+<ul>
+<li>
+        <h3 id="个人对volatile的理解"   >
+          <a href="#个人对volatile的理解" class="heading-link"><i class="fas fa-link"></i></a>个人对volatile的理解</h3>
+      <ol>
+<li>volatile只保证变量的取值、赋值是原子性的</li>
+<li></li>
+</ol>
+</li>
+</ul>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">本文作者: </span><span class="copyright-author__value"><a href="https://jinelei.github.io">jinelei</a></span></div><div class="copyright-link"><span class="copyright-link__name">本文链接: </span><span class="copyright-link__value"><a href="https://jinelei.github.io/2018/12/01/volatile/">https://jinelei.github.io/2018/12/01/volatile/</a></span></div><div class="copyright-notice"><span class="copyright-notice__name">版权声明: </span><span class="copyright-notice__value">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" rel="external nofollow" target="_blank">BY-NC-SA</a> 许可协议。转载请注明出处！</span></div></div><div class="post-tags"><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="https://jinelei.github.io/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a></span></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/2018/12/01/reentrant-lock/"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">锁</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/2018/11/15/wechat-disbale-border/"><span class="paginator-prev__text">小程序点滴1</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E4%BE%9D%E8%B5%96%E6%80%A7"><span class="toc-number">1.</span> <span class="toc-text">
+          数据依赖性</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#as-if-serial%E8%AF%AD%E4%B9%89"><span class="toc-number">1.1.</span> <span class="toc-text">
+          as-if-serial语义</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#volatile%E7%9A%84%E5%86%85%E5%AD%98%E8%AF%AD%E4%B9%89"><span class="toc-number">2.</span> <span class="toc-text">
+          volatile的内存语义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%AA%E4%BA%BA%E5%AF%B9volatile%E7%9A%84%E7%90%86%E8%A7%A3"><span class="toc-number">3.</span> <span class="toc-text">
+          个人对volatile的理解</span></a></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/icons/logo.webp" alt="avatar"></div><p class="sidebar-ov-author__text">jinelei</p></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">63</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">14</div><div class="sidebar-ov-state-item__name">分类</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">2</div><div class="sidebar-ov-state-item__name">标签</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2024</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>jinelei</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v5.4.2</span><span class="footer__devider">|</span><span>主题 - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.2.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/canvas-nest.js@1.0.1/dist/canvas-nest.min.js" color="0,0,0" opacity="0.6" count="119" zIndex="-1"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.json';
+
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
+
+  var path = '/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
+
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ 文章无标题 ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
+
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
+
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
+
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
+
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
+
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
+
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
+
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
+
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
+
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
+
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
+
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
+      });
+    }
+  });
+}
+
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
+
+      initSearch();
+    });
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
+    });
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
+      }
+    });
+  };
+
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);
+
+function safeOpenUrl(url) {
+  var newTab = window.open();
+  newTab.opener = null;
+  newTab.location = url;
+}
+
+function extSearch(engine) {
+  var engines = {
+    google: 'https://www.google.com/search?q=',
+    bing: 'https://cn.bing.com/search?q=',
+    baidu: 'https://www.baidu.com/s?ie=UTF-8&wd=',
+  };
+  var host = window.location.host;
+  var query = $('.search-input input').val().toLowerCase().trim();
+  var uri = engines[engine] + query + ' site:' + host;
+
+  if (query) {
+    safeOpenUrl(uri);
+  } else {
+    Stun.utils.popAlert('warning', '请输入字符');
+  }
+}
+
+var assistSearchList = window.CONFIG.assistSearch;
+
+if (Array.isArray(assistSearchList)) {
+  assistSearchList.forEach(function (name) {
+    document.querySelector('.search-btns-item--' + name).addEventListener('click', function () {
+      extSearch(name);
+    }, false);
+  });
+}</script><script src="/js/utils.js?v=2.2.0"></script><script src="/js/stun-boot.js?v=2.2.0"></script><script src="/js/scroll.js?v=2.2.0"></script><script src="/js/header.js?v=2.2.0"></script><script src="/js/sidebar.js?v=2.2.0"></script><script type="application/json" src="/search.json"></script></body></html>

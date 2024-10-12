@@ -1,0 +1,474 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><meta name="theme-color" content="#54bcff"><link rel="manifest" href="/manifest.json?v=2.2.0"><link rel="icon" href="/images/icons/favicon-small.ico?v=2.2.0" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon.ico?v=2.2.0" type="image/png" sizes="32x32"><meta name="google-site-verification" content="KtNbyqM1bm1HQWuPnMmgfwPeBWTMHXVL0-OjlyZMMRs"><meta name="description" content="背景知识        java从诞生开始就内置对多线程的支持，线程作为操作系统调度的最小单元，多个线程能同时执行，这将显著提升程序性能，在多核环境中表现的更加明显。  现代操作系统在运行一个程序是，会为其创建一个进程。现代操作系统调度的最小单元是线程，也叫轻量级进程，字啊一个进程里可以创建多个线程，这些线程都拥有各自的计数器、对战和局部变量的那个属性，并且">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java并发编程实例">
+<meta property="og:url" content="https://jinelei.github.io/2018/12/03/concurrent-demo/index.html">
+<meta property="og:site_name" content="jinelei&#39;s blog">
+<meta property="og:description" content="背景知识        java从诞生开始就内置对多线程的支持，线程作为操作系统调度的最小单元，多个线程能同时执行，这将显著提升程序性能，在多核环境中表现的更加明显。  现代操作系统在运行一个程序是，会为其创建一个进程。现代操作系统调度的最小单元是线程，也叫轻量级进程，字啊一个进程里可以创建多个线程，这些线程都拥有各自的计数器、对战和局部变量的那个属性，并且">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-12-03T01:00:00.000Z">
+<meta property="article:modified_time" content="2024-10-12T15:09:54.192Z">
+<meta property="article:author" content="jinelei">
+<meta property="article:tag" content="学习笔记">
+<meta name="twitter:card" content="summary"><title>java并发编程实例 | jinelei's blog</title><link ref="canonical" href="https://jinelei.github.io/2018/12/03/concurrent-demo/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.2.0"><link rel="dns-prefetch" href="https://www.googletagmanager.com"><script src="https://www.googletagmanager.com/gtag/js?id=UA-180959764-1" async=""></script><script>if (window.location.hostname !== 'localhost') {
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){ dataLayer.push(arguments); }
+  gtag('js', new Date());
+  gtag('config', 'UA-180959764-1');
+}</script><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":false,"scrollDownIcon":false},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"default","highlight":"light","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: {"switchPost":true},
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.4.2"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner header-inner--height header-inner--bgcolor"><nav class="header-nav header-nav--sticky"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">标签</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">java并发编程实例</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2018-12-03</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2024-10-12</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">1.8k</span></span><span class="post-meta-item post-meta-item--readtime"><span class="post-meta-item__icon"><i class="far fa-clock"></i></span><span class="post-meta-item__info">阅读时长</span><span class="post-meta-item__value">10分</span></span></div></header><div class="post-body">
+        <h3 id="背景知识"   >
+          <a href="#背景知识" class="heading-link"><i class="fas fa-link"></i></a>背景知识</h3>
+      <blockquote>
+<p>java从诞生开始就内置对多线程的支持，线程作为操作系统调度的最小单元，多个线程能同时执行，这将显著提升程序性能，在多核环境中表现的更加明显。</p>
+<blockquote>
+<p>现代操作系统在运行一个程序是，会为其创建一个进程。现代操作系统调度的最小单元是线程，也叫轻量级进程，字啊一个进程里可以创建多个线程，这些线程都拥有各自的计数器、对战和局部变量的那个属性，并且能够访问共享内存变量。处理器在说这些线程上高速切换，让使用者感觉这些线程在同时执行。</p>
+</blockquote>
+</blockquote>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.lang.management.ManagementFactory;</span><br><span class="line"><span class="keyword">import</span> java.lang.management.ThreadInfo;</span><br><span class="line"><span class="keyword">import</span> java.lang.management.ThreadMXBean;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">scratch_1</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">ThreadMXBean</span> <span class="variable">threadMXBean</span> <span class="operator">=</span> ManagementFactory.getThreadMXBean();</span><br><span class="line">        ThreadInfo[] threadInfos = threadMXBean.dumpAllThreads(<span class="literal">false</span>, <span class="literal">false</span>);</span><br><span class="line">        <span class="keyword">for</span> (ThreadInfo threadInfo : threadInfos) &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;[&quot;</span> + threadInfo.getThreadId() + <span class="string">&quot;] &quot;</span> + threadInfo.getThreadName());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<blockquote>
+<p>运行结果：</p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[5] Monitor Ctrl-Break</span><br><span class="line">[4] Signal Dispatcher</span><br><span class="line">[3] Finalizer</span><br><span class="line">[2] Reference Handler</span><br><span class="line">[1] main</span><br></pre></td></tr></table></div></figure>
+</blockquote>
+<ul>
+<li>
+        <h3 id="线程的优先级"   >
+          <a href="#线程的优先级" class="heading-link"><i class="fas fa-link"></i></a>线程的优先级</h3>
+      现代操作系统基本采用时分的形式调度运行的进程，操作系统会分出一个个时间片，线程会分配若干时间片，当线程的时间片用完了就会发生线程调度，并等待下次分配。线程分配到时间片多少也决定了线程使用处理器资源的多少，儿线程的优先级决定线程需要多或者少扥配一些处理器资源的线程属性。</li>
+</ul>
+<p>在java线程中，通过一个整型成员变量priority来控制优先级，优先级的范围从1~10，在新汉城构建的时候通过setProority(int)方法来修改优先级，默认优先级是5，优先级搞得线程分配的时间片的数量要多于优先级地的线程。设置线程优先级是，针对频繁阻塞的线程需要设计较高的优先级，儿片中计算的线程设计交底的优先级，确保处理器不会被独占，在不同的JVM及操作系统上，线程规划会存在差异，有些操作西永甚至会忽略线程优先级的设定。</p>
+<ul>
+<li>
+        <h3 id="线程的状态"   >
+          <a href="#线程的状态" class="heading-link"><i class="fas fa-link"></i></a>线程的状态</h3>
+      </li>
+</ul>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th align="center">状态名称</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">NEW</td>
+<td align="center">初始状态：线程已经被构建，但是还没有调用start()方法</td>
+</tr>
+<tr>
+<td align="center">RUNNABLE</td>
+<td align="center">运行状态，java线程将操作系统中的就绪和运行两种状态笼统的称作为”运行中”</td>
+</tr>
+<tr>
+<td align="center">BLOCKED</td>
+<td align="center">阻塞状态，表示线程阻塞于锁</td>
+</tr>
+<tr>
+<td align="center">WAITING</td>
+<td align="center">等待状态，表示线程进入等待状态，进图该状态表示当前线程需要等待其他线程做出一些特定操作（通知或者中断）</td>
+</tr>
+<tr>
+<td align="center">TIME_WAITING</td>
+<td align="center">超时等待状态，该状态不同于WAITING，他是可以在指定时间自行返回的</td>
+</tr>
+<tr>
+<td align="center">TERMINATED</td>
+<td align="center">种植状态，表示当前线程已经执行完毕</td>
+</tr>
+</tbody></table></div>
+<ul>
+<li>
+        <h3 id="Daemon线程"   >
+          <a href="#Daemon线程" class="heading-link"><i class="fas fa-link"></i></a>Daemon线程</h3>
+      <p>Daemon线程是一种支持性线程，因为它主要被用于程序中后台调度以及支持性工作，这意味着，当一个java虚拟机中不存在飞Daemon线程的时候，java虚拟机将会退出，使用<code>Thread.setDaemon(true)</code>将线程设置为Daemon线程。</p>
+<blockquote>
+<p>Daemon属性需要在启动线程之前设置，不能再启动线程之后设置。</p>
+<blockquote>
+<p>在购将Daemon线程时，不能依靠finally块中的内容来确保执行关闭或者清理资源。</p>
+</blockquote>
+</blockquote>
+</li>
+<li>
+        <h3 id="线程的启动和终止"   >
+          <a href="#线程的启动和终止" class="heading-link"><i class="fas fa-link"></i></a>线程的启动和终止</h3>
+      <p>使用<code>start()</code>来启动，随着<code>run()</code>执行完毕也随之终止。</p>
+</li>
+<li>
+        <h4 id="线程的启动"   >
+          <a href="#线程的启动" class="heading-link"><i class="fas fa-link"></i></a>线程的启动</h4>
+      <p>在调用<code>start()</code>方法之后，只要java虚拟机认为：线程规划器空闲，就会立刻启动start()</p>
+</li>
+<li>
+        <h4 id="理解中断"   >
+          <a href="#理解中断" class="heading-link"><i class="fas fa-link"></i></a>理解中断</h4>
+      <p>中断可以理解为线程的一个标识位属性，它表示一个运行中的线程是否被其他线程进行了中断操作。中断好比其他线程对该线程打了个招呼，其他线程通过调用该线程的interrupt()方法对其进行中断操作。</p>
+</li>
+</ul>
+<p>线程通过检查自身是否被中断来进行相应，线程通过方法<code>isInterrupted()</code>来进行判断是够被中断，也可以调用静态方法<code>Thread.interrupt()</code>对当前线程的中断表示进行复位。如果该线程已经处于终结状态，即使该线程被中断过，在电泳该线程对象的<code>isInterrupted()</code>时依旧会返回false。</p>
+<p>java API中有很多声明抛出InterruptedException的方法。这些方法在抛出INterruptedException之前，java虚拟机会先将该线程中断标识位清除，然后抛出InterruptedException，此时调用isInterrupted()方法会返回false。</p>
+<ul>
+<li>
+        <h4 id="安全的终止线程"   >
+          <a href="#安全的终止线程" class="heading-link"><i class="fas fa-link"></i></a>安全的终止线程</h4>
+      <p>通过<code>thread.interrupt()</code>和<code>thread.cancel()</code>方法均可以。通过标识位或者中断操作的方法能够使线程在终止时后机会去清理资源。</p>
+</li>
+<li>
+        <h3 id="线线程间通信"   >
+          <a href="#线线程间通信" class="heading-link"><i class="fas fa-link"></i></a>线线程间通信</h3>
+      <ol>
+<li><p>synchronized<br>使用了monitorenter和monitorexit指令来实现，monitorenter失败的线程会进入SynchronizedQueue队列进行等待。</p>
+</li>
+<li><p>等待/通知机制<br>使用生产者/消费者模式，等待通知机制是内置在Object对象上的。  </p>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th align="center">方法名称</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">notify()</td>
+<td align="center">通知一个在对象上等待的线程，使其wait()方法返回，前提是改线程获取到了锁</td>
+</tr>
+<tr>
+<td align="center">notifyAll()</td>
+<td align="center">通知所有等待在该对象上的线程</td>
+</tr>
+<tr>
+<td align="center">wait()</td>
+<td align="center">调用该方法进图WAITTING状态，只有等待另外线程的通知或者被中断才会返回，调用该方法后释放锁</td>
+</tr>
+<tr>
+<td align="center">wait(long)</td>
+<td align="center">超时等待，没有在规定时间内得到通知就返回</td>
+</tr>
+<tr>
+<td align="center">wait(long, int)</td>
+<td align="center">对超时时间更加精细，可以达到纳秒</td>
+</tr>
+</tbody></table></div>
+</li>
+<li><p>管道输入/输出流<br>管道输入输出流和普通文件输入输出流或者网络输入输出流不同的是，它主要用于线程之间的数据传输，而传输的媒介是内存。<br>管道输入输出流包含了下面四种实现：PipiedOuputStream、PipedInputStream、PipedReader、PipedWriter，前两种面向字节，后两种面向字符。</p>
+</li>
+<li><p>Thread.join()的使用<br>使用thread.join()可以等待调用该方法线程结束再执行后面代码。</p>
+</li>
+<li><p>ThreadLocal的使用<br>ThreadLocal，即线程变量，是一个以ThreadLocal对象未见、任意对象为值得存储结构。这个结构被附带在线程上，也就是一个线程可以根据一个ThreadLocal对象查询到值。  </p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Scratch</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> ThreadLocal&lt;Long&gt; TIME_THREADLOCAL = <span class="keyword">new</span> <span class="title class_">ThreadLocal</span>&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title function_">begin</span><span class="params">()</span> &#123;</span><br><span class="line">        TIME_THREADLOCAL.set(System.currentTimeMillis());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">long</span> <span class="title function_">end</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> System.currentTimeMillis() - TIME_THREADLOCAL.get();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Scratch</span> <span class="variable">scratch</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scratch</span>();</span><br><span class="line">        scratch.begin();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">&quot;cost time: &quot;</span> + scratch.end());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<blockquote>
+<p><code>java cost time: 1001 </code></p>
+</blockquote>
+</li>
+</ol>
+</li>
+<li>
+        <h3 id="等待超时模式"   >
+          <a href="#等待超时模式" class="heading-link"><i class="fas fa-link"></i></a>等待超时模式</h3>
+      <p>这里的伪代码是：</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">synchronized</span> Object <span class="title function_">get</span><span class="params">(<span class="type">long</span> mills)</span> <span class="keyword">throws</span> InterruptedException &#123; <span class="comment">// mills 作为超时等待时间</span></span><br><span class="line">    <span class="type">long</span> <span class="variable">future</span> <span class="operator">=</span> System.currentTimeMillis() + mills; <span class="comment">// 计算最终的返回时间</span></span><br><span class="line">    <span class="type">long</span> <span class="variable">remaining</span> <span class="operator">=</span> mills; </span><br><span class="line">    <span class="keyword">while</span>((result == <span class="literal">null</span>) &amp;&amp; remaining &gt; <span class="number">0</span>)&#123;</span><br><span class="line">        wait(remaining); <span class="comment">// 这里使用Object.wait(long)进行等待，如果超过等待时间，再去对比future，超出则返回默认值。</span></span><br><span class="line">        remaining = future - System.currentTimeMillis();</span><br><span class="line">    &#125;</span><br><span class="line">    retrun result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+</li>
+</ul>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">本文作者: </span><span class="copyright-author__value"><a href="https://jinelei.github.io">jinelei</a></span></div><div class="copyright-link"><span class="copyright-link__name">本文链接: </span><span class="copyright-link__value"><a href="https://jinelei.github.io/2018/12/03/concurrent-demo/">https://jinelei.github.io/2018/12/03/concurrent-demo/</a></span></div><div class="copyright-notice"><span class="copyright-notice__name">版权声明: </span><span class="copyright-notice__value">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" rel="external nofollow" target="_blank">BY-NC-SA</a> 许可协议。转载请注明出处！</span></div></div><div class="post-tags"><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="https://jinelei.github.io/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a></span></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/2018/12/03/AQS/"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">AQS介绍</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/2018/12/03/lock/"><span class="paginator-prev__text">java中的锁</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%83%8C%E6%99%AF%E7%9F%A5%E8%AF%86"><span class="toc-number">1.</span> <span class="toc-text">
+          背景知识</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BA%BF%E7%A8%8B%E7%9A%84%E4%BC%98%E5%85%88%E7%BA%A7"><span class="toc-number">2.</span> <span class="toc-text">
+          线程的优先级</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BA%BF%E7%A8%8B%E7%9A%84%E7%8A%B6%E6%80%81"><span class="toc-number">3.</span> <span class="toc-text">
+          线程的状态</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Daemon%E7%BA%BF%E7%A8%8B"><span class="toc-number">4.</span> <span class="toc-text">
+          Daemon线程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%90%AF%E5%8A%A8%E5%92%8C%E7%BB%88%E6%AD%A2"><span class="toc-number">5.</span> <span class="toc-text">
+          线程的启动和终止</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%90%AF%E5%8A%A8"><span class="toc-number">5.1.</span> <span class="toc-text">
+          线程的启动</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%90%86%E8%A7%A3%E4%B8%AD%E6%96%AD"><span class="toc-number">5.2.</span> <span class="toc-text">
+          理解中断</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E5%85%A8%E7%9A%84%E7%BB%88%E6%AD%A2%E7%BA%BF%E7%A8%8B"><span class="toc-number">5.3.</span> <span class="toc-text">
+          安全的终止线程</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BA%BF%E7%BA%BF%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1"><span class="toc-number">6.</span> <span class="toc-text">
+          线线程间通信</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AD%89%E5%BE%85%E8%B6%85%E6%97%B6%E6%A8%A1%E5%BC%8F"><span class="toc-number">7.</span> <span class="toc-text">
+          等待超时模式</span></a></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/icons/logo.webp" alt="avatar"></div><p class="sidebar-ov-author__text">jinelei</p></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">63</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">14</div><div class="sidebar-ov-state-item__name">分类</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">2</div><div class="sidebar-ov-state-item__name">标签</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2024</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>jinelei</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v5.4.2</span><span class="footer__devider">|</span><span>主题 - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.2.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/canvas-nest.js@1.0.1/dist/canvas-nest.min.js" color="0,0,0" opacity="0.6" count="119" zIndex="-1"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.json';
+
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
+
+  var path = '/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
+
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ 文章无标题 ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
+
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
+
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
+
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
+
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
+
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
+
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
+
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
+
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
+
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
+
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
+
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
+      });
+    }
+  });
+}
+
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
+
+      initSearch();
+    });
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
+    });
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
+      }
+    });
+  };
+
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);
+
+function safeOpenUrl(url) {
+  var newTab = window.open();
+  newTab.opener = null;
+  newTab.location = url;
+}
+
+function extSearch(engine) {
+  var engines = {
+    google: 'https://www.google.com/search?q=',
+    bing: 'https://cn.bing.com/search?q=',
+    baidu: 'https://www.baidu.com/s?ie=UTF-8&wd=',
+  };
+  var host = window.location.host;
+  var query = $('.search-input input').val().toLowerCase().trim();
+  var uri = engines[engine] + query + ' site:' + host;
+
+  if (query) {
+    safeOpenUrl(uri);
+  } else {
+    Stun.utils.popAlert('warning', '请输入字符');
+  }
+}
+
+var assistSearchList = window.CONFIG.assistSearch;
+
+if (Array.isArray(assistSearchList)) {
+  assistSearchList.forEach(function (name) {
+    document.querySelector('.search-btns-item--' + name).addEventListener('click', function () {
+      extSearch(name);
+    }, false);
+  });
+}</script><script src="/js/utils.js?v=2.2.0"></script><script src="/js/stun-boot.js?v=2.2.0"></script><script src="/js/scroll.js?v=2.2.0"></script><script src="/js/header.js?v=2.2.0"></script><script src="/js/sidebar.js?v=2.2.0"></script><script type="application/json" src="/search.json"></script></body></html>
