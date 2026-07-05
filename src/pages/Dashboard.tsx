@@ -418,7 +418,11 @@ export default function Dashboard({ baseCategoryId }: DashboardProps) {
   const doFetch = useCallback((catIds: number[], tagIds: number[], kw: string, pg: number) => {
     setLoading(true)
     const effectiveCatIds = baseCategoryId
-      ? catIds.includes(baseCategoryId) ? catIds : [baseCategoryId, ...catIds]
+      ? catIds.length === 0
+        ? [baseCategoryId]
+        : catIds.includes(baseCategoryId) && catIds.length > 1
+          ? catIds.filter(id => id !== baseCategoryId)
+          : catIds
       : catIds
     const bmParams: Record<string, unknown> = { page: pg, size: pageSizeRef.current }
     if (effectiveCatIds.length > 0) bmParams.categoryIds = effectiveCatIds
