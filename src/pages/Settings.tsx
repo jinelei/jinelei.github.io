@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { FiUser, FiKey, FiDownload, FiUpload, FiChrome, FiSave, FiPlus, FiCopy, FiCheck, FiTrash2, FiArchive, FiGlobe, FiLink, FiExternalLink, FiEdit2 } from 'react-icons/fi'
+import { FiUser, FiKey, FiDownload, FiUpload, FiChrome, FiSave, FiPlus, FiCopy, FiCheck, FiTrash2, FiArchive, FiGlobe, FiLink, FiExternalLink, FiEdit2, FiRefreshCw } from 'react-icons/fi'
 import toast from 'react-hot-toast'
 import { changePassword, updateProfile } from '../api/auth'
 import { listTokens, createToken, revokeToken } from '../api/tokens'
@@ -9,6 +9,7 @@ import { useAuth } from '../contexts/AuthContext'
 import type { ApiTokenResponse } from '../types'
 import { getAppConfig, updateAppConfig } from '../api/app-config'
 import { getExternalLinks, createExternalLink, updateExternalLink, deleteExternalLink } from '../api/external-links'
+import { batchRefreshFavicons } from '../api/bookmarks'
 import type { ExternalLinkResponse } from '../types'
 
 const container = {
@@ -222,6 +223,46 @@ function ExternalLinkSection() {
   )
 }
 
+function FaviconRefreshSection() {
+  const [running, setRunning] = useState(false)
+  const [result, setResult] = useState<number | null>(null)
+
+  const handleRefresh = async () => {
+    setRunning(true)
+    setResult(null)
+    try {
+      const res = await batchRefreshFavicons()
+      setResult(res.data)
+      toast.success(`已刷新 ${res.data} 个书签图标`)
+    } catch (e: unknown) {
+      toast.error(e instanceof Error ? e.message : '刷新图标失败')
+    } finally {
+      setRunning(false)
+    }
+  }
+
+  return (
+    <div className="space-y-3">
+      <p className="text-xs text-gray-500">将自动为所有没有图标的书签，通过 Google Favicons 服务获取网站图标。</p>
+      <div className="flex items-center gap-3">
+        <button
+          onClick={handleRefresh}
+          disabled={running}
+          className="flex items-center gap-2 px-4 py-2 rounded-lg bg-accent-600 hover:bg-accent-500 disabled:opacity-50 text-white text-xs font-semibold transition-all active:scale-95"
+        >
+          <FiRefreshCw size={14} className={running ? 'animate-spin' : ''} />
+          {running ? '刷新中...' : '开始刷新'}
+        </button>
+        {result !== null && (
+          <span className="text-xs text-gray-400">
+            共处理 {result} 个书签
+          </span>
+        )}
+      </div>
+    </div>
+  )
+}
+
 function TokenSection() {
   const [tokens, setTokens] = useState<ApiTokenResponse[]>([])
   const [loading, setLoading] = useState(true)
@@ -410,6 +451,7 @@ export default function Settings() {
     { id: 'external-links', label: '外部链接', icon: FiLink },
     { id: 'data', label: '数据', icon: FiArchive },
     { id: 'plugin', label: '插件', icon: FiChrome },
+    { id: 'favicon', label: '图标刷新', icon: FiRefreshCw },
   ]
 
   useEffect(() => {
@@ -678,6 +720,13 @@ export default function Settings() {
             查看安装步骤
           </a>
         </div>
+      </motion.div>
+
+      {/* 图标刷新 */}
+      <motion.div variants={item} id="favicon" className="glass rounded-xl p-6 sm:p-8">
+        <SectionHeader icon={FiRefreshCw} title="书签图标刷新" desc="为所有没有图标的书签自动获取网站图标" />
+
+        <FaviconRefreshSection />
       </motion.div>
         <div className="text-center text-[10px] text-gray-600 uppercase tracking-widest pt-4">
           v1.0.0

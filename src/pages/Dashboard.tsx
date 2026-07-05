@@ -1,8 +1,8 @@
 import { useEffect, useState, useCallback, useRef, useMemo } from 'react'
-import { FiBookmark, FiFolder, FiTag, FiTrendingUp, FiSearch, FiX, FiExternalLink, FiPaperclip, FiEdit2, FiTrash2, FiPlus, FiCheck } from 'react-icons/fi'
+import { FiBookmark, FiFolder, FiTag, FiTrendingUp, FiSearch, FiX, FiExternalLink, FiPaperclip, FiEdit2, FiTrash2, FiPlus, FiCheck, FiRefreshCw } from 'react-icons/fi'
 import { motion } from 'framer-motion'
 import toast from 'react-hot-toast'
-import { searchBookmarks, togglePin, updateBookmark, deleteBookmark, batchUpdateBookmarks, createBookmark } from '../api/bookmarks'
+import { searchBookmarks, togglePin, updateBookmark, deleteBookmark, batchUpdateBookmarks, createBookmark, refreshFavicon } from '../api/bookmarks'
 import { getCategoryTree, getCategoryStats, createCategory, updateCategory, deleteCategory } from '../api/categories'
 import { getAllTags, getTagStats, createTag, updateTag, deleteTag } from '../api/tags'
 import type { BookmarkResponse, CategoryResponse, TagStatsResponse, TagResponse, BookmarkRequest, CategoryRequest } from '../types'
@@ -196,6 +196,7 @@ function EditBookmarkForm({ bookmark, categories, allTags, onSubmit, onCancel, o
   const [categoryId, setCategoryId] = useState<number | undefined>(bookmark.category?.id)
   const [selectedTagIds, setSelectedTagIds] = useState<number[]>(bookmark.tags.map(t => t.id))
   const [submitting, setSubmitting] = useState(false)
+  const [refreshingFavicon, setRefreshingFavicon] = useState(false)
 
   const [newCategoryName, setNewCategoryName] = useState('')
   const [creatingCategory, setCreatingCategory] = useState(false)
@@ -265,6 +266,32 @@ function EditBookmarkForm({ bookmark, categories, allTags, onSubmit, onCancel, o
       <div>
         <label className="text-xs text-gray-400 mb-1 block">URL *</label>
         <input value={url} onChange={e => setUrl(e.target.value)} className="w-full bg-surface-800 border border-surface-500 rounded-lg px-3 py-2 text-sm text-gray-300 outline-none focus:border-accent-500/70 transition-colors" />
+      </div>
+      <div>
+        <div className="flex items-center gap-3">
+          {bookmark.faviconUrl && (
+            <img src={bookmark.faviconUrl} alt="" className="w-5 h-5 rounded shrink-0" onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }} />
+          )}
+          <button
+            type="button"
+            onClick={async () => {
+              setRefreshingFavicon(true)
+              try {
+                await refreshFavicon(bookmark.id)
+                toast.success('图标已刷新')
+              } catch (e: unknown) {
+                toast.error(e instanceof Error ? e.message : '刷新图标失败')
+              } finally {
+                setRefreshingFavicon(false)
+              }
+            }}
+            disabled={refreshingFavicon}
+            className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-lg bg-surface-800 border border-surface-500 text-accent-400 hover:text-accent-300 hover:border-accent-500/50 transition-colors disabled:opacity-50"
+          >
+            <FiRefreshCw size={13} className={refreshingFavicon ? 'animate-spin' : ''} />
+            {refreshingFavicon ? '刷新中...' : '刷新图标'}
+          </button>
+        </div>
       </div>
       <div>
         <label className="text-xs text-gray-400 mb-1 block">描述</label>
