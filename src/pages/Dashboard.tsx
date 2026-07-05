@@ -840,7 +840,7 @@ export default function Dashboard({ baseCategoryId }: DashboardProps) {
                             : 'bg-white/5 text-gray-400 border-white/10 hover:bg-white/10'
                         } ${catEditMode ? 'cursor-default' : 'cursor-pointer'}`}
                       >
-                        {active && <span className="text-purple-300 shrink-0">✓</span>}
+                        <span className={`shrink-0 ${active ? 'text-purple-300' : 'invisible'}`}>✓</span>
                         <span className="truncate min-w-0">{c.label}</span>
                         <span className="text-gray-600 shrink-0">{displayCatStats.get(c.id) ?? 0}</span>
                       </button>
@@ -895,7 +895,7 @@ export default function Dashboard({ baseCategoryId }: DashboardProps) {
                             : 'bg-white/5 text-gray-400 border-white/10 hover:bg-white/10'
                         } ${tagEditMode ? 'cursor-default' : 'cursor-pointer'}`}
                       >
-                        {active && <span className="text-neon-300 shrink-0">✓</span>}
+                        <span className={`shrink-0 ${active ? 'text-neon-300' : 'invisible'}`}>✓</span>
                         <span className="truncate"># {s.name}</span>
                         <span className="shrink-0 text-gray-600">{s.count}</span>
                       </button>
