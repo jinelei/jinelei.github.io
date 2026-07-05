@@ -482,9 +482,15 @@ export default function Dashboard({ baseCategoryId }: DashboardProps) {
   }, [tagStats])
 
   const toggleCategory = (id: number) => {
-    setSelectedCategoryIds(prev =>
-      prev.includes(id) ? prev.filter(v => v !== id) : [...prev, id]
-    )
+    if (baseCategoryId) {
+      setSelectedCategoryIds(prev =>
+        prev.length === 1 && prev[0] === id ? [] : [id]
+      )
+    } else {
+      setSelectedCategoryIds(prev =>
+        prev.includes(id) ? prev.filter(v => v !== id) : [...prev, id]
+      )
+    }
   }
 
   const toggleTag = (id: number) => {
@@ -809,11 +815,17 @@ export default function Dashboard({ baseCategoryId }: DashboardProps) {
               <button onClick={() => { setCatEditMode(v => !v); setTagEditMode(false) }} className={`flex items-center gap-0.5 text-xs leading-none transition-colors ${catEditMode ? 'text-accent-400' : 'text-accent-400 hover:text-accent-300'}`}>
                 {catEditMode ? <><FiCheck size={15} /><span className="hidden sm:inline">完成</span></> : <><FiEdit2 size={15} /><span className="hidden sm:inline">编辑</span></>}
               </button>
-              {selectedCategoryIds.length > (baseCategoryId ? 1 : 0) && (
-                <>
-                  <span className="text-[10px] text-purple-400 ml-1">({selectedCategoryIds.length})</span>
-                  <button onClick={() => setSelectedCategoryIds(baseCategoryId ? [baseCategoryId] : [])} className="text-xs text-purple-400/70 hover:text-purple-300 transition-colors">清除</button>
-                </>
+              {baseCategoryId ? (
+                selectedCategoryIds.length > 0 && !(selectedCategoryIds.length === 1 && selectedCategoryIds[0] === baseCategoryId) && (
+                  <button onClick={() => setSelectedCategoryIds([baseCategoryId])} className="text-xs text-purple-400/70 hover:text-purple-300 transition-colors">清除</button>
+                )
+              ) : (
+                selectedCategoryIds.length > 0 && (
+                  <>
+                    <span className="text-[10px] text-purple-400 ml-1">({selectedCategoryIds.length})</span>
+                    <button onClick={() => setSelectedCategoryIds([])} className="text-xs text-purple-400/70 hover:text-purple-300 transition-colors">清除</button>
+                  </>
+                )
               )}
             </div>
             <div className="flex flex-wrap gap-1.5 sm:gap-2">
