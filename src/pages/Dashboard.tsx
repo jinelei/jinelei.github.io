@@ -366,7 +366,7 @@ export default function Dashboard({ baseCategoryId }: DashboardProps) {
   const [allTags, setAllTags] = useState<TagResponse[]>([])
   const [tagStats, setTagStats] = useState<TagStatsResponse[]>([])
   const [catStats, setCatStats] = useState<Map<number, number>>(new Map())
-  const [selectedCategoryIds, setSelectedCategoryIds] = useState<number[]>(baseCategoryId ? [baseCategoryId] : [])
+  const [selectedCategoryIds, setSelectedCategoryIds] = useState<number[]>([])
   const [selectedTagIds, setSelectedTagIds] = useState<number[]>([])
   const [keyword, setKeyword] = useState('')
   const [page, setPage] = useState(0)
@@ -410,7 +410,7 @@ export default function Dashboard({ baseCategoryId }: DashboardProps) {
       isFirstRender.current = false
       return
     }
-    setSelectedCategoryIds(baseCategoryId ? [baseCategoryId] : [])
+    setSelectedCategoryIds([])
     setKeyword('')
     setPage(0)
   }, [baseCategoryId])
@@ -819,7 +819,7 @@ export default function Dashboard({ baseCategoryId }: DashboardProps) {
               {selectedCategoryIds.length > (baseCategoryId ? 1 : 0) && (
                 <>
                   <span className="text-[10px] text-purple-400 ml-1">({selectedCategoryIds.length})</span>
-                  <button onClick={() => setSelectedCategoryIds(baseCategoryId ? [baseCategoryId] : [])} className="text-xs text-purple-400/70 hover:text-purple-300 transition-colors">清除</button>
+                  <button onClick={() => setSelectedCategoryIds([])} className="text-xs text-purple-400/70 hover:text-purple-300 transition-colors">清除</button>
                 </>
               )}
             </div>
