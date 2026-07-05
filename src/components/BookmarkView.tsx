@@ -446,6 +446,9 @@ function GridCard({
         )}
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2">
+          {b.faviconUrl && (
+            <img src={b.faviconUrl} alt="" className="w-4 h-4 rounded shrink-0" onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }} />
+          )}
           <a
             href={b.url}
             target="_blank"
@@ -529,6 +532,9 @@ function ListCard({
         )}
         <div className="min-w-0 flex-1">
           <div className="flex items-center gap-2">
+            {b.faviconUrl && (
+              <img src={b.faviconUrl} alt="" className="w-4 h-4 rounded shrink-0" onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }} />
+            )}
             <a
               href={b.url}
               target="_blank"
@@ -611,6 +617,9 @@ function CompactCard({
         onClick={() => onClick(b.id)}
         className="flex-1 min-w-0 flex items-center gap-2"
       >
+        {b.faviconUrl && (
+          <img src={b.faviconUrl} alt="" className="w-4 h-4 rounded shrink-0" onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }} />
+        )}
         <span className="text-sm truncate group-hover:text-accent-400 transition-colors">
           {b.title}
         </span>
