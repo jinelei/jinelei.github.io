@@ -79,31 +79,21 @@ export default function Sidebar({ open, onClose, displayName }: SidebarProps) {
                   return (
                     <div key={to}>
                       <div
+                        onClick={() => setBookmarkMenuOpen(v => !v)}
                         className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-all duration-200 cursor-pointer ${
                           isBookmarkActive
                             ? 'bg-accent-500/10 text-accent-400 font-medium'
                             : 'text-gray-400 hover:text-gray-200 hover:bg-white/5'
                         }`}
                       >
-                        <NavLink
-                          to="/"
-                          end
-                          className="flex items-center gap-3 flex-1 min-w-0"
-                        >
-                          <Icon size={17} />
-                          <span>{label}</span>
-                        </NavLink>
-                        <button
-                          onClick={(e) => { e.stopPropagation(); setBookmarkMenuOpen(v => !v) }}
-                          className={`p-0.5 rounded transition-colors hover:bg-white/10 ${
-                            bookmarkMenuOpen ? 'text-accent-400' : 'text-gray-500'
+                        <Icon size={17} />
+                        <span className="flex-1 min-w-0">{label}</span>
+                        <FiChevronDown
+                          size={14}
+                          className={`transition-transform duration-200 ${
+                            bookmarkMenuOpen ? 'rotate-0' : '-rotate-90'
                           }`}
-                        >
-                          <FiChevronDown
-                            size={14}
-                            className={`transition-transform duration-200 ${bookmarkMenuOpen ? 'rotate-0' : '-rotate-90'}`}
-                          />
-                        </button>
+                        />
                       </div>
                       <AnimatePresence>
                         {bookmarkMenuOpen && (
