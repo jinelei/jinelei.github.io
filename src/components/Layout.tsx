@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { FiSun, FiMoon, FiMonitor, FiSettings, FiLogOut } from 'react-icons/fi'
 import { HiMenuAlt2 } from 'react-icons/hi'
@@ -6,6 +6,8 @@ import Sidebar from './Sidebar'
 import { useTheme } from '../contexts/ThemeContext'
 import { useAuth } from '../contexts/AuthContext'
 import { getAppConfig } from '../api/app-config'
+import { getCategoryTree } from '../api/categories'
+import type { CategoryResponse } from '../types'
 
 const pageTitles: Record<string, [string, string]> = {
   '/': ['书签', '书签管理'],
@@ -13,16 +15,48 @@ const pageTitles: Record<string, [string, string]> = {
   '/settings': ['设置', '账户 / Token / 插件'],
 }
 
+function findCategoryName(tree: CategoryResponse[], id: number): string | null {
+  for (const c of tree) {
+    if (c.id === id) return c.name
+    const found = findCategoryName(c.children, id)
+    if (found) return found
+  }
+  return null
+}
+
 export default function Layout() {
   const [sidebarOpen, setSidebarOpen] = useState(true)
   const [userMenuOpen, setUserMenuOpen] = useState(false)
   const [displayName, setDisplayName] = useState('')
+  const [categoryName, setCategoryName] = useState<string | null>(null)
   const { theme, cycleTheme } = useTheme()
   const { user, logout } = useAuth()
   const location = useLocation()
   const navigate = useNavigate()
 
-  const [title, subtitle] = pageTitles[location.pathname] || ['', '']
+  const isBookmarksCategory = location.pathname.startsWith('/bookmarks/') && location.pathname.split('/').length === 3
+  const catId = isBookmarksCategory ? Number(location.pathname.split('/')[2]) : null
+
+  const pageTitle = pageTitles[location.pathname]
+  const [title, subtitle] = pageTitle || (isBookmarksCategory ? ['书签', categoryName || '...'] : ['', ''])
+
+  const loadCategoryName = useCallback(async (id: number) => {
+    try {
+      const res = await getCategoryTree()
+      const name = findCategoryName(res.data, id)
+      setCategoryName(name)
+    } catch {
+      setCategoryName(null)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (catId) {
+      loadCategoryName(catId)
+    } else {
+      setCategoryName(null)
+    }
+  }, [catId, loadCategoryName])
 
   useEffect(() => {
     getAppConfig().then(res => {

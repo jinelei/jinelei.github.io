@@ -4,6 +4,7 @@ import Layout from './components/Layout'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import Dashboard from './pages/Dashboard'
+import FilteredDashboard from './pages/FilteredDashboard'
 import ApiTokens from './pages/ApiTokens'
 import ExtensionGuide from './pages/ExtensionGuide'
 import Settings from './pages/Settings'
@@ -23,6 +24,7 @@ function AppRoutes() {
       <Route path="/register" element={<Register />} />
       <Route element={<ProtectedRoute><Layout /></ProtectedRoute>}>
         <Route path="/" element={<Dashboard />} />
+        <Route path="/bookmarks/:categoryId" element={<FilteredDashboard />} />
         <Route path="/my-links" element={<MyLinks />} />
         <Route path="/tokens" element={<ApiTokens />} />
         <Route path="/settings" element={<Settings />} />

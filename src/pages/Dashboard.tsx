@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback, useRef } from 'react'
+import { useEffect, useState, useCallback, useRef, useMemo } from 'react'
 import { FiBookmark, FiFolder, FiTag, FiTrendingUp, FiSearch, FiX, FiExternalLink, FiPaperclip, FiEdit2, FiTrash2, FiPlus, FiCheck } from 'react-icons/fi'
 import { motion } from 'framer-motion'
 import toast from 'react-hot-toast'
@@ -27,6 +27,19 @@ function flattenCategories(
     { id: c.id, name: c.name, label: parentPath.length > 0 ? `${parentPath.join(' › ')} › ${c.name}` : c.name },
     ...flattenCategories(c.children, [...parentPath, c.name]),
   ])
+}
+
+function getSubtreeIds(cats: CategoryResponse[]): number[] {
+  return cats.flatMap(c => [c.id, ...getSubtreeIds(c.children)])
+}
+
+function extractSubtree(tree: CategoryResponse[], rootId: number): CategoryResponse[] {
+  for (const c of tree) {
+    if (c.id === rootId) return [c]
+    const found = extractSubtree(c.children, rootId)
+    if (found.length > 0) return found
+  }
+  return []
 }
 
 function CreateBookmarkForm({ categories, allTags, onSubmit, onCancel, onCategoryCreated, onTagCreated }: {
@@ -308,7 +321,11 @@ function EditBookmarkForm({ bookmark, categories, allTags, onSubmit, onCancel, o
   )
 }
 
-export default function Dashboard() {
+interface DashboardProps {
+  baseCategoryId?: number
+}
+
+export default function Dashboard({ baseCategoryId }: DashboardProps) {
   const [stats, setStats] = useState({ bookmarks: 0, categories: 0, tags: 0 })
   const [recent, setRecent] = useState<BookmarkResponse[]>([])
   const [loading, setLoading] = useState(true)
@@ -316,7 +333,7 @@ export default function Dashboard() {
   const [allTags, setAllTags] = useState<TagResponse[]>([])
   const [tagStats, setTagStats] = useState<TagStatsResponse[]>([])
   const [catStats, setCatStats] = useState<Map<number, number>>(new Map())
-  const [selectedCategoryIds, setSelectedCategoryIds] = useState<number[]>([])
+  const [selectedCategoryIds, setSelectedCategoryIds] = useState<number[]>(baseCategoryId ? [baseCategoryId] : [])
   const [selectedTagIds, setSelectedTagIds] = useState<number[]>([])
   const [keyword, setKeyword] = useState('')
   const [page, setPage] = useState(0)
@@ -353,6 +370,17 @@ export default function Dashboard() {
   const [tagFormSubmitting, setTagFormSubmitting] = useState(false)
   const [editingBookmark, setEditingBookmark] = useState<BookmarkResponse | null>(null)
   const [showCreateBookmark, setShowCreateBookmark] = useState(false)
+  const isFirstRender = useRef(true)
+
+  useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false
+      return
+    }
+    setSelectedCategoryIds(baseCategoryId ? [baseCategoryId] : [])
+    setKeyword('')
+    setPage(0)
+  }, [baseCategoryId])
 
   const doFetch = useCallback((catIds: number[], tagIds: number[], kw: string, pg: number) => {
     setLoading(true)
@@ -395,6 +423,30 @@ export default function Dashboard() {
   }, [selectedCategoryIds, selectedTagIds, keyword]) // eslint-disable-line react-hooks/exhaustive-deps
 
   const flatCategories = flattenCategories(categories)
+
+  const subtreeIds = useMemo(() => {
+    if (!baseCategoryId) return null
+    const subtree = extractSubtree(categories, baseCategoryId)
+    return new Set(getSubtreeIds(subtree))
+  }, [categories, baseCategoryId])
+
+  const displayFlatCategories = useMemo(() => {
+    if (!subtreeIds) return flatCategories
+    return flatCategories.filter(c => subtreeIds.has(c.id))
+  }, [flatCategories, subtreeIds])
+
+  const displayCatStats = useMemo(() => {
+    if (!subtreeIds) return catStats
+    const filtered = new Map(catStats)
+    for (const id of catStats.keys()) {
+      if (!subtreeIds.has(id)) filtered.delete(id)
+    }
+    return filtered
+  }, [catStats, subtreeIds])
+
+  const displayTagStats = useMemo(() => {
+    return tagStats.filter(s => s.count > 0)
+  }, [tagStats])
 
   const toggleCategory = (id: number) => {
     setSelectedCategoryIds(prev =>
@@ -724,18 +776,18 @@ export default function Dashboard() {
               <button onClick={() => { setCatEditMode(v => !v); setTagEditMode(false) }} className={`flex items-center gap-0.5 text-xs leading-none transition-colors ${catEditMode ? 'text-accent-400' : 'text-accent-400 hover:text-accent-300'}`}>
                 {catEditMode ? <><FiCheck size={15} /><span className="hidden sm:inline">完成</span></> : <><FiEdit2 size={15} /><span className="hidden sm:inline">编辑</span></>}
               </button>
-              {selectedCategoryIds.length > 0 && (
+              {selectedCategoryIds.length > (baseCategoryId ? 1 : 0) && (
                 <>
                   <span className="text-[10px] text-purple-400 ml-1">({selectedCategoryIds.length})</span>
-                  <button onClick={() => setSelectedCategoryIds([])} className="text-xs text-purple-400/70 hover:text-purple-300 transition-colors">清除</button>
+                  <button onClick={() => setSelectedCategoryIds(baseCategoryId ? [baseCategoryId] : [])} className="text-xs text-purple-400/70 hover:text-purple-300 transition-colors">清除</button>
                 </>
               )}
             </div>
             <div className="flex flex-wrap gap-1.5 sm:gap-2">
-              {flatCategories.length === 0 ? (
+              {displayFlatCategories.length === 0 ? (
                   <span className="text-sm text-gray-400">暂无分类</span>
               ) : (
-                flatCategories.map(c => {
+                displayFlatCategories.map(c => {
                   const active = selectedCategoryIds.includes(c.id)
                   return (
                     <div key={`cat-${c.id}`} className="flex items-center gap-1 group">
@@ -750,7 +802,7 @@ export default function Dashboard() {
                       >
                         {active && <span className="text-purple-300 shrink-0">✓</span>}
                         <span className="truncate min-w-0">{c.label}</span>
-                        <span className="text-gray-600 shrink-0">{catStats.get(c.id) ?? 0}</span>
+                        <span className="text-gray-600 shrink-0">{displayCatStats.get(c.id) ?? 0}</span>
                       </button>
                       {catEditMode && (
                         <div className="flex gap-0.5 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity shrink-0">
@@ -788,10 +840,10 @@ export default function Dashboard() {
             </div>
 
             <div className="flex flex-nowrap overflow-x-auto gap-1.5 sm:flex-wrap sm:overflow-visible sm:gap-2 pb-1">
-              {tagStats.length === 0 ? (
+              {displayTagStats.length === 0 ? (
                 <span className="text-sm text-gray-400">暂无标签</span>
               ) : (
-                tagStats.map(s => {
+                displayTagStats.map(s => {
                   const active = selectedTagIds.includes(s.id)
                   return (
                     <div key={`tag-${s.id}`} className="flex items-center gap-1 group">
