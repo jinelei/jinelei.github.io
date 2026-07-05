@@ -442,7 +442,7 @@ export default function Dashboard({ baseCategoryId }: DashboardProps) {
       setTagStats(s.data)
       setCatStats(new Map(cs.data.map(cs2 => [cs2.id, cs2.count])))
     }).finally(() => setLoading(false))
-  }, [])
+  }, [baseCategoryId])
 
   useEffect(() => {
     if (debounceTimer.current) clearTimeout(debounceTimer.current)
