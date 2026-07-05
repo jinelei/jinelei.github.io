@@ -7,6 +7,8 @@ import { getCategoryTree, getCategoryStats, createCategory, updateCategory, dele
 import { getAllTags, getTagStats, createTag, updateTag, deleteTag } from '../api/tags'
 import type { BookmarkResponse, CategoryResponse, TagStatsResponse, TagResponse, BookmarkRequest, CategoryRequest } from '../types'
 import BookmarkView, { type ViewMode } from '../components/BookmarkView'
+
+const DEFAULT_FAVICON = 'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22%239ca3af%22%3E%3Cpath%20d%3D%22M12%202C6.48%202%202%206.48%202%2012s4.48%2010%2010%2010%2010-4.48%2010-10S17.52%202%2012%202zm-1%2017.93c-3.95-.49-7-3.85-7-7.93%200-.62.08-1.21.21-1.79L9%2015v1c0%201.1.9%202%202%202v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55%200%201-.45%201-1V7h2c1.1%200%202-.9%202-2v-.41c2.93%201.19%205%204.06%205%207.41%200%202.08-.8%203.97-2.1%205.39z%22%2F%3E%3C%2Fsvg%3E'
 import Modal from '../components/Modal'
 
 const container = {
@@ -196,6 +198,7 @@ function EditBookmarkForm({ bookmark, categories, allTags, onSubmit, onCancel, o
   const [categoryId, setCategoryId] = useState<number | undefined>(bookmark.category?.id)
   const [selectedTagIds, setSelectedTagIds] = useState<number[]>(bookmark.tags.map(t => t.id))
   const [submitting, setSubmitting] = useState(false)
+  const [faviconUrl, setFaviconUrl] = useState(bookmark.faviconUrl)
   const [refreshingFavicon, setRefreshingFavicon] = useState(false)
 
   const [newCategoryName, setNewCategoryName] = useState('')
@@ -268,32 +271,6 @@ function EditBookmarkForm({ bookmark, categories, allTags, onSubmit, onCancel, o
         <input value={url} onChange={e => setUrl(e.target.value)} className="w-full bg-surface-800 border border-surface-500 rounded-lg px-3 py-2 text-sm text-gray-300 outline-none focus:border-accent-500/70 transition-colors" />
       </div>
       <div>
-        <div className="flex items-center gap-3">
-          {bookmark.faviconUrl && (
-            <img src={bookmark.faviconUrl} alt="" className="w-5 h-5 rounded shrink-0" onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }} />
-          )}
-          <button
-            type="button"
-            onClick={async () => {
-              setRefreshingFavicon(true)
-              try {
-                await refreshFavicon(bookmark.id)
-                toast.success('图标已刷新')
-              } catch (e: unknown) {
-                toast.error(e instanceof Error ? e.message : '刷新图标失败')
-              } finally {
-                setRefreshingFavicon(false)
-              }
-            }}
-            disabled={refreshingFavicon}
-            className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-lg bg-surface-800 border border-surface-500 text-accent-400 hover:text-accent-300 hover:border-accent-500/50 transition-colors disabled:opacity-50"
-          >
-            <FiRefreshCw size={13} className={refreshingFavicon ? 'animate-spin' : ''} />
-            {refreshingFavicon ? '刷新中...' : '刷新图标'}
-          </button>
-        </div>
-      </div>
-      <div>
         <label className="text-xs text-gray-400 mb-1 block">描述</label>
         <textarea value={description} onChange={e => setDescription(e.target.value)} className="w-full bg-surface-800 border border-surface-500 rounded-lg px-3 py-2 text-sm text-gray-300 outline-none focus:border-accent-500/70 transition-colors resize-none h-20" />
       </div>
@@ -339,9 +316,38 @@ function EditBookmarkForm({ bookmark, categories, allTags, onSubmit, onCancel, o
         )}
       </div>
       <div className="flex gap-3 pt-2">
-        <button type="submit" disabled={submitting} className="flex-1 bg-accent-600 hover:bg-accent-500 text-white rounded-lg py-2 text-sm font-medium transition-colors disabled:opacity-50">
-          {submitting ? '保存中...' : '保存'}
-        </button>
+        <div className="flex items-center gap-2 flex-1">
+          <button type="submit" disabled={submitting} className="flex-1 bg-accent-600 hover:bg-accent-500 text-white rounded-lg py-2 text-sm font-medium transition-colors disabled:opacity-50">
+            {submitting ? '保存中...' : '保存'}
+          </button>
+          <img
+            src={faviconUrl || DEFAULT_FAVICON}
+            alt=""
+            className="w-5 h-5 rounded shrink-0"
+            onError={(e) => { (e.target as HTMLImageElement).src = DEFAULT_FAVICON }}
+          />
+          <button
+            type="button"
+            onClick={async () => {
+              setRefreshingFavicon(true)
+              try {
+                const res = await refreshFavicon(bookmark.id)
+                setFaviconUrl(res.data.faviconUrl)
+                toast.success('图标已刷新')
+              } catch (e: unknown) {
+                const msg = (e as { response?: { data?: { message?: string } } })?.response?.data?.message || (e instanceof Error ? e.message : '刷新图标失败')
+                toast.error(msg)
+              } finally {
+                setRefreshingFavicon(false)
+              }
+            }}
+            disabled={refreshingFavicon}
+            className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-lg bg-surface-800 border border-surface-500 text-accent-400 hover:text-accent-300 hover:border-accent-500/50 transition-colors disabled:opacity-50 shrink-0"
+          >
+            <FiRefreshCw size={13} className={refreshingFavicon ? 'animate-spin' : ''} />
+            {refreshingFavicon ? '刷新中...' : '刷新图标'}
+          </button>
+        </div>
         <button type="button" onClick={onCancel} className="px-4 bg-surface-700 hover:bg-surface-600 text-gray-300 rounded-lg py-2 text-sm transition-colors">取消</button>
       </div>
     </form>
