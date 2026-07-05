@@ -7,6 +7,7 @@ import Dashboard from './pages/Dashboard'
 import ApiTokens from './pages/ApiTokens'
 import ExtensionGuide from './pages/ExtensionGuide'
 import Settings from './pages/Settings'
+import MyLinks from './pages/MyLinks'
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const { user, loading } = useAuth()
@@ -22,6 +23,7 @@ function AppRoutes() {
       <Route path="/register" element={<Register />} />
       <Route element={<ProtectedRoute><Layout /></ProtectedRoute>}>
         <Route path="/" element={<Dashboard />} />
+        <Route path="/my-links" element={<MyLinks />} />
         <Route path="/tokens" element={<ApiTokens />} />
         <Route path="/settings" element={<Settings />} />
         <Route path="/chrome-ext" element={<ExtensionGuide />} />

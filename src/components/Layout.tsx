@@ -9,6 +9,7 @@ import { getAppConfig } from '../api/app-config'
 
 const pageTitles: Record<string, [string, string]> = {
   '/': ['书签', '书签管理'],
+  '/my-links': ['我的', '外部链接'],
   '/settings': ['设置', '账户 / Token / 插件'],
 }
 
