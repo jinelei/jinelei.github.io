@@ -484,7 +484,7 @@ export default function Dashboard({ baseCategoryId }: DashboardProps) {
   const toggleCategory = (id: number) => {
     if (baseCategoryId) {
       setSelectedCategoryIds(prev =>
-        prev.length === 1 && prev[0] === id ? [] : [id]
+        prev.length === 1 && prev[0] === id ? [baseCategoryId] : [id]
       )
     } else {
       setSelectedCategoryIds(prev =>
@@ -816,7 +816,7 @@ export default function Dashboard({ baseCategoryId }: DashboardProps) {
                 {catEditMode ? <><FiCheck size={15} /><span className="hidden sm:inline">完成</span></> : <><FiEdit2 size={15} /><span className="hidden sm:inline">编辑</span></>}
               </button>
               {baseCategoryId ? (
-                selectedCategoryIds.length > 0 && !(selectedCategoryIds.length === 1 && selectedCategoryIds[0] === baseCategoryId) && (
+                !(selectedCategoryIds.length === 1 && selectedCategoryIds[0] === baseCategoryId) && (
                   <button onClick={() => setSelectedCategoryIds([baseCategoryId])} className="text-xs text-purple-400/70 hover:text-purple-300 transition-colors">清除</button>
                 )
               ) : (
