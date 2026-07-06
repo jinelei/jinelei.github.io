@@ -247,7 +247,7 @@ export default function SystemOverview() {
           <p className="text-xs text-gray-500 mt-1">CPU 核心数: {stats.cpuCores}</p>
         </StatCard>
 
-        <StatCard icon={FiCpu} title="CPU">
+        <StatCard icon={FiCpu} title="CPU" className="lg:col-span-2">
           <div className="space-y-3">
             <ProgressBar value={stats.cpuUsage} label={`总使用率 (${stats.cpuCores} 核)`} color="rose" />
             <div className="grid grid-cols-2 gap-2 pt-1">
