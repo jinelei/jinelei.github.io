@@ -46,7 +46,7 @@ function ProgressBar({ value, label, color = 'accent', showValue = true }: { val
     <div className="space-y-1.5">
       <div className="flex items-center justify-between text-xs">
         <span className="text-gray-500 dark:text-gray-400">{label}</span>
-        {showValue && <span className="text-gray-800 dark:text-gray-300 font-medium">{pct}%</span>}
+        {showValue && <motion.span key={pct} initial={{ opacity: 0.4, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.2 }} className="text-gray-800 dark:text-gray-300 font-medium">{pct}%</motion.span>}
       </div>
       <div className="h-2 bg-black/10 dark:bg-white/5 rounded-full overflow-hidden">
         <motion.div
@@ -62,14 +62,14 @@ function ProgressBar({ value, label, color = 'accent', showValue = true }: { val
 
 function StatCard({ icon: Icon, title, children, className = '' }: { icon: React.ComponentType<{ size?: number; className?: string }>; title: string; children: React.ReactNode; className?: string }) {
   return (
-    <motion.div variants={item} className={`glass rounded-xl p-5 space-y-4 ${className}`}>
+    <motion.div variants={item} className={`glass rounded-xl p-5 flex flex-col ${className}`}>
       <div className="flex items-center gap-2.5">
         <div className="w-9 h-9 rounded-lg bg-accent-500/10 border border-accent-500/20 flex items-center justify-center">
           <Icon size={16} className="text-accent-500" />
         </div>
         <h3 className="text-sm font-semibold text-gray-800 dark:text-gray-200">{title}</h3>
       </div>
-      {children}
+      <div className="flex-1 mt-4 space-y-4">{children}</div>
     </motion.div>
   )
 }
@@ -250,17 +250,28 @@ export default function SystemOverview() {
         <StatCard icon={FiCpu} title="CPU">
           <div className="space-y-3">
             <ProgressBar value={stats.cpuUsage} label={`总使用率 (${stats.cpuCores} 核)`} color="rose" />
-            <div className="grid grid-cols-2 gap-2 pt-1">
+            <div className="space-y-5 pt-1">
               {stats.cpuPerCore.map((load, i) => {
                 const pct = Math.round(load * 100)
                 const color = pct > 80 ? 'bg-rose-500' : pct > 50 ? 'bg-amber-500' : 'bg-emerald-500'
                 return (
                   <div key={i} className="flex items-center gap-2 text-xs">
                     <span className="text-gray-500 w-7 shrink-0">CPU{i}</span>
-                    <div className="flex-1 h-1.5 bg-black/10 dark:bg-white/5 rounded-full overflow-hidden">
-                      <div className={`h-full rounded-full ${color}`} style={{ width: `${pct}%` }} />
+                    <div className="flex-1 h-2.5 bg-black/10 dark:bg-white/5 rounded-full overflow-hidden">
+                      <motion.div
+                        className={`h-full rounded-full ${color}`}
+                        initial={false}
+                        animate={{ width: `${pct}%` }}
+                        transition={{ duration: 0.4, ease: 'easeOut' }}
+                      />
                     </div>
-                    <span className="text-gray-800 dark:text-gray-300 w-8 text-right font-medium">{pct}%</span>
+                    <motion.span
+                      key={pct}
+                      initial={{ opacity: 0.4, scale: 0.9 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ duration: 0.2 }}
+                      className="text-gray-800 dark:text-gray-300 w-10 text-right font-medium tabular-nums"
+                    >{pct}%</motion.span>
                   </div>
                 )
               })}
