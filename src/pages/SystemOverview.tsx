@@ -325,24 +325,25 @@ export default function SystemOverview() {
         </div>
 
         <div className="overflow-x-auto">
-          <table className="w-full text-xs">
+          <table className="w-full text-xs table-fixed">
             <thead>
               <tr className="border-b border-black/5 dark:border-white/5">
-                {(['pid', 'name', 'cpu', 'memory', 'state'] as SortField[]).map(field => (
-                  <th
-                    key={field}
-                    className="text-left py-2 px-2 text-gray-500 dark:text-gray-400 font-medium cursor-pointer hover:text-gray-800 dark:hover:text-gray-200 select-none"
-                    onClick={() => toggleSort(field)}
-                  >
-                    <div className="flex items-center gap-1">
-                      {SORT_LABELS[field]}
-                      {sortField === field && (
-                        sortAsc ? <FiArrowUp size={12} /> : <FiArrowDown size={12} />
-                      )}
-                    </div>
-                  </th>
-                ))}
-                <th className="text-left py-2 px-2 text-gray-500 dark:text-gray-400 font-medium">用户</th>
+                <th className="text-left py-2 px-2 text-gray-500 dark:text-gray-400 font-medium cursor-pointer hover:text-gray-800 dark:hover:text-gray-200 select-none w-16" onClick={() => toggleSort('pid')}>
+                  <div className="flex items-center gap-1">{SORT_LABELS.pid}{sortField === 'pid' && (sortAsc ? <FiArrowUp size={12} /> : <FiArrowDown size={12} />)}</div>
+                </th>
+                <th className="text-left py-2 px-2 text-gray-500 dark:text-gray-400 font-medium cursor-pointer hover:text-gray-800 dark:hover:text-gray-200 select-none" onClick={() => toggleSort('name')}>
+                  <div className="flex items-center gap-1">{SORT_LABELS.name}{sortField === 'name' && (sortAsc ? <FiArrowUp size={12} /> : <FiArrowDown size={12} />)}</div>
+                </th>
+                <th className="text-left py-2 px-2 text-gray-500 dark:text-gray-400 font-medium cursor-pointer hover:text-gray-800 dark:hover:text-gray-200 select-none w-36" onClick={() => toggleSort('cpu')}>
+                  <div className="flex items-center gap-1">{SORT_LABELS.cpu}{sortField === 'cpu' && (sortAsc ? <FiArrowUp size={12} /> : <FiArrowDown size={12} />)}</div>
+                </th>
+                <th className="text-left py-2 px-2 text-gray-500 dark:text-gray-400 font-medium cursor-pointer hover:text-gray-800 dark:hover:text-gray-200 select-none w-28" onClick={() => toggleSort('memory')}>
+                  <div className="flex items-center gap-1">{SORT_LABELS.memory}{sortField === 'memory' && (sortAsc ? <FiArrowUp size={12} /> : <FiArrowDown size={12} />)}</div>
+                </th>
+                <th className="text-left py-2 px-2 text-gray-500 dark:text-gray-400 font-medium cursor-pointer hover:text-gray-800 dark:hover:text-gray-200 select-none w-14" onClick={() => toggleSort('state')}>
+                  <div className="flex items-center gap-1">{SORT_LABELS.state}{sortField === 'state' && (sortAsc ? <FiArrowUp size={12} /> : <FiArrowDown size={12} />)}</div>
+                </th>
+                <th className="text-left py-2 px-2 text-gray-500 dark:text-gray-400 font-medium w-20">用户</th>
               </tr>
             </thead>
             <tbody>
@@ -351,8 +352,8 @@ export default function SystemOverview() {
                   key={p.pid}
                   className={`border-b border-black/5 dark:border-white/5 hover:bg-black/5 dark:hover:bg-white/5 ${i % 2 === 0 ? 'bg-black/[0.02] dark:bg-white/[0.02]' : ''}`}
                 >
-                  <td className="py-1.5 px-2 text-gray-500 font-mono">{p.pid}</td>
-                  <td className="py-1.5 px-2 text-gray-800 dark:text-gray-200 truncate max-w-[200px]" title={p.name}>{p.name}</td>
+                  <td className="py-1.5 px-2 text-gray-500 font-mono truncate">{p.pid}</td>
+                  <td className="py-1.5 px-2 text-gray-800 dark:text-gray-200 truncate" title={p.name}>{p.name}</td>
                   <td className="py-1.5 px-2">
                     <div className="flex items-center gap-2">
                       <div className="flex-1 h-1.5 bg-black/10 dark:bg-white/5 rounded-full overflow-hidden max-w-[80px]">
@@ -361,10 +362,10 @@ export default function SystemOverview() {
                           style={{ width: `${Math.min(p.cpuUsage * 100, 100)}%` }}
                         />
                       </div>
-                      <span className="text-gray-800 dark:text-gray-300 font-medium w-12 text-right">{(p.cpuUsage * 100).toFixed(1)}%</span>
+                      <span className="text-gray-800 dark:text-gray-300 font-medium tabular-nums">{(p.cpuUsage * 100).toFixed(1)}%</span>
                     </div>
                   </td>
-                  <td className="py-1.5 px-2 text-gray-800 dark:text-gray-200 font-medium">{formatBytes(p.memoryBytes)}</td>
+                  <td className="py-1.5 px-2 text-gray-800 dark:text-gray-200 font-medium tabular-nums">{formatBytes(p.memoryBytes)}</td>
                   <td className="py-1.5 px-2">
                     <span className={`inline-block px-1.5 py-0.5 rounded text-[10px] font-medium ${
                       p.state === 'R' ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400' :
@@ -373,7 +374,7 @@ export default function SystemOverview() {
                       p.state === 'Z' ? 'bg-amber-500/10 text-amber-600 dark:text-amber-400' :
                       'bg-gray-500/10 text-gray-600 dark:text-gray-400'
                       }`}>{p.state}</span></td>
-                  <td className="py-1.5 px-2 text-gray-500">{p.user}</td>
+                  <td className="py-1.5 px-2 text-gray-500 truncate">{p.user}</td>
                 </tr>
               ))}
               {sortedProcesses.length === 0 && (
