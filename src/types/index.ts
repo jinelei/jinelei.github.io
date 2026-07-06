@@ -102,6 +102,8 @@ export interface AuthResponse {
   refreshToken: string;
   expiresIn: number;
   user: UserInfo;
+  totpRequired?: boolean;
+  totpToken?: string;
 }
 
 export interface RegistrationStatus {
@@ -113,6 +115,7 @@ export interface UserInfo {
   username: string;
   name: string | null;
   email: string | null;
+  totpEnabled?: boolean;
 }
 
 export interface CreateApiTokenRequest {
@@ -143,5 +146,34 @@ export interface ExternalLinkResponse {
   url: string;
   icon: string | null;
   sortOrder: number | null;
+}
+
+export interface MemoryInfo {
+  total: number;
+  used: number;
+  free: number;
+}
+
+export interface DiskInfo {
+  name: string;
+  total: number;
+  used: number;
+  free: number;
+  usage: number;
+}
+
+export interface SystemStats {
+  bootTime: number;
+  uptime: number;
+  cpuCores: number;
+  cpuUsage: number;
+  cpuPerCore: number[];
+  jvmTotalMemory: number;
+  jvmUsedMemory: number;
+  jvmMaxMemory: number;
+  physicalMemory: MemoryInfo;
+  swapMemory: MemoryInfo;
+  fileSystems: DiskInfo[];
+  physicalDisks: DiskInfo[];
 }
 

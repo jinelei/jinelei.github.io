@@ -39,3 +39,23 @@ export async function updateProfile(data: { name?: string; email?: string }): Pr
   const res = await client.post('/auth/update-profile', data)
   return res.data
 }
+
+export async function setupTotp(): Promise<GenericResult<{ secret: string; otpauthUri: string }>> {
+  const res = await client.post('/auth/totp/setup')
+  return res.data
+}
+
+export async function verifyTotpSetup(code: string): Promise<GenericResult<void>> {
+  const res = await client.post('/auth/totp/verify', { code })
+  return res.data
+}
+
+export async function disableTotp(): Promise<GenericResult<void>> {
+  const res = await client.post('/auth/totp/disable')
+  return res.data
+}
+
+export async function verifyTotpLogin(totpToken: string, code: string): Promise<GenericResult<AuthResponse>> {
+  const res = await client.post('/auth/totp/verify-login', { totpToken, code })
+  return res.data
+}
