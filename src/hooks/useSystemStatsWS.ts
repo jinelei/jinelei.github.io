@@ -1,4 +1,4 @@
-import { useEffect, useRef, useCallback } from 'react'
+import { useEffect, useRef } from 'react'
 import type { SystemStats } from '../types'
 import { createLogger } from '../utils/logger'
 
@@ -13,69 +13,78 @@ export function useSystemStatsWS(
 ) {
   const wsRef = useRef<WebSocket | null>(null)
   const reconnectTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const intentionalCloseRef = useRef(false)
   const onStatsRef = useRef(onStats)
   const onErrorRef = useRef(onError)
+  const enabledRef = useRef(enabled)
   onStatsRef.current = onStats
   onErrorRef.current = onError
+  enabledRef.current = enabled
 
-  const cleanup = useCallback(() => {
-    if (reconnectTimerRef.current) {
-      clearTimeout(reconnectTimerRef.current)
-      reconnectTimerRef.current = null
-    }
-    if (wsRef.current) {
-      wsRef.current.close()
-      wsRef.current = null
-    }
-  }, [])
+  useEffect(() => {
+    if (!enabled) return
 
-  const connect = useCallback(() => {
-    const token = localStorage.getItem('scalefish_access_token')
-    if (!enabled || !token) return
+    const connect = () => {
+      const token = localStorage.getItem('scalefish_access_token')
+      if (!enabledRef.current || !token) return
 
-    const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:'
-    const host = window.location.host
-    const url = `${protocol}//${host}/ws/system-stats?token=${encodeURIComponent(token)}`
+      const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:'
+      const host = window.location.host
+      const url = `${protocol}//${host}/ws/system-stats?token=${encodeURIComponent(token)}`
 
-    log.debug('Connecting system stats WebSocket...')
-    const ws = new WebSocket(url)
-    wsRef.current = ws
+      log.debug('Connecting system stats WebSocket...')
+      const ws = new WebSocket(url)
+      wsRef.current = ws
 
-    ws.onopen = () => {
-      log.debug('System stats WebSocket connected')
-      onErrorRef.current('')
-    }
-
-    ws.onmessage = (e) => {
-      try {
-        const parsed = JSON.parse(e.data)
-        if (parsed.code === 200 && parsed.data) {
-          onStatsRef.current(parsed.data)
+      ws.onopen = () => {
+        log.debug('System stats WebSocket connected')
+        if (enabledRef.current) {
+          onErrorRef.current('')
         }
-      } catch {
-        log.warn('Failed to parse system stats message')
+      }
+
+      ws.onmessage = (e) => {
+        try {
+          const parsed = JSON.parse(e.data)
+          if (parsed.code === 200 && parsed.data) {
+            onStatsRef.current(parsed.data)
+          }
+        } catch {
+          log.warn('Failed to parse system stats message')
+        }
+      }
+
+      ws.onclose = () => {
+        wsRef.current = null
+        if (intentionalCloseRef.current) {
+          intentionalCloseRef.current = false
+          return
+        }
+        log.debug('System stats WebSocket closed, reconnecting...')
+        if (enabledRef.current) {
+          onErrorRef.current('WebSocket 断开，正在重连...')
+          reconnectTimerRef.current = setTimeout(connect, RECONNECT_DELAY)
+        }
+      }
+
+      ws.onerror = () => {
+        log.warn('System stats WebSocket error')
+        ws.close()
       }
     }
 
-    ws.onclose = () => {
-      log.debug('System stats WebSocket closed, reconnecting...')
-      wsRef.current = null
-      onErrorRef.current('WebSocket 断开，正在重连...')
-      reconnectTimerRef.current = setTimeout(connect, RECONNECT_DELAY)
-    }
+    connect()
 
-    ws.onerror = () => {
-      log.warn('System stats WebSocket error')
-      ws.close()
+    return () => {
+      intentionalCloseRef.current = true
+      if (reconnectTimerRef.current) {
+        clearTimeout(reconnectTimerRef.current)
+        reconnectTimerRef.current = null
+      }
+      if (wsRef.current) {
+        wsRef.current.close()
+        wsRef.current = null
+      }
     }
   }, [enabled])
-
-  useEffect(() => {
-    if (!enabled) {
-      cleanup()
-      return
-    }
-    connect()
-    return cleanup
-  }, [enabled, connect, cleanup])
 }
