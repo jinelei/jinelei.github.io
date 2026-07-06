@@ -122,7 +122,7 @@ function DiskSection({ title, disks, icon: Icon }: { title: string; disks: DiskI
   )
 }
 
-const POLL_INTERVAL = 3000
+const POLL_INTERVAL = 1000
 
 export default function SystemOverview() {
   const [stats, setStats] = useState<SystemStats | null>(null)
