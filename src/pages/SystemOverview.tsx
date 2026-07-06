@@ -1,6 +1,6 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useMemo } from 'react'
 import { motion } from 'framer-motion'
-import { FiClock, FiCpu, FiServer, FiHardDrive, FiDatabase } from 'react-icons/fi'
+import { FiClock, FiCpu, FiServer, FiHardDrive, FiDatabase, FiActivity, FiArrowUp, FiArrowDown, FiTriangle } from 'react-icons/fi'
 import { getSystemStats } from '../api/system'
 import type { SystemStats, MemoryInfo, DiskInfo } from '../types'
 
@@ -122,11 +122,23 @@ function DiskSection({ title, disks, icon: Icon }: { title: string; disks: DiskI
   )
 }
 
+type SortField = 'cpu' | 'memory' | 'pid' | 'name' | 'state'
+
+const SORT_LABELS: Record<SortField, string> = {
+  cpu: 'CPU',
+  memory: '内存',
+  pid: 'PID',
+  name: '进程名',
+  state: '状态',
+}
+
 const POLL_INTERVAL = 1000
 
 export default function SystemOverview() {
   const [stats, setStats] = useState<SystemStats | null>(null)
   const [error, setError] = useState('')
+  const [sortField, setSortField] = useState<SortField>('cpu')
+  const [sortAsc, setSortAsc] = useState(false)
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null)
 
   useEffect(() => {
@@ -145,6 +157,40 @@ export default function SystemOverview() {
       if (timerRef.current) clearInterval(timerRef.current)
     }
   }, [])
+
+  const toggleSort = (field: SortField) => {
+    if (sortField === field) {
+      setSortAsc(!sortAsc)
+    } else {
+      setSortField(field)
+      setSortAsc(field === 'name' || field === 'state')
+    }
+  }
+
+  const sortedProcesses = useMemo(() => {
+    if (!stats) return []
+    return [...stats.processes].sort((a, b) => {
+      let cmp = 0
+      switch (sortField) {
+        case 'cpu':
+          cmp = a.cpuUsage - b.cpuUsage
+          break
+        case 'memory':
+          cmp = a.memoryBytes - b.memoryBytes
+          break
+        case 'pid':
+          cmp = a.pid - b.pid
+          break
+        case 'name':
+          cmp = a.name.localeCompare(b.name)
+          break
+        case 'state':
+          cmp = a.state.localeCompare(b.state)
+          break
+      }
+      return sortAsc ? cmp : -cmp
+    })
+  }, [stats, sortField, sortAsc])
 
   if (!stats) {
     return (
@@ -172,68 +218,162 @@ export default function SystemOverview() {
   }
 
   return (
-    <motion.div variants={container} initial="hidden" animate="show" className="grid grid-cols-1 lg:grid-cols-2 gap-5 max-w-4xl mx-auto">
-      <StatCard icon={FiClock} title="开机时间">
-        <p className="text-xl font-bold text-gray-800 dark:text-gray-100">{new Date(stats.bootTime).toLocaleString('zh-CN')}</p>
-        <p className="text-xs text-gray-500 mt-1">已运行 {formatUptime(stats.uptime)}</p>
-      </StatCard>
+    <>
+      <motion.div variants={container} initial="hidden" animate="show" className="grid grid-cols-1 lg:grid-cols-2 gap-5 max-w-4xl mx-auto">
+        <StatCard icon={FiClock} title="开机时间">
+          <p className="text-xl font-bold text-gray-800 dark:text-gray-100">{new Date(stats.bootTime).toLocaleString('zh-CN')}</p>
+          <p className="text-xs text-gray-500 mt-1">已运行 {formatUptime(stats.uptime)}</p>
+        </StatCard>
 
-      <StatCard icon={FiCpu} title="CPU">
-        <div className="space-y-3">
-          <ProgressBar value={stats.cpuUsage} label={`总使用率 (${stats.cpuCores} 核)`} color="rose" />
-          <div className="grid grid-cols-2 gap-2 pt-1">
-            {stats.cpuPerCore.map((load, i) => {
-              const pct = Math.round(load * 100)
-              const color = pct > 80 ? 'bg-rose-500' : pct > 50 ? 'bg-amber-500' : 'bg-emerald-500'
-              return (
-                <div key={i} className="flex items-center gap-2 text-xs">
-                  <span className="text-gray-500 w-7 shrink-0">CPU{i}</span>
-                  <div className="flex-1 h-1.5 bg-black/10 dark:bg-white/5 rounded-full overflow-hidden">
-                    <div className={`h-full rounded-full ${color}`} style={{ width: `${pct}%` }} />
+        <StatCard icon={FiActivity} title="系统负载">
+          {stats.loadAverage[0] >= 0 ? (
+            <div className="flex gap-4 text-sm">
+              <div>
+                <div className="text-xs text-gray-500">1 分钟</div>
+                <div className="text-lg font-bold text-gray-800 dark:text-gray-100 mt-0.5">{stats.loadAverage[0].toFixed(2)}</div>
+              </div>
+              <div>
+                <div className="text-xs text-gray-500">5 分钟</div>
+                <div className="text-lg font-bold text-gray-800 dark:text-gray-100 mt-0.5">{stats.loadAverage[1].toFixed(2)}</div>
+              </div>
+              <div>
+                <div className="text-xs text-gray-500">15 分钟</div>
+                <div className="text-lg font-bold text-gray-800 dark:text-gray-100 mt-0.5">{stats.loadAverage[2].toFixed(2)}</div>
+              </div>
+            </div>
+          ) : (
+            <p className="text-sm text-gray-500">暂不支持</p>
+          )}
+          <p className="text-xs text-gray-500 mt-1">CPU 核心数: {stats.cpuCores}</p>
+        </StatCard>
+
+        <StatCard icon={FiCpu} title="CPU">
+          <div className="space-y-3">
+            <ProgressBar value={stats.cpuUsage} label={`总使用率 (${stats.cpuCores} 核)`} color="rose" />
+            <div className="grid grid-cols-2 gap-2 pt-1">
+              {stats.cpuPerCore.map((load, i) => {
+                const pct = Math.round(load * 100)
+                const color = pct > 80 ? 'bg-rose-500' : pct > 50 ? 'bg-amber-500' : 'bg-emerald-500'
+                return (
+                  <div key={i} className="flex items-center gap-2 text-xs">
+                    <span className="text-gray-500 w-7 shrink-0">CPU{i}</span>
+                    <div className="flex-1 h-1.5 bg-black/10 dark:bg-white/5 rounded-full overflow-hidden">
+                      <div className={`h-full rounded-full ${color}`} style={{ width: `${pct}%` }} />
+                    </div>
+                    <span className="text-gray-800 dark:text-gray-300 w-8 text-right font-medium">{pct}%</span>
                   </div>
-                  <span className="text-gray-800 dark:text-gray-300 w-8 text-right font-medium">{pct}%</span>
-                </div>
-              )
-            })}
-          </div>
-        </div>
-      </StatCard>
-
-      <StatCard icon={FiServer} title="物理内存" className="lg:col-span-2">
-        <MemoryBlock title="内存" info={stats.physicalMemory} color="amber" />
-        <div className="border-t border-black/5 dark:border-white/5 pt-3 mt-3">
-          <MemoryBlock title="Swap" info={stats.swapMemory} color="purple" />
-        </div>
-        <div className="border-t border-black/5 dark:border-white/5 pt-3 mt-3">
-          <div className="flex items-center gap-2 text-xs font-medium text-gray-600 dark:text-gray-400 mb-2">
-            <FiDatabase size={14} />
-            JVM 堆内存
-          </div>
-          <ProgressBar value={stats.jvmTotalMemory > 0 ? stats.jvmUsedMemory / stats.jvmTotalMemory : 0} label="使用率" color="accent" />
-          <div className="grid grid-cols-3 gap-2 text-xs mt-2">
-            <div>
-              <div className="text-gray-500">已分配</div>
-              <div className="text-gray-800 dark:text-gray-200 font-medium mt-0.5">{formatBytes(stats.jvmTotalMemory)}</div>
-            </div>
-            <div>
-              <div className="text-gray-500">已用</div>
-              <div className="text-gray-800 dark:text-gray-200 font-medium mt-0.5">{formatBytes(stats.jvmUsedMemory)}</div>
-            </div>
-            <div>
-              <div className="text-gray-500">最大</div>
-              <div className="text-gray-800 dark:text-gray-200 font-medium mt-0.5">{formatBytes(stats.jvmMaxMemory)}</div>
+                )
+              })}
             </div>
           </div>
+        </StatCard>
+
+        <StatCard icon={FiServer} title="物理内存" className="lg:col-span-2">
+          <MemoryBlock title="内存" info={stats.physicalMemory} color="amber" />
+          <div className="border-t border-black/5 dark:border-white/5 pt-3 mt-3">
+            <MemoryBlock title="Swap" info={stats.swapMemory} color="purple" />
+          </div>
+          <div className="border-t border-black/5 dark:border-white/5 pt-3 mt-3">
+            <div className="flex items-center gap-2 text-xs font-medium text-gray-600 dark:text-gray-400 mb-2">
+              <FiDatabase size={14} />
+              JVM 堆内存
+            </div>
+            <ProgressBar value={stats.jvmTotalMemory > 0 ? stats.jvmUsedMemory / stats.jvmTotalMemory : 0} label="使用率" color="accent" />
+            <div className="grid grid-cols-3 gap-2 text-xs mt-2">
+              <div>
+                <div className="text-gray-500">已分配</div>
+                <div className="text-gray-800 dark:text-gray-200 font-medium mt-0.5">{formatBytes(stats.jvmTotalMemory)}</div>
+              </div>
+              <div>
+                <div className="text-gray-500">已用</div>
+                <div className="text-gray-800 dark:text-gray-200 font-medium mt-0.5">{formatBytes(stats.jvmUsedMemory)}</div>
+              </div>
+              <div>
+                <div className="text-gray-500">最大</div>
+                <div className="text-gray-800 dark:text-gray-200 font-medium mt-0.5">{formatBytes(stats.jvmMaxMemory)}</div>
+              </div>
+            </div>
+          </div>
+        </StatCard>
+
+        <StatCard icon={FiHardDrive} title="磁盘">
+          <DiskSection title="文件系统" disks={stats.fileSystems} icon={FiHardDrive} />
+        </StatCard>
+
+        <StatCard icon={FiHardDrive} title="物理磁盘">
+          <DiskSection title="物理磁盘" disks={stats.physicalDisks} icon={FiHardDrive} />
+        </StatCard>
+      </motion.div>
+
+      <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} className="glass rounded-xl p-5 max-w-4xl mx-auto mt-5">
+        <div className="flex items-center gap-2.5 mb-4">
+          <div className="w-9 h-9 rounded-lg bg-accent-500/10 border border-accent-500/20 flex items-center justify-center">
+            <FiTriangle size={16} className="text-accent-500" />
+          </div>
+          <h3 className="text-sm font-semibold text-gray-800 dark:text-gray-200">进程 (Top 20)</h3>
         </div>
-      </StatCard>
 
-      <StatCard icon={FiHardDrive} title="磁盘">
-        <DiskSection title="文件系统" disks={stats.fileSystems} icon={FiHardDrive} />
-      </StatCard>
-
-      <StatCard icon={FiHardDrive} title="物理磁盘">
-        <DiskSection title="物理磁盘" disks={stats.physicalDisks} icon={FiHardDrive} />
-      </StatCard>
-    </motion.div>
+        <div className="overflow-x-auto">
+          <table className="w-full text-xs">
+            <thead>
+              <tr className="border-b border-black/5 dark:border-white/5">
+                {(['pid', 'name', 'cpu', 'memory', 'state'] as SortField[]).map(field => (
+                  <th
+                    key={field}
+                    className="text-left py-2 px-2 text-gray-500 dark:text-gray-400 font-medium cursor-pointer hover:text-gray-800 dark:hover:text-gray-200 select-none"
+                    onClick={() => toggleSort(field)}
+                  >
+                    <div className="flex items-center gap-1">
+                      {SORT_LABELS[field]}
+                      {sortField === field && (
+                        sortAsc ? <FiArrowUp size={12} /> : <FiArrowDown size={12} />
+                      )}
+                    </div>
+                  </th>
+                ))}
+                <th className="text-left py-2 px-2 text-gray-500 dark:text-gray-400 font-medium">用户</th>
+              </tr>
+            </thead>
+            <tbody>
+              {sortedProcesses.map((p, i) => (
+                <tr
+                  key={p.pid}
+                  className={`border-b border-black/5 dark:border-white/5 hover:bg-black/5 dark:hover:bg-white/5 ${i % 2 === 0 ? 'bg-black/[0.02] dark:bg-white/[0.02]' : ''}`}
+                >
+                  <td className="py-1.5 px-2 text-gray-500 font-mono">{p.pid}</td>
+                  <td className="py-1.5 px-2 text-gray-800 dark:text-gray-200 truncate max-w-[200px]" title={p.name}>{p.name}</td>
+                  <td className="py-1.5 px-2">
+                    <div className="flex items-center gap-2">
+                      <div className="flex-1 h-1.5 bg-black/10 dark:bg-white/5 rounded-full overflow-hidden max-w-[80px]">
+                        <div
+                          className={`h-full rounded-full ${p.cpuUsage > 0.8 ? 'bg-rose-500' : p.cpuUsage > 0.5 ? 'bg-amber-500' : 'bg-emerald-500'}`}
+                          style={{ width: `${Math.min(p.cpuUsage * 100, 100)}%` }}
+                        />
+                      </div>
+                      <span className="text-gray-800 dark:text-gray-300 font-medium w-12 text-right">{(p.cpuUsage * 100).toFixed(1)}%</span>
+                    </div>
+                  </td>
+                  <td className="py-1.5 px-2 text-gray-800 dark:text-gray-200 font-medium">{formatBytes(p.memoryBytes)}</td>
+                  <td className="py-1.5 px-2">
+                    <span className={`inline-block px-1.5 py-0.5 rounded text-[10px] font-medium ${
+                      p.state === 'R' ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400' :
+                      p.state === 'S' ? 'bg-blue-500/10 text-blue-600 dark:text-blue-400' :
+                      p.state === 'D' ? 'bg-rose-500/10 text-rose-600 dark:text-rose-400' :
+                      p.state === 'Z' ? 'bg-amber-500/10 text-amber-600 dark:text-amber-400' :
+                      'bg-gray-500/10 text-gray-600 dark:text-gray-400'
+                      }`}>{p.state}</span></td>
+                  <td className="py-1.5 px-2 text-gray-500">{p.user}</td>
+                </tr>
+              ))}
+              {sortedProcesses.length === 0 && (
+                <tr>
+                  <td colSpan={6} className="py-4 text-center text-gray-500">暂无数据</td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+      </motion.div>
+    </>
   )
 }

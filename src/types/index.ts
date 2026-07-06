@@ -162,6 +162,15 @@ export interface DiskInfo {
   usage: number;
 }
 
+export interface ProcessInfo {
+  pid: number;
+  name: string;
+  cpuUsage: number;
+  memoryBytes: number;
+  state: string;
+  user: string;
+}
+
 export interface SystemStats {
   bootTime: number;
   uptime: number;
@@ -175,5 +184,7 @@ export interface SystemStats {
   swapMemory: MemoryInfo;
   fileSystems: DiskInfo[];
   physicalDisks: DiskInfo[];
+  loadAverage: number[];
+  processes: ProcessInfo[];
 }
 
