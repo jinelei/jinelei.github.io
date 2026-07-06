@@ -266,7 +266,6 @@ function FaviconRefreshSection() {
 function TotpSection() {
   const { user, refreshUser } = useAuth()
   const [secret, setSecret] = useState('')
-  const [otpauthUri, setOtpauthUri] = useState('')
   const [code, setCode] = useState('')
   const [step, setStep] = useState<'idle' | 'setup' | 'verify'>('idle')
   const [saving, setSaving] = useState(false)
@@ -276,7 +275,6 @@ function TotpSection() {
     try {
       const res = await setupTotp()
       setSecret(res.data.secret)
-      setOtpauthUri(res.data.otpauthUri)
       // Generate QR code
       const QRCode = (await import('qrcode')).default
       const url = await QRCode.toDataURL(res.data.otpauthUri, { width: 200, margin: 2 })
@@ -296,7 +294,6 @@ function TotpSection() {
       setStep('idle')
       setCode('')
       setSecret('')
-      setOtpauthUri('')
       setQrDataUrl('')
       toast.success('两步验证已启用')
     } catch (e: unknown) {

@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect, useCallback, type ReactNode } from 'react'
-import { login as loginApi, getMe, refreshToken as refreshTokenApi } from '../api/auth'
+import { login as loginApi, getMe, refreshToken as refreshTokenApi, verifyTotpLogin as verifyTotpLoginApi } from '../api/auth'
 import { getStoredRefreshToken } from '../api/client'
 import { createLogger } from '../utils/logger'
 import { useWebSocket } from '../hooks/useWebSocket'
@@ -104,7 +104,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const verifyTotpLogin = useCallback(async (totpToken: string, code: string) => {
     log.info('Verifying TOTP login')
-    const res = await (await import('../api/auth')).verifyTotpLogin(totpToken, code)
+    const res = await verifyTotpLoginApi(totpToken, code)
     const { accessToken, refreshToken: rt, user: u } = res.data
     setAuthData({ accessToken, refreshToken: rt, user: u })
     log.info('TOTP login success: userId=%d', u.id)
