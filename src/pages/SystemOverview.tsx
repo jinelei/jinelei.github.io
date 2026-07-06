@@ -247,7 +247,7 @@ export default function SystemOverview() {
           <p className="text-xs text-gray-500 mt-1">CPU 核心数: {stats.cpuCores}</p>
         </StatCard>
 
-        <StatCard icon={FiCpu} title="CPU" className="lg:col-span-2">
+        <StatCard icon={FiCpu} title="CPU">
           <div className="space-y-3">
             <ProgressBar value={stats.cpuUsage} label={`总使用率 (${stats.cpuCores} 核)`} color="rose" />
             <div className="grid grid-cols-2 gap-2 pt-1">
@@ -268,7 +268,7 @@ export default function SystemOverview() {
           </div>
         </StatCard>
 
-        <StatCard icon={FiServer} title="物理内存" className="lg:col-span-2">
+        <StatCard icon={FiServer} title="物理内存">
           <MemoryBlock title="内存" info={stats.physicalMemory} color="amber" />
           <div className="border-t border-black/5 dark:border-white/5 pt-3 mt-3">
             <MemoryBlock title="Swap" info={stats.swapMemory} color="purple" />
