@@ -1,11 +1,12 @@
-import { createContext, useContext, useState, useEffect, useCallback, type ReactNode } from 'react'
-import { login as loginApi, getMe, refreshToken as refreshTokenApi, verifyTotpLogin as verifyTotpLoginApi } from '../api/auth'
+import { createContext, useContext, useState, useEffect, useCallback, useRef, type ReactNode } from 'react'
+import { login as loginApi, getMe, refreshToken as refreshTokenApi, verifyTotpLogin as verifyTotpLoginApi, heartbeat as heartbeatApi } from '../api/auth'
 import { getStoredRefreshToken } from '../api/client'
 import { createLogger } from '../utils/logger'
-import { useWebSocket } from '../hooks/useWebSocket'
 import type { UserInfo } from '../types'
 
 const log = createLogger('AuthContext')
+
+const HEARTBEAT_INTERVAL = 3000
 
 interface AuthContextType {
   user: UserInfo | null
@@ -22,8 +23,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<UserInfo | null>(null)
   const [loading, setLoading] = useState(true)
   const [accessToken, setAccessToken] = useState<string | null>(() => localStorage.getItem('scalefish_access_token'))
-
-  useWebSocket(accessToken)
+  const heartbeatTimerRef = useRef<ReturnType<typeof setInterval> | null>(null)
 
   const refreshUser = useCallback(async () => {
     try {
@@ -81,6 +81,37 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setLoading(false)
     }
   }, [])
+
+  // HTTP heartbeat polling
+  useEffect(() => {
+    if (!accessToken) {
+      if (heartbeatTimerRef.current) {
+        clearInterval(heartbeatTimerRef.current)
+        heartbeatTimerRef.current = null
+      }
+      return
+    }
+
+    const ping = async () => {
+      try {
+        await heartbeatApi()
+      } catch {
+        log.warn('Heartbeat failed, redirecting to login')
+        localStorage.removeItem('scalefish_access_token')
+        localStorage.removeItem('scalefish_refresh_token')
+        window.location.href = '/login'
+      }
+    }
+
+    ping()
+    heartbeatTimerRef.current = setInterval(ping, HEARTBEAT_INTERVAL)
+    return () => {
+      if (heartbeatTimerRef.current) {
+        clearInterval(heartbeatTimerRef.current)
+        heartbeatTimerRef.current = null
+      }
+    }
+  }, [accessToken])
 
   const setAuthData = useCallback((data: { accessToken: string; refreshToken: string; user: UserInfo }) => {
     localStorage.setItem('scalefish_access_token', data.accessToken)

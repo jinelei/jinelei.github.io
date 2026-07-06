@@ -59,3 +59,8 @@ export async function verifyTotpLogin(totpToken: string, code: string): Promise<
   const res = await client.post('/auth/totp/verify-login', { totpToken, code })
   return res.data
 }
+
+export async function heartbeat(): Promise<GenericResult<void>> {
+  const res = await client.get('/auth/heartbeat')
+  return res.data
+}
