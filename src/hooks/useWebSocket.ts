@@ -3,7 +3,7 @@ import { createLogger } from '../utils/logger'
 
 const log = createLogger('WebSocket')
 
-const HEARTBEAT_INTERVAL = 30000
+const HEARTBEAT_INTERVAL = 3000
 const RECONNECT_DELAY = 5000
 
 export function useWebSocket(token: string | null) {
