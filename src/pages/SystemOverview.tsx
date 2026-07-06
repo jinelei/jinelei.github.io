@@ -1,9 +1,7 @@
-import { useState, useCallback, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
 import { FiClock, FiCpu, FiServer, FiHardDrive, FiDatabase } from 'react-icons/fi'
 import { getSystemStats } from '../api/system'
-import { useSystemStatsWS } from '../hooks/useSystemStatsWS'
-import { useAuth } from '../contexts/AuthContext'
 import type { SystemStats, MemoryInfo, DiskInfo } from '../types'
 
 const container = {
@@ -124,28 +122,29 @@ function DiskSection({ title, disks, icon: Icon }: { title: string; disks: DiskI
   )
 }
 
+const POLL_INTERVAL = 500
+
 export default function SystemOverview() {
-  const { user } = useAuth()
   const [stats, setStats] = useState<SystemStats | null>(null)
   const [error, setError] = useState('')
-  const [loading, setLoading] = useState(true)
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null)
 
-  // Initial HTTP fetch
   useEffect(() => {
-    if (!user) return
-    setLoading(true)
-    getSystemStats()
-      .then(res => setStats(res.data))
-      .catch(e => setError(e instanceof Error ? e.message : '加载失败'))
-      .finally(() => setLoading(false))
-  }, [user])
-
-  // Subsequent WebSocket refresh
-  useSystemStatsWS(
-    user !== null && !loading,
-    useCallback((s: SystemStats) => setStats(s), []),
-    useCallback((err: string) => setError(err), []),
-  )
+    const fetchStats = async () => {
+      try {
+        const res = await getSystemStats()
+        setStats(res.data)
+        setError('')
+      } catch (e) {
+        setError(e instanceof Error ? e.message : '加载失败')
+      }
+    }
+    fetchStats()
+    timerRef.current = setInterval(fetchStats, POLL_INTERVAL)
+    return () => {
+      if (timerRef.current) clearInterval(timerRef.current)
+    }
+  }, [])
 
   if (!stats) {
     return (
