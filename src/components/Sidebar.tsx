@@ -195,7 +195,7 @@ export default function Sidebar({ open, onClose, displayName }: SidebarProps) {
                                   }`
                                 }
                               >
-                                服务管理
+                                服务
                               </NavLink>
                             </div>
                           </motion.div>
