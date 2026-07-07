@@ -49,8 +49,8 @@ export default function Modal({ open, onClose, title, children, size = 'md' }: M
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 50 }}
             transition={{ duration: 0.2, ease: 'easeOut' }}
-            style={{ background: isLight ? '#ffffff' : '#15171f' }}
-            className={`relative w-full border border-surface-500/50 shadow-2xl max-h-[90dvh] sm:max-h-[85vh] overflow-y-auto rounded-none sm:rounded-xl sm:mx-4 ${sizeClasses[size] || sizeClasses.md}`}
+            style={{ background: isLight ? '#ffffff' : '#15171f', scrollbarWidth: 'none' }}
+            className={`relative w-full border border-surface-500/50 shadow-2xl max-h-[90dvh] sm:max-h-[85vh] overflow-y-auto [&::-webkit-scrollbar]:hidden rounded-none sm:rounded-xl sm:mx-4 ${sizeClasses[size] || sizeClasses.md}`}
           >
             <div
               style={{ background: isLight ? '#e2e8f0' : '#1e2939' }}
