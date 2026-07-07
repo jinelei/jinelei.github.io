@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback } from 'react'
 import { motion } from 'framer-motion'
-import { FiServer, FiRefreshCw, FiPlay, FiSquare, FiRotateCcw, FiPlus, FiCopy, FiEdit2, FiTrash2, FiTerminal, FiChevronDown } from 'react-icons/fi'
+import { FiServer, FiRefreshCw, FiPlay, FiSquare, FiRotateCcw, FiPlus, FiCopy, FiEdit2, FiTrash2, FiChevronDown } from 'react-icons/fi'
 import toast from 'react-hot-toast'
 import { getServiceConfigs, createServiceConfig, updateServiceConfig, deleteServiceConfig, executeStatus, executeStart, executeStop, executeRestart, executeLog } from '../api/system-services'
 import type { ServiceConfigResponse, ServiceConfigRequest, ScriptExecuteResponse } from '../types'
@@ -173,16 +173,6 @@ export default function ServiceManage() {
 
   return (
     <motion.div variants={container} initial="hidden" animate="show" className="space-y-6">
-      <motion.div variants={item} className="flex items-center gap-3">
-        <div className="w-9 h-9 rounded-lg bg-accent-500/10 border border-accent-500/20 flex items-center justify-center">
-          <FiTerminal size={16} className="text-accent-500" />
-        </div>
-        <div>
-          <h1 className="text-base font-semibold text-gray-800 dark:text-gray-200">服务管理</h1>
-          <p className="text-xs text-gray-500">管理系统服务的启停与状态查询</p>
-        </div>
-      </motion.div>
-
       {loading && services.length === 0 ? (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
           {[1, 2].map(i => (
