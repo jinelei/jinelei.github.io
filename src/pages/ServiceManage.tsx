@@ -194,16 +194,6 @@ export default function ServiceManage() {
         </motion.div>
       ) : (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-          <motion.div
-            variants={item}
-            onClick={openCreate}
-            className="glass rounded-xl p-5 flex flex-col items-center justify-center gap-3 cursor-pointer border-2 border-dashed border-white/10 hover:border-accent-500/50 hover:bg-accent-500/5 transition-all min-h-[200px]"
-          >
-            <div className="w-10 h-10 rounded-full bg-accent-500/10 flex items-center justify-center">
-              <FiPlus size={20} className="text-accent-400" />
-            </div>
-            <span className="text-sm font-medium text-gray-400">新增服务</span>
-          </motion.div>
           {services.map(svc => {
             const action = runningActions[svc.id]
             const status = statuses[svc.id]
@@ -351,6 +341,16 @@ export default function ServiceManage() {
               </motion.div>
             )
           })}
+          <motion.div
+            variants={item}
+            onClick={openCreate}
+            className="glass rounded-xl px-5 py-3 flex items-center gap-3 cursor-pointer border-2 border-dashed border-white/10 hover:border-accent-500/50 hover:bg-accent-500/5 transition-all"
+          >
+            <div className="w-8 h-8 rounded-full bg-accent-500/10 flex items-center justify-center shrink-0">
+              <FiPlus size={16} className="text-accent-400" />
+            </div>
+            <span className="text-sm font-medium text-gray-400">新增服务</span>
+          </motion.div>
         </div>
       )}
 
