@@ -38,7 +38,7 @@ export default function Sidebar({ open, onClose, displayName }: SidebarProps) {
   }, [])
 
   const isBookmarkActive = location.pathname === '/' || location.pathname.startsWith('/bookmarks/')
-  const isSystemActive = location.pathname === '/system-overview'
+  const isSystemActive = location.pathname.startsWith('/system-') || location.pathname.startsWith('/system/')
 
   const isCategoryActive = (id: number) => location.pathname === `/bookmarks/${id}`
 
@@ -184,6 +184,18 @@ export default function Sidebar({ open, onClose, displayName }: SidebarProps) {
                                 }
                               >
                                 概览
+                              </NavLink>
+                              <NavLink
+                                to="/system/services"
+                                className={({ isActive }) =>
+                                  `flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-all duration-200 ${
+                                    isActive
+                                      ? 'bg-accent-500/10 text-accent-400 font-medium'
+                                      : 'text-gray-500 hover:text-gray-200 hover:bg-white/5'
+                                  }`
+                                }
+                              >
+                                服务管理
                               </NavLink>
                             </div>
                           </motion.div>

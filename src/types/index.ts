@@ -188,3 +188,43 @@ export interface SystemStats {
   processes: ProcessInfo[];
 }
 
+export interface ServiceConfigRequest {
+  name: string;
+  statusScript?: string;
+  statusArgs?: string;
+  startScript?: string;
+  startArgs?: string;
+  stopScript?: string;
+  stopArgs?: string;
+  restartScript?: string;
+  restartArgs?: string;
+  logScript?: string;
+  logArgs?: string;
+  description?: string;
+  sortOrder?: number;
+}
+
+export interface ServiceConfigResponse {
+  id: number;
+  name: string;
+  statusScript: string | null;
+  statusArgs: string | null;
+  startScript: string | null;
+  startArgs: string | null;
+  stopScript: string | null;
+  stopArgs: string | null;
+  restartScript: string | null;
+  restartArgs: string | null;
+  logScript: string | null;
+  logArgs: string | null;
+  description: string | null;
+  sortOrder: number | null;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface ScriptExecuteResponse {
+  output: string;
+  exitCode: number;
+}
+
