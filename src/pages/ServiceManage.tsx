@@ -1,4 +1,5 @@
 import { useEffect, useState, useCallback } from 'react'
+import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { FiServer, FiRefreshCw, FiPlay, FiSquare, FiRotateCcw, FiPlus, FiEdit2, FiTrash2, FiTerminal, FiChevronDown } from 'react-icons/fi'
 import toast from 'react-hot-toast'
@@ -173,22 +174,29 @@ export default function ServiceManage() {
 
   return (
     <motion.div variants={container} initial="hidden" animate="show" className="space-y-6">
-      <motion.div variants={item} className="flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-lg bg-accent-500/10 border border-accent-500/20 flex items-center justify-center">
-            <FiTerminal size={16} className="text-accent-500" />
+      <motion.div variants={item} className="space-y-2">
+        <nav className="flex items-center gap-1.5 text-xs text-gray-500">
+          <Link to="/system-overview" className="hover:text-gray-300 transition-colors">系统</Link>
+          <span>/</span>
+          <span className="text-gray-300">服务</span>
+        </nav>
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="w-9 h-9 rounded-lg bg-accent-500/10 border border-accent-500/20 flex items-center justify-center">
+              <FiTerminal size={16} className="text-accent-500" />
+            </div>
+            <div>
+              <h1 className="text-base font-semibold text-gray-800 dark:text-gray-200">服务管理</h1>
+              <p className="text-xs text-gray-500">管理系统服务的启停与状态查询</p>
+            </div>
           </div>
-          <div>
-            <h1 className="text-base font-semibold text-gray-800 dark:text-gray-200">服务管理</h1>
-            <p className="text-xs text-gray-500">管理系统服务的启停与状态查询</p>
-          </div>
+          <button
+            onClick={openCreate}
+            className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-accent-600 hover:bg-accent-500 text-white text-xs font-semibold transition-all active:scale-95"
+          >
+            <FiPlus size={14} /> 新增服务
+          </button>
         </div>
-        <button
-          onClick={openCreate}
-          className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-accent-600 hover:bg-accent-500 text-white text-xs font-semibold transition-all active:scale-95"
-        >
-          <FiPlus size={14} /> 新增服务
-        </button>
       </motion.div>
 
       {loading && services.length === 0 ? (
