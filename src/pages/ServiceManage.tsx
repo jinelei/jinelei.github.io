@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback } from 'react'
 import { motion } from 'framer-motion'
-import { FiServer, FiRefreshCw, FiPlay, FiSquare, FiRotateCcw, FiPlus, FiEdit2, FiTrash2, FiTerminal, FiChevronDown } from 'react-icons/fi'
+import { FiServer, FiRefreshCw, FiPlay, FiSquare, FiRotateCcw, FiPlus, FiCopy, FiEdit2, FiTrash2, FiTerminal, FiChevronDown } from 'react-icons/fi'
 import toast from 'react-hot-toast'
 import { getServiceConfigs, createServiceConfig, updateServiceConfig, deleteServiceConfig, executeStatus, executeStart, executeStop, executeRestart, executeLog } from '../api/system-services'
 import type { ServiceConfigResponse, ServiceConfigRequest, ScriptExecuteResponse } from '../types'
@@ -173,22 +173,14 @@ export default function ServiceManage() {
 
   return (
     <motion.div variants={container} initial="hidden" animate="show" className="space-y-6">
-      <motion.div variants={item} className="flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-lg bg-accent-500/10 border border-accent-500/20 flex items-center justify-center">
-            <FiTerminal size={16} className="text-accent-500" />
-          </div>
-          <div>
-            <h1 className="text-base font-semibold text-gray-800 dark:text-gray-200">服务管理</h1>
-            <p className="text-xs text-gray-500">管理系统服务的启停与状态查询</p>
-          </div>
+      <motion.div variants={item} className="flex items-center gap-3">
+        <div className="w-9 h-9 rounded-lg bg-accent-500/10 border border-accent-500/20 flex items-center justify-center">
+          <FiTerminal size={16} className="text-accent-500" />
         </div>
-        <button
-          onClick={openCreate}
-          className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-accent-600 hover:bg-accent-500 text-white text-xs font-semibold transition-all active:scale-95"
-        >
-          <FiPlus size={14} /> 新增服务
-        </button>
+        <div>
+          <h1 className="text-base font-semibold text-gray-800 dark:text-gray-200">服务管理</h1>
+          <p className="text-xs text-gray-500">管理系统服务的启停与状态查询</p>
+        </div>
       </motion.div>
 
       {loading && services.length === 0 ? (
@@ -208,10 +200,20 @@ export default function ServiceManage() {
         <motion.div variants={item} className="flex flex-col items-center justify-center py-20 text-center">
           <FiServer size={40} className="text-gray-600 mb-3" />
           <p className="text-sm text-gray-500">暂无服务配置</p>
-          <p className="text-xs text-gray-600 mt-1">点击右上角「新增服务」添加</p>
+          <p className="text-xs text-gray-600 mt-1">点击下方图块新增</p>
         </motion.div>
       ) : (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+          <motion.div
+            variants={item}
+            onClick={openCreate}
+            className="glass rounded-xl p-5 flex flex-col items-center justify-center gap-3 cursor-pointer border-2 border-dashed border-white/10 hover:border-accent-500/50 hover:bg-accent-500/5 transition-all min-h-[200px]"
+          >
+            <div className="w-10 h-10 rounded-full bg-accent-500/10 flex items-center justify-center">
+              <FiPlus size={20} className="text-accent-400" />
+            </div>
+            <span className="text-sm font-medium text-gray-400">新增服务</span>
+          </motion.div>
           {services.map(svc => {
             const action = runningActions[svc.id]
             const status = statuses[svc.id]
@@ -239,6 +241,31 @@ export default function ServiceManage() {
                       title="刷新状态"
                     >
                       <FiRefreshCw size={13} className={action === 'status' ? 'animate-spin' : ''} />
+                    </button>
+                    <button
+                      onClick={() => {
+                        setEditing(null)
+                        setFormData({
+                          name: '',
+                          statusScript: svc.statusScript || '',
+                          statusArgs: svc.statusArgs || '',
+                          startScript: svc.startScript || '',
+                          startArgs: svc.startArgs || '',
+                          stopScript: svc.stopScript || '',
+                          stopArgs: svc.stopArgs || '',
+                          restartScript: svc.restartScript || '',
+                          restartArgs: svc.restartArgs || '',
+                          logScript: svc.logScript || '',
+                          logArgs: svc.logArgs || '',
+                          description: svc.description || '',
+                          sortOrder: svc.sortOrder ?? undefined,
+                        })
+                        setFormOpen(true)
+                      }}
+                      className="p-1.5 rounded hover:bg-white/10 text-gray-400 hover:text-gray-200 transition-colors"
+                      title="复制配置"
+                    >
+                      <FiCopy size={13} />
                     </button>
                     <button
                       onClick={() => openEdit(svc)}
