@@ -197,6 +197,7 @@ export default function ServiceManage() {
           {services.map(svc => {
             const action = runningActions[svc.id]
             const status = statuses[svc.id]
+            const isActive = status !== null && status !== undefined && status.exitCode === 0
             return (
               <motion.div key={svc.id} variants={item} className="glass rounded-xl p-5 space-y-3">
                 <div className="flex items-center justify-between">
@@ -313,30 +314,36 @@ export default function ServiceManage() {
                 </div>
 
                 <div className="flex items-center gap-2">
-                  <button
-                    onClick={() => handleAction(svc.id, 'start')}
-                    disabled={!!action || !svc.startScript}
-                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-green-600/20 text-green-400 border border-green-500/30 hover:bg-green-600/30 text-xs font-medium transition-colors disabled:opacity-50"
-                  >
-                    {action === 'start' ? <FiRefreshCw size={13} className="animate-spin" /> : <FiPlay size={13} />}
-                    {action === 'start' ? '启动中...' : '启动'}
-                  </button>
-                  <button
-                    onClick={() => handleAction(svc.id, 'stop')}
-                    disabled={!!action}
-                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-rose-600/20 text-rose-400 border border-rose-500/30 hover:bg-rose-600/30 text-xs font-medium transition-colors disabled:opacity-50"
-                  >
-                    {action === 'stop' ? <FiRefreshCw size={13} className="animate-spin" /> : <FiSquare size={13} />}
-                    {action === 'stop' ? '停止中...' : '停止'}
-                  </button>
-                  <button
-                    onClick={() => handleAction(svc.id, 'restart')}
-                    disabled={!!action}
-                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-yellow-600/20 text-yellow-400 border border-yellow-500/30 hover:bg-yellow-600/30 text-xs font-medium transition-colors disabled:opacity-50"
-                  >
-                    {action === 'restart' ? <FiRefreshCw size={13} className="animate-spin" /> : <FiRotateCcw size={13} />}
-                    {action === 'restart' ? '重启中...' : '重启'}
-                  </button>
+                  {!isActive && (
+                    <button
+                      onClick={() => handleAction(svc.id, 'start')}
+                      disabled={!!action || !svc.startScript}
+                      className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-green-600/20 text-green-400 border border-green-500/30 hover:bg-green-600/30 text-xs font-medium transition-colors disabled:opacity-50"
+                    >
+                      {action === 'start' ? <FiRefreshCw size={13} className="animate-spin" /> : <FiPlay size={13} />}
+                      {action === 'start' ? '启动中...' : '启动'}
+                    </button>
+                  )}
+                  {isActive && (
+                    <>
+                      <button
+                        onClick={() => handleAction(svc.id, 'stop')}
+                        disabled={!!action}
+                        className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-rose-600/20 text-rose-400 border border-rose-500/30 hover:bg-rose-600/30 text-xs font-medium transition-colors disabled:opacity-50"
+                      >
+                        {action === 'stop' ? <FiRefreshCw size={13} className="animate-spin" /> : <FiSquare size={13} />}
+                        {action === 'stop' ? '停止中...' : '停止'}
+                      </button>
+                      <button
+                        onClick={() => handleAction(svc.id, 'restart')}
+                        disabled={!!action}
+                        className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-yellow-600/20 text-yellow-400 border border-yellow-500/30 hover:bg-yellow-600/30 text-xs font-medium transition-colors disabled:opacity-50"
+                      >
+                        {action === 'restart' ? <FiRefreshCw size={13} className="animate-spin" /> : <FiRotateCcw size={13} />}
+                        {action === 'restart' ? '重启中...' : '重启'}
+                      </button>
+                    </>
+                  )}
                 </div>
               </motion.div>
             )
