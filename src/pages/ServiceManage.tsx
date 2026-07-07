@@ -213,15 +213,6 @@ export default function ServiceManage() {
                   <div className="flex items-center gap-2.5 min-w-0">
                     <div className={`w-2.5 h-2.5 rounded-full shrink-0 ${action === 'status' ? 'bg-yellow-400 animate-pulse' : status ? 'bg-green-500' : 'bg-gray-500'}`} />
                     <h3 className="text-sm font-semibold text-gray-800 dark:text-gray-200 truncate">{svc.name}</h3>
-                    {action === 'status' ? (
-                      <span className="text-xs text-gray-500 animate-pulse">查询中...</span>
-                    ) : status ? (
-                      <span className="text-xs text-green-400 font-mono truncate max-w-[200px]" title={status.output}>
-                        {statusText(status)}
-                      </span>
-                    ) : (
-                      <span className="text-xs text-gray-500">未查询</span>
-                    )}
                   </div>
                   <div className="flex items-center gap-1 shrink-0">
                     <button
@@ -272,6 +263,18 @@ export default function ServiceManage() {
                       <FiTrash2 size={13} />
                     </button>
                   </div>
+                </div>
+
+                <div className="flex items-center gap-2">
+                  {action === 'status' ? (
+                    <span className="text-xs text-gray-500 animate-pulse">查询中...</span>
+                  ) : status ? (
+                    <span className="text-xs text-green-400 font-mono truncate max-w-full" title={status.output}>
+                      {statusText(status)}
+                    </span>
+                  ) : (
+                    <span className="text-xs text-gray-500">未查询</span>
+                  )}
                 </div>
 
                 {svc.description && (
