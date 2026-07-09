@@ -228,6 +228,34 @@ export interface ScriptExecuteResponse {
   exitCode: number;
 }
 
+export interface MomentRequest {
+  content: string;
+  contentType?: string;
+  terminalType?: string;
+  isLocked?: boolean;
+  displayContent?: string;
+}
+
+export interface MomentResponse {
+  id: number;
+  content: string;
+  contentType: string;
+  filePath: string | null;
+  fileName: string | null;
+  fileSize: number | null;
+  mimeType: string | null;
+  terminalType: string;
+  isLocked: boolean;
+  displayContent: string | null;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface DailyCount {
+  date: string;
+  count: number;
+}
+
 export interface CalendarEvent {
   uid: string;
   summary: string;

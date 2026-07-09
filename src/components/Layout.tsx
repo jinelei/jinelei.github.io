@@ -13,6 +13,7 @@ const pageTitles: Record<string, [string, string]> = {
   '/': ['书签', '书签管理'],
   '/my-links': ['我的', '外部链接'],
   '/calendar': ['日历', 'Radicale 日历'],
+  '/moments': ['时刻', '临时数据'],
   '/settings': ['设置', '账户 / Token / 插件'],
   '/system-overview': ['系统', '概览'],
   '/system/services': ['系统', '服务'],
