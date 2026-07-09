@@ -6,7 +6,7 @@ import type { UserInfo } from '../types'
 
 const log = createLogger('AuthContext')
 
-const HEARTBEAT_INTERVAL = 10000
+const HEARTBEAT_INTERVAL = 60000
 
 interface AuthContextType {
   user: UserInfo | null

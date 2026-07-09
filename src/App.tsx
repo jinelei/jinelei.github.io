@@ -8,7 +8,6 @@ import FilteredDashboard from './pages/FilteredDashboard'
 import ApiTokens from './pages/ApiTokens'
 import ExtensionGuide from './pages/ExtensionGuide'
 import Settings from './pages/Settings'
-import MyLinks from './pages/MyLinks'
 import SystemOverview from './pages/SystemOverview'
 import ServiceManage from './pages/ServiceManage'
 import Moment from './pages/Moment'
@@ -28,7 +27,6 @@ function AppRoutes() {
       <Route element={<ProtectedRoute><Layout /></ProtectedRoute>}>
         <Route path="/" element={<Dashboard />} />
         <Route path="/bookmarks/:categoryId" element={<FilteredDashboard />} />
-        <Route path="/my-links" element={<MyLinks />} />
         <Route path="/tokens" element={<ApiTokens />} />
         <Route path="/settings" element={<Settings />} />
         <Route path="/system-overview" element={<SystemOverview />} />

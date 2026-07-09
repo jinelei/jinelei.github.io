@@ -1,8 +1,8 @@
-import { useState, useEffect, useRef, useMemo } from 'react'
+import { useState, useEffect, useRef, useMemo, useCallback } from 'react'
 import { motion } from 'framer-motion'
 import { FiClock, FiCpu, FiServer, FiHardDrive, FiDatabase, FiActivity, FiArrowUp, FiArrowDown, FiTriangle } from 'react-icons/fi'
-import { getSystemStats } from '../api/system'
-import type { SystemStats, MemoryInfo, DiskInfo } from '../types'
+import { getSystemStats, getSystemUptime, getSystemLoad, getSystemCpu, getSystemMemory, getSystemDisk, getSystemProcesses } from '../api/system'
+import type { SystemStats, DiskInfo } from '../types'
 
 const container = {
   hidden: {},
@@ -60,21 +60,35 @@ function ProgressBar({ value, label, color = 'accent', showValue = true }: { val
   )
 }
 
-function StatCard({ icon: Icon, title, children, className = '' }: { icon: React.ComponentType<{ size?: number; className?: string }>; title: string; children: React.ReactNode; className?: string }) {
+function StatCard({ icon: Icon, title, children, className = '', onRefresh, loading }: { icon: React.ComponentType<{ size?: number; className?: string }>; title: string; children: React.ReactNode; className?: string; onRefresh?: () => void; loading?: boolean }) {
   return (
     <motion.div variants={item} className={`glass rounded-xl p-5 flex flex-col ${className}`}>
-      <div className="flex items-center gap-2.5">
-        <div className="w-9 h-9 rounded-lg bg-accent-500/10 border border-accent-500/20 flex items-center justify-center">
-          <Icon size={16} className="text-accent-500" />
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-2.5">
+          <div className="w-9 h-9 rounded-lg bg-accent-500/10 border border-accent-500/20 flex items-center justify-center">
+            <Icon size={16} className="text-accent-500" />
+          </div>
+          <h3 className="text-sm font-semibold text-gray-800 dark:text-gray-200">{title}</h3>
         </div>
-        <h3 className="text-sm font-semibold text-gray-800 dark:text-gray-200">{title}</h3>
+        <div className="flex items-center gap-1">
+          {loading && <span className="w-3 h-3 rounded-full border-2 border-accent-500 border-t-transparent animate-spin" />}
+          {onRefresh && (
+            <button
+              onClick={onRefresh}
+              className="p-1.5 rounded-lg text-gray-500 hover:text-accent-400 hover:bg-white/5 transition-all cursor-pointer"
+              title="刷新"
+            >
+              <FiActivity size={14} />
+            </button>
+          )}
+        </div>
       </div>
       <div className="flex-1 mt-4 space-y-4">{children}</div>
     </motion.div>
   )
 }
 
-function MemoryBlock({ title, info, color }: { title: string; info: MemoryInfo; color: string }) {
+function MemoryBlock({ title, info, color }: { title: string; info: { total: number; used: number; free: number }; color: string }) {
   const usage = info.total > 0 ? info.used / info.total : 0
   return (
     <div className="space-y-2">
@@ -132,31 +146,115 @@ const SORT_LABELS: Record<SortField, string> = {
   state: '状态',
 }
 
-const POLL_INTERVAL = 1000
+const POLL_INTERVAL = 10000
+
+interface BootInfo { bootTime: number; uptime: number }
+interface LoadInfo { cpuCores: number; loadAverage1: number; loadAverage5: number; loadAverage15: number }
+interface CpuInfo { cpuCores: number; totalCpuLoad: number; cpuPerCore: number[] }
+interface MemInfo { physicalTotal: number; physicalUsed: number; physicalFree: number; swapTotal: number; swapUsed: number; swapFree: number; jvmTotal: number; jvmUsed: number; jvmMax: number }
+interface DiskInfoData { fileSystems: DiskInfo[]; physicalDisks: DiskInfo[] }
 
 export default function SystemOverview() {
-  const [stats, setStats] = useState<SystemStats | null>(null)
+  const [bootInfo, setBootInfo] = useState<BootInfo | null>(null)
+  const [loadInfo, setLoadInfo] = useState<LoadInfo | null>(null)
+  const [cpuInfo, setCpuInfo] = useState<CpuInfo | null>(null)
+  const [memInfo, setMemInfo] = useState<MemInfo | null>(null)
+  const [diskInfoData, setDiskInfoData] = useState<DiskInfoData | null>(null)
+  const [processes, setProcesses] = useState<SystemStats['processes']>([])
+
+  const [loading, setLoading] = useState(true)
+  const [cardLoading, setCardLoading] = useState<Record<string, boolean>>({})
   const [error, setError] = useState('')
+  const [lastFetchTime, setLastFetchTime] = useState<string | null>(null)
   const [sortField, setSortField] = useState<SortField>('cpu')
   const [sortAsc, setSortAsc] = useState(false)
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null)
 
-  useEffect(() => {
-    const fetchStats = async () => {
-      try {
-        const res = await getSystemStats()
-        setStats(res.data)
-        setError('')
-      } catch (e) {
-        setError(e instanceof Error ? e.message : '加载失败')
-      }
-    }
-    fetchStats()
-    timerRef.current = setInterval(fetchStats, POLL_INTERVAL)
-    return () => {
-      if (timerRef.current) clearInterval(timerRef.current)
+  const refreshAll = useCallback(async () => {
+    try {
+      const res = await getSystemStats()
+      const d = res.data
+      setBootInfo({ bootTime: d.bootTime, uptime: d.uptime })
+      setLoadInfo({ cpuCores: d.cpuCores, loadAverage1: d.loadAverage[0], loadAverage5: d.loadAverage[1], loadAverage15: d.loadAverage[2] })
+      setCpuInfo({ cpuCores: d.cpuCores, totalCpuLoad: d.cpuUsage, cpuPerCore: d.cpuPerCore })
+      setMemInfo({
+        physicalTotal: d.physicalMemory.total, physicalUsed: d.physicalMemory.used, physicalFree: d.physicalMemory.free,
+        swapTotal: d.swapMemory.total, swapUsed: d.swapMemory.used, swapFree: d.swapMemory.free,
+        jvmTotal: d.jvmTotalMemory, jvmUsed: d.jvmUsedMemory, jvmMax: d.jvmMaxMemory,
+      })
+      setDiskInfoData({ fileSystems: d.fileSystems, physicalDisks: d.physicalDisks })
+      setProcesses(d.processes)
+      setLastFetchTime(new Date().toLocaleTimeString('zh-CN'))
+      setError('')
+    } catch (e) {
+      setError(e instanceof Error ? e.message : '加载失败')
+    } finally {
+      setLoading(false)
     }
   }, [])
+
+  const refreshBoot = useCallback(async () => {
+    setCardLoading(p => ({ ...p, boot: true }))
+    try { const res = await getSystemUptime(); setBootInfo(res.data) } catch { /* ignore */ }
+    finally { setCardLoading(p => ({ ...p, boot: false })) }
+  }, [])
+
+  const refreshLoad = useCallback(async () => {
+    setCardLoading(p => ({ ...p, load: true }))
+    try { const res = await getSystemLoad(); setLoadInfo(res.data) } catch { /* ignore */ }
+    finally { setCardLoading(p => ({ ...p, load: false })) }
+  }, [])
+
+  const refreshCpu = useCallback(async () => {
+    setCardLoading(p => ({ ...p, cpu: true }))
+    try { const res = await getSystemCpu(); setCpuInfo(res.data) } catch { /* ignore */ }
+    finally { setCardLoading(p => ({ ...p, cpu: false })) }
+  }, [])
+
+  const refreshMem = useCallback(async () => {
+    setCardLoading(p => ({ ...p, mem: true }))
+    try { const res = await getSystemMemory(); setMemInfo(res.data) } catch { /* ignore */ }
+    finally { setCardLoading(p => ({ ...p, mem: false })) }
+  }, [])
+
+  const refreshDisk = useCallback(async () => {
+    setCardLoading(p => ({ ...p, disk: true }))
+    try { const res = await getSystemDisk(); setDiskInfoData(res.data) } catch { /* ignore */ }
+    finally { setCardLoading(p => ({ ...p, disk: false })) }
+  }, [])
+
+  const refreshProcesses = useCallback(async () => {
+    setCardLoading(p => ({ ...p, processes: true }))
+    try { const res = await getSystemProcesses(); setProcesses(res.data) } catch { /* ignore */ }
+    finally { setCardLoading(p => ({ ...p, processes: false })) }
+  }, [])
+
+  useEffect(() => {
+    const startPolling = () => {
+      stopPolling()
+      timerRef.current = setInterval(refreshAll, POLL_INTERVAL)
+    }
+    const stopPolling = () => {
+      if (timerRef.current) {
+        clearInterval(timerRef.current)
+        timerRef.current = null
+      }
+    }
+
+    refreshAll()
+    startPolling()
+
+    const onVisibility = () => {
+      if (document.hidden) stopPolling()
+      else refreshAll().then(startPolling)
+    }
+    document.addEventListener('visibilitychange', onVisibility)
+
+    return () => {
+      stopPolling()
+      document.removeEventListener('visibilitychange', onVisibility)
+    }
+  }, [refreshAll])
 
   const toggleSort = (field: SortField) => {
     if (sortField === field) {
@@ -168,31 +266,20 @@ export default function SystemOverview() {
   }
 
   const sortedProcesses = useMemo(() => {
-    if (!stats) return []
-    return [...stats.processes].sort((a, b) => {
+    return [...processes].sort((a, b) => {
       let cmp = 0
       switch (sortField) {
-        case 'cpu':
-          cmp = a.cpuUsage - b.cpuUsage
-          break
-        case 'memory':
-          cmp = a.memoryBytes - b.memoryBytes
-          break
-        case 'pid':
-          cmp = a.pid - b.pid
-          break
-        case 'name':
-          cmp = a.name.localeCompare(b.name)
-          break
-        case 'state':
-          cmp = a.state.localeCompare(b.state)
-          break
+        case 'cpu': cmp = a.cpuUsage - b.cpuUsage; break
+        case 'memory': cmp = a.memoryBytes - b.memoryBytes; break
+        case 'pid': cmp = a.pid - b.pid; break
+        case 'name': cmp = a.name.localeCompare(b.name); break
+        case 'state': cmp = a.state.localeCompare(b.state); break
       }
       return sortAsc ? cmp : -cmp
     })
-  }, [stats, sortField, sortAsc])
+  }, [processes, sortField, sortAsc])
 
-  if (!stats) {
+  if (loading) {
     return (
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 max-w-4xl mx-auto">
         {[1,2,3,4].map(i => (
@@ -209,7 +296,7 @@ export default function SystemOverview() {
     )
   }
 
-  if (error && !stats) {
+  if (error && !bootInfo) {
     return (
       <div className="flex flex-col items-center justify-center py-20 text-center">
         <p className="text-sm text-rose-400">{error}</p>
@@ -220,108 +307,132 @@ export default function SystemOverview() {
   return (
     <>
       <motion.div variants={container} initial="hidden" animate="show" className="grid grid-cols-1 lg:grid-cols-2 gap-5 max-w-4xl mx-auto">
-        <StatCard icon={FiClock} title="开机时间">
-          <p className="text-xl font-bold text-gray-800 dark:text-gray-100">{new Date(stats.bootTime).toLocaleString('zh-CN')}</p>
-          <p className="text-xs text-gray-500 mt-1">已运行 {formatUptime(stats.uptime)}</p>
-        </StatCard>
-
-        <StatCard icon={FiActivity} title="系统负载">
-          {stats.loadAverage[0] >= 0 ? (
-            <div className="flex gap-4 text-sm">
-              <div>
-                <div className="text-xs text-gray-500">1 分钟</div>
-                <div className="text-lg font-bold text-gray-800 dark:text-gray-100 mt-0.5">{stats.loadAverage[0].toFixed(2)}</div>
-              </div>
-              <div>
-                <div className="text-xs text-gray-500">5 分钟</div>
-                <div className="text-lg font-bold text-gray-800 dark:text-gray-100 mt-0.5">{stats.loadAverage[1].toFixed(2)}</div>
-              </div>
-              <div>
-                <div className="text-xs text-gray-500">15 分钟</div>
-                <div className="text-lg font-bold text-gray-800 dark:text-gray-100 mt-0.5">{stats.loadAverage[2].toFixed(2)}</div>
-              </div>
-            </div>
-          ) : (
-            <p className="text-sm text-gray-500">暂不支持</p>
+        <StatCard icon={FiClock} title="开机时间" onRefresh={refreshBoot} loading={cardLoading.boot}>
+          {bootInfo && (
+            <>
+              <p className="text-xl font-bold text-gray-800 dark:text-gray-100">{new Date(bootInfo.bootTime).toLocaleString('zh-CN')}</p>
+              <p className="text-xs text-gray-500 mt-1">已运行 {formatUptime(bootInfo.uptime)}</p>
+              <p className="text-xs text-gray-600 mt-2">上次刷新: {lastFetchTime}</p>
+            </>
           )}
-          <p className="text-xs text-gray-500 mt-1">CPU 核心数: {stats.cpuCores}</p>
         </StatCard>
 
-        <StatCard icon={FiCpu} title="CPU">
-          <div className="space-y-3">
-            <ProgressBar value={stats.cpuUsage} label={`总使用率 (${stats.cpuCores} 核)`} color="rose" />
-            <div className="space-y-5 pt-1">
-              {stats.cpuPerCore.map((load, i) => {
-                const pct = Math.round(load * 100)
-                const color = pct > 80 ? 'bg-rose-500' : pct > 50 ? 'bg-amber-500' : 'bg-emerald-500'
-                return (
-                  <div key={i} className="flex items-center gap-2 text-xs">
-                    <span className="text-gray-500 w-7 shrink-0">CPU{i}</span>
-                    <div className="flex-1 h-2.5 bg-black/10 dark:bg-white/5 rounded-full overflow-hidden">
-                      <motion.div
-                        className={`h-full rounded-full ${color}`}
-                        initial={false}
-                        animate={{ width: `${pct}%` }}
-                        transition={{ duration: 0.4, ease: 'easeOut' }}
-                      />
-                    </div>
-                    <motion.span
-                      key={pct}
-                      initial={{ opacity: 0.4, scale: 0.9 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{ duration: 0.2 }}
-                      className="text-gray-800 dark:text-gray-300 w-10 text-right font-medium tabular-nums"
-                    >{pct}%</motion.span>
+        <StatCard icon={FiActivity} title="系统负载" onRefresh={refreshLoad} loading={cardLoading.load}>
+          {loadInfo && (
+            <>
+              {loadInfo.loadAverage1 >= 0 ? (
+                <div className="flex gap-4 text-sm">
+                  <div>
+                    <div className="text-xs text-gray-500">1 分钟</div>
+                    <div className="text-lg font-bold text-gray-800 dark:text-gray-100 mt-0.5">{loadInfo.loadAverage1.toFixed(2)}</div>
                   </div>
-                )
-              })}
-            </div>
-          </div>
+                  <div>
+                    <div className="text-xs text-gray-500">5 分钟</div>
+                    <div className="text-lg font-bold text-gray-800 dark:text-gray-100 mt-0.5">{loadInfo.loadAverage5.toFixed(2)}</div>
+                  </div>
+                  <div>
+                    <div className="text-xs text-gray-500">15 分钟</div>
+                    <div className="text-lg font-bold text-gray-800 dark:text-gray-100 mt-0.5">{loadInfo.loadAverage15.toFixed(2)}</div>
+                  </div>
+                </div>
+              ) : (
+                <p className="text-sm text-gray-500">暂不支持</p>
+              )}
+              <p className="text-xs text-gray-500 mt-1">CPU 核心数: {loadInfo.cpuCores}</p>
+            </>
+          )}
         </StatCard>
 
-        <StatCard icon={FiServer} title="物理内存">
-          <MemoryBlock title="内存" info={stats.physicalMemory} color="amber" />
-          <div className="border-t border-black/5 dark:border-white/5 pt-3 mt-3">
-            <MemoryBlock title="Swap" info={stats.swapMemory} color="purple" />
-          </div>
-          <div className="border-t border-black/5 dark:border-white/5 pt-3 mt-3">
-            <div className="flex items-center gap-2 text-xs font-medium text-gray-600 dark:text-gray-400 mb-2">
-              <FiDatabase size={14} />
-              JVM 堆内存
+        <StatCard icon={FiCpu} title="CPU" onRefresh={refreshCpu} loading={cardLoading.cpu}>
+          {cpuInfo && (
+            <div className="space-y-3">
+              <ProgressBar value={cpuInfo.totalCpuLoad} label={`总使用率 (${cpuInfo.cpuCores} 核)`} color="rose" />
+              <div className="space-y-5 pt-1">
+                {cpuInfo.cpuPerCore.map((load, i) => {
+                  const pct = Math.round(load * 100)
+                  const color = pct > 80 ? 'bg-rose-500' : pct > 50 ? 'bg-amber-500' : 'bg-emerald-500'
+                  return (
+                    <div key={i} className="flex items-center gap-2 text-xs">
+                      <span className="text-gray-500 w-7 shrink-0">CPU{i}</span>
+                      <div className="flex-1 h-2.5 bg-black/10 dark:bg-white/5 rounded-full overflow-hidden">
+                        <motion.div
+                          className={`h-full rounded-full ${color}`}
+                          initial={false}
+                          animate={{ width: `${pct}%` }}
+                          transition={{ duration: 0.4, ease: 'easeOut' }}
+                        />
+                      </div>
+                      <motion.span
+                        key={pct}
+                        initial={{ opacity: 0.4, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.2 }}
+                        className="text-gray-800 dark:text-gray-300 w-10 text-right font-medium tabular-nums"
+                      >{pct}%</motion.span>
+                    </div>
+                  )
+                })}
+              </div>
             </div>
-            <ProgressBar value={stats.jvmTotalMemory > 0 ? stats.jvmUsedMemory / stats.jvmTotalMemory : 0} label="使用率" color="accent" />
-            <div className="grid grid-cols-3 gap-2 text-xs mt-2">
-              <div>
-                <div className="text-gray-500">已分配</div>
-                <div className="text-gray-800 dark:text-gray-200 font-medium mt-0.5">{formatBytes(stats.jvmTotalMemory)}</div>
-              </div>
-              <div>
-                <div className="text-gray-500">已用</div>
-                <div className="text-gray-800 dark:text-gray-200 font-medium mt-0.5">{formatBytes(stats.jvmUsedMemory)}</div>
-              </div>
-              <div>
-                <div className="text-gray-500">最大</div>
-                <div className="text-gray-800 dark:text-gray-200 font-medium mt-0.5">{formatBytes(stats.jvmMaxMemory)}</div>
-              </div>
-            </div>
-          </div>
+          )}
         </StatCard>
 
-        <StatCard icon={FiHardDrive} title="磁盘">
-          <DiskSection title="文件系统" disks={stats.fileSystems} icon={FiHardDrive} />
+        <StatCard icon={FiServer} title="物理内存" onRefresh={refreshMem} loading={cardLoading.mem}>
+          {memInfo && (
+            <>
+              <MemoryBlock title="内存" info={{ total: memInfo.physicalTotal, used: memInfo.physicalUsed, free: memInfo.physicalFree }} color="amber" />
+              <div className="border-t border-black/5 dark:border-white/5 pt-3 mt-3">
+                <MemoryBlock title="Swap" info={{ total: memInfo.swapTotal, used: memInfo.swapUsed, free: memInfo.swapFree }} color="purple" />
+              </div>
+              <div className="border-t border-black/5 dark:border-white/5 pt-3 mt-3">
+                <div className="flex items-center gap-2 text-xs font-medium text-gray-600 dark:text-gray-400 mb-2">
+                  <FiDatabase size={14} />
+                  JVM 堆内存
+                </div>
+                <ProgressBar value={memInfo.jvmTotal > 0 ? memInfo.jvmUsed / memInfo.jvmTotal : 0} label="使用率" color="accent" />
+                <div className="grid grid-cols-3 gap-2 text-xs mt-2">
+                  <div><div className="text-gray-500">已分配</div><div className="text-gray-800 dark:text-gray-200 font-medium mt-0.5">{formatBytes(memInfo.jvmTotal)}</div></div>
+                  <div><div className="text-gray-500">已用</div><div className="text-gray-800 dark:text-gray-200 font-medium mt-0.5">{formatBytes(memInfo.jvmUsed)}</div></div>
+                  <div><div className="text-gray-500">最大</div><div className="text-gray-800 dark:text-gray-200 font-medium mt-0.5">{formatBytes(memInfo.jvmMax)}</div></div>
+                </div>
+              </div>
+            </>
+          )}
         </StatCard>
 
-        <StatCard icon={FiHardDrive} title="物理磁盘">
-          <DiskSection title="物理磁盘" disks={stats.physicalDisks} icon={FiHardDrive} />
+        <StatCard icon={FiHardDrive} title="磁盘" onRefresh={refreshDisk} loading={cardLoading.disk}>
+          {diskInfoData && (
+            <>
+              <DiskSection title="文件系统" disks={diskInfoData.fileSystems} icon={FiHardDrive} />
+            </>
+          )}
+        </StatCard>
+
+        <StatCard icon={FiHardDrive} title="物理磁盘" onRefresh={refreshDisk} loading={cardLoading.disk}>
+          {diskInfoData && (
+            <DiskSection title="物理磁盘" disks={diskInfoData.physicalDisks} icon={FiHardDrive} />
+          )}
         </StatCard>
       </motion.div>
 
       <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} className="glass rounded-xl p-5 max-w-4xl mx-auto mt-5">
-        <div className="flex items-center gap-2.5 mb-4">
-          <div className="w-9 h-9 rounded-lg bg-accent-500/10 border border-accent-500/20 flex items-center justify-center">
-            <FiTriangle size={16} className="text-accent-500" />
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center gap-2.5">
+            <div className="w-9 h-9 rounded-lg bg-accent-500/10 border border-accent-500/20 flex items-center justify-center">
+              <FiTriangle size={16} className="text-accent-500" />
+            </div>
+            <h3 className="text-sm font-semibold text-gray-800 dark:text-gray-200">进程 (Top 20)</h3>
           </div>
-          <h3 className="text-sm font-semibold text-gray-800 dark:text-gray-200">进程 (Top 20)</h3>
+          <div className="flex items-center gap-1">
+            {cardLoading.processes && <span className="w-3 h-3 rounded-full border-2 border-accent-500 border-t-transparent animate-spin" />}
+            <button
+              onClick={refreshProcesses}
+              className="p-1.5 rounded-lg text-gray-500 hover:text-accent-400 hover:bg-white/5 transition-all cursor-pointer"
+              title="刷新"
+            >
+              <FiActivity size={14} />
+            </button>
+          </div>
         </div>
 
         <div className="overflow-x-auto">

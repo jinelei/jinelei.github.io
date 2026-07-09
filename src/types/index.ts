@@ -133,19 +133,19 @@ export interface ApiTokenResponse {
   createdAt: string;
 }
 
-export interface ExternalLinkRequest {
-  name: string;
-  url: string;
-  icon?: string;
-  sortOrder?: number;
+export interface DailyCount {
+  date: string;
+  count: number;
 }
 
-export interface ExternalLinkResponse {
-  id: number;
-  name: string;
-  url: string;
-  icon: string | null;
-  sortOrder: number | null;
+export interface CalendarEvent {
+  uid: string;
+  summary: string;
+  description: string | null;
+  location: string | null;
+  start: string;
+  end: string;
+  allDay: boolean;
 }
 
 export interface MemoryInfo {

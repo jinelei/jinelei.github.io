@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { FiUser, FiKey, FiDownload, FiUpload, FiChrome, FiSave, FiPlus, FiCopy, FiCheck, FiTrash2, FiArchive, FiGlobe, FiLink, FiExternalLink, FiEdit2, FiRefreshCw, FiShield } from 'react-icons/fi'
+import { FiUser, FiKey, FiDownload, FiUpload, FiChrome, FiSave, FiPlus, FiCopy, FiCheck, FiTrash2, FiArchive, FiGlobe, FiRefreshCw, FiShield } from 'react-icons/fi'
 import toast from 'react-hot-toast'
 import { changePassword, updateProfile, setupTotp, verifyTotpSetup, disableTotp } from '../api/auth'
 import { listTokens, createToken, revokeToken } from '../api/tokens'
@@ -8,9 +8,7 @@ import { exportBackup, importBackup } from '../utils/backup'
 import { useAuth } from '../contexts/AuthContext'
 import type { ApiTokenResponse } from '../types'
 import { getAppConfig, updateAppConfig } from '../api/app-config'
-import { getExternalLinks, createExternalLink, updateExternalLink, deleteExternalLink } from '../api/external-links'
 import { batchRefreshFavicons } from '../api/bookmarks'
-import type { ExternalLinkResponse } from '../types'
 
 const container = {
   hidden: {},
@@ -32,192 +30,6 @@ function SectionHeader({ icon: Icon, title, desc }: { icon: React.ComponentType<
         <h2 className="text-sm font-semibold text-gray-300">{title}</h2>
         <p className="text-xs text-gray-500 mt-0.5">{desc}</p>
       </div>
-    </div>
-  )
-}
-
-function ExternalLinkSection() {
-  const [links, setLinks] = useState<ExternalLinkResponse[]>([])
-  const [loading, setLoading] = useState(true)
-  const [editing, setEditing] = useState<ExternalLinkResponse | null>(null)
-  const [showForm, setShowForm] = useState(false)
-  const [formName, setFormName] = useState('')
-  const [formUrl, setFormUrl] = useState('')
-  const [formIcon, setFormIcon] = useState('')
-  const [formSort, setFormSort] = useState('')
-  const [saving, setSaving] = useState(false)
-
-  const load = () => {
-    setLoading(true)
-    getExternalLinks()
-      .then(res => setLinks(res.data))
-      .finally(() => setLoading(false))
-  }
-
-  useEffect(() => { load() }, [])
-
-  const resetForm = () => {
-    setFormName('')
-    setFormUrl('')
-    setFormIcon('')
-    setFormSort('')
-    setEditing(null)
-    setShowForm(false)
-  }
-
-  const openEdit = (link: ExternalLinkResponse) => {
-    setEditing(link)
-    setFormName(link.name)
-    setFormUrl(link.url)
-    setFormIcon(link.icon || '')
-    setFormSort(link.sortOrder?.toString() || '')
-    setShowForm(true)
-  }
-
-  const handleSave = async () => {
-    if (!formName.trim() || !formUrl.trim()) return
-    setSaving(true)
-    try {
-      const req = { name: formName.trim(), url: formUrl.trim(), icon: formIcon.trim() || undefined, sortOrder: formSort ? parseInt(formSort) : undefined }
-      if (editing) {
-        await updateExternalLink(editing.id, req)
-      } else {
-        await createExternalLink(req)
-      }
-      resetForm()
-      load()
-    } finally {
-      setSaving(false)
-    }
-  }
-
-  const handleDelete = async (id: number) => {
-    await deleteExternalLink(id)
-    load()
-  }
-
-  return (
-    <div className="space-y-4">
-      <div className="flex items-center justify-between">
-        <p className="text-xs text-gray-500">在侧边栏显示的外部超链接</p>
-        <button
-          onClick={() => { resetForm(); setShowForm(true) }}
-          className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-lg bg-accent-600 hover:bg-accent-500 text-white transition-colors"
-        >
-          <FiPlus size={13} />
-          添加链接
-        </button>
-      </div>
-
-      {showForm && (
-        <div className="glass rounded-xl p-5 space-y-4">
-          <div>
-            <label className="text-xs text-gray-400 mb-1 block">名称</label>
-            <input
-              value={formName}
-              onChange={e => setFormName(e.target.value)}
-              placeholder="例如: 音乐"
-              className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-sm text-gray-300 placeholder-gray-600 focus:outline-none focus:border-accent-500/50 transition-colors"
-            />
-          </div>
-          <div>
-            <label className="text-xs text-gray-400 mb-1 block">URL</label>
-            <input
-              value={formUrl}
-              onChange={e => setFormUrl(e.target.value)}
-              placeholder="例如: https://music.example.com"
-              className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-sm text-gray-300 placeholder-gray-600 focus:outline-none focus:border-accent-500/50 transition-colors"
-            />
-          </div>
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <label className="text-xs text-gray-400 mb-1 block">图标（可选）</label>
-              <select
-                value={formIcon}
-                onChange={e => setFormIcon(e.target.value)}
-                className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-sm text-gray-300 focus:outline-none focus:border-accent-500/50 transition-colors"
-              >
-                <option value="">无图标</option>
-                <option value="FiMusic">音乐</option>
-                <option value="FiCamera">照片</option>
-                <option value="FiFolder">文件</option>
-                <option value="FiShield">盾牌</option>
-                <option value="FiLock">锁</option>
-                <option value="FiGlobe">地球</option>
-                <option value="FiCode">代码</option>
-                <option value="FiExternalLink">链接</option>
-              </select>
-            </div>
-            <div>
-              <label className="text-xs text-gray-400 mb-1 block">排序</label>
-              <input
-                type="number"
-                value={formSort}
-                onChange={e => setFormSort(e.target.value)}
-                placeholder="0"
-                className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-sm text-gray-300 placeholder-gray-600 focus:outline-none focus:border-accent-500/50 transition-colors"
-              />
-            </div>
-          </div>
-          <div className="flex items-center gap-2">
-            <button
-              onClick={handleSave}
-              disabled={saving || !formName.trim() || !formUrl.trim()}
-              className="text-xs px-4 py-2 rounded-lg bg-accent-600 hover:bg-accent-500 disabled:opacity-40 text-white transition-colors"
-            >
-              {saving ? '保存中...' : editing ? '更新' : '创建'}
-            </button>
-            <button
-              onClick={resetForm}
-              className="text-xs px-4 py-2 rounded-lg bg-white/5 hover:bg-white/10 text-gray-300 transition-colors"
-            >
-              取消
-            </button>
-          </div>
-        </div>
-      )}
-
-      {loading ? (
-        <div className="space-y-2">
-          {[1,2,3].map(i => (
-            <div key={i} className="h-12 rounded-lg bg-white/5 animate-pulse" />
-          ))}
-        </div>
-      ) : links.length === 0 ? (
-        <div className="text-center py-6">
-          <p className="text-xs text-gray-500">还没有外部链接，添加一个试试</p>
-        </div>
-      ) : (
-        <div className="space-y-2">
-          {links.map((link) => (
-            <div key={link.id} className="flex items-center justify-between p-3 rounded-lg bg-white/5">
-              <div className="min-w-0 flex-1">
-                <div className="flex items-center gap-2">
-                  <span className="text-xs font-medium text-gray-200 truncate">{link.name}</span>
-                  <FiExternalLink size={10} className="text-gray-600 shrink-0" />
-                </div>
-                <div className="text-[11px] text-gray-500 mt-0.5 truncate">{link.url}</div>
-              </div>
-              <div className="flex items-center gap-1 shrink-0 ml-2">
-                <button
-                  onClick={() => openEdit(link)}
-                  className="p-1.5 text-accent-400 hover:text-accent-300 hover:bg-white/5 rounded-lg transition-colors"
-                  title="编辑"
-                >
-                  <FiEdit2 size={13} />
-                </button>
-                <button
-                  onClick={() => handleDelete(link.id)}
-                  className="p-1.5 text-rose-400 hover:text-rose-300 hover:bg-white/5 rounded-lg transition-colors"
-                  title="删除"
-                >
-                  <FiTrash2 size={13} />
-                </button>
-              </div>
-            </div>
-          ))}
-        </div>
-      )}
     </div>
   )
 }
@@ -573,7 +385,6 @@ export default function Settings() {
     { id: 'totp', label: '两步验证', icon: FiShield },
     { id: 'token', label: 'Token', icon: FiKey },
     { id: 'brand', label: '品牌', icon: FiGlobe },
-    { id: 'external-links', label: '外部链接', icon: FiLink },
     { id: 'data', label: '数据', icon: FiArchive },
     { id: 'plugin', label: '插件', icon: FiChrome },
     { id: 'favicon', label: '图标刷新', icon: FiRefreshCw },
@@ -800,12 +611,6 @@ export default function Settings() {
             <p className="text-[11px] text-gray-600 mt-1.5">修改后在侧边栏和浏览器标签页中显示</p>
           </div>
         </div>
-      </motion.div>
-
-      {/* 外部链接 */}
-      <motion.div variants={item} id="external-links" className="glass rounded-xl p-6 sm:p-8">
-        <SectionHeader icon={FiLink} title="外部链接" desc="管理侧边栏导航中的外部超链接" />
-        <ExternalLinkSection />
       </motion.div>
 
       {/* 数据 */}

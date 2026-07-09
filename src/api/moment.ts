@@ -1,5 +1,5 @@
 import client from './client';
-import type { GenericResult, PageResponse, MomentRequest, MomentResponse } from '../types';
+import type { GenericResult, PageResponse, MomentRequest, MomentResponse, DailyCount } from '../types';
 
 export async function getMomentList(page = 0, size = 20, date?: string): Promise<GenericResult<PageResponse<MomentResponse>>> {
   const params: Record<string, unknown> = { page, size };
@@ -50,6 +50,11 @@ export async function deleteAllMoments(): Promise<void> {
 
 export function getMomentFileUrl(id: number): string {
   return `/api/moments/${id}/file`;
+}
+
+export async function getCalendarStats(year: number): Promise<GenericResult<DailyCount[]>> {
+  const res = await client.get('/moments/stats/calendar', { params: { year } });
+  return res.data;
 }
 
 export function getMomentDownloadUrl(id: number): string {

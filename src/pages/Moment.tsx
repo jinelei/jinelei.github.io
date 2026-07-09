@@ -7,8 +7,10 @@ import {
   FiDownload,
 } from 'react-icons/fi'
 import toast from 'react-hot-toast'
-import { getMomentList, createMoment, uploadMomentFile, toggleLock, deleteMoment, getMomentFileUrl, getMomentDownloadUrl } from '../api/moment'
-import type { MomentResponse, PageResponse } from '../types'
+import { getMomentList, createMoment, uploadMomentFile, toggleLock, deleteMoment, getMomentFileUrl, getMomentDownloadUrl, getCalendarStats } from '../api/moment'
+import type { MomentResponse, PageResponse, DailyCount } from '../types'
+
+import CalendarHeatmap from '../components/CalendarHeatmap'
 
 type InputTab = 'TEXT' | 'IMAGE' | 'FILE'
 
@@ -62,7 +64,12 @@ export default function Moment() {
   const [loading, setLoading] = useState(true)
   const [revealedIds, setRevealedIds] = useState<Set<number>>(new Set())
   const [copiedId, setCopiedId] = useState<number | null>(null)
-  const [selectedDate, setSelectedDate] = useState<string | null>(null)
+  const today = new Date()
+  const todayStr = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`
+  const [selectedDate, setSelectedDate] = useState<string>(todayStr)
+  const [calendarYear, setCalendarYear] = useState(today.getFullYear())
+  const [calendarMonth, setCalendarMonth] = useState(today.getMonth())
+  const [calendarData, setCalendarData] = useState<DailyCount[]>([])
 
   const fileInputRef = useRef<HTMLInputElement>(null)
   const textareaRef = useRef<HTMLTextAreaElement>(null)
@@ -84,6 +91,10 @@ export default function Moment() {
   }
 
   useEffect(() => { loadList(0) }, [selectedDate])
+
+  useEffect(() => {
+    getCalendarStats(calendarYear).then(res => setCalendarData(res.data)).catch(() => {})
+  }, [calendarYear])
 
   const resetInput = () => {
     setTextContent('')
@@ -324,33 +335,52 @@ export default function Moment() {
             </div>
           </motion.div>
 
+          {/* --- Calendar Heatmap --- */}
+          <CalendarHeatmap
+            data={calendarData}
+            year={calendarYear}
+            month={calendarMonth}
+            selectedDate={selectedDate}
+            onPrevMonth={() => {
+              if (calendarMonth === 0) {
+                setCalendarMonth(11)
+                setCalendarYear(y => y - 1)
+              } else {
+                setCalendarMonth(m => m - 1)
+              }
+            }}
+            onNextMonth={() => {
+              if (calendarMonth === 11) {
+                setCalendarMonth(0)
+                setCalendarYear(y => y + 1)
+              } else {
+                setCalendarMonth(m => m + 1)
+              }
+            }}
+            onSelectDate={setSelectedDate}
+          />
         </div>
 
         {/* --- Right Column: List (70%) --- */}
         <div className="flex-1 min-w-0">
           <motion.div variants={itemAnim} className="space-y-2">
-            {(totalElements > 0 || selectedDate) && (
-              <div className="flex items-center justify-between px-1">
-                <span className="text-xs text-gray-500">
-                  {selectedDate ? (
-                    <span className="flex items-center gap-1.5">
-                      <span className="text-accent-400 font-medium">{selectedDate}</span>
-                      的时刻 · 共 {totalElements} 条
-                      <button
-                        onClick={() => setSelectedDate(null)}
-                        className="text-gray-600 hover:text-gray-300 transition-colors cursor-pointer p-0.5"
-                        title="清除筛选"
-                      >
-                        <FiX size={12} />
-                      </button>
-                    </span>
-                  ) : (
-                    <>共 {totalElements} 条</>
-                  )}
+            <div className="flex items-center justify-between px-1 h-5">
+              <span className="text-xs text-gray-500">
+                <span className="flex items-center gap-1.5">
+                  <span className="text-accent-400 font-medium">{selectedDate}</span>
+                  的时刻 · 共 {totalElements} 条
+                  <button
+                    onClick={() => setSelectedDate(todayStr)}
+                    className="text-gray-600 hover:text-gray-300 transition-colors cursor-pointer p-0.5"
+                    title="回到今天"
+                  >
+                    <FiX size={12} />
+                  </button>
                 </span>
-              </div>
-            )}
+              </span>
+            </div>
 
+            <div className="min-h-[200px]">
             {loading ? (
               <div className="space-y-2">
                 {[1, 2, 3].map(i => (
@@ -361,8 +391,8 @@ export default function Moment() {
                 ))}
               </div>
             ) : list.length === 0 ? (
-              <div className="text-center py-16">
-                <FiEdit size={36} className="mx-auto text-gray-600 mb-3" />
+              <div className="flex flex-col items-center justify-center h-[200px]">
+                <FiEdit size={36} className="text-gray-600 mb-3" />
                 <p className="text-sm text-gray-500">暂无时刻数据</p>
                 <p className="text-xs text-gray-600 mt-1">在上方输入内容开始记录</p>
               </div>
@@ -560,6 +590,7 @@ export default function Moment() {
             )}
           </>
         )}
+            </div>
           </motion.div>
         </div>
       </div>
