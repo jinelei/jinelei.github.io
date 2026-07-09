@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { NavLink, useNavigate, useLocation } from 'react-router-dom'
-import { FiBookmark, FiLogOut, FiX, FiSettings, FiGrid, FiChevronDown, FiServer, FiCalendar, FiEdit } from 'react-icons/fi'
+import { FiBookmark, FiLogOut, FiX, FiSettings, FiGrid, FiChevronDown, FiServer, FiEdit } from 'react-icons/fi'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useAuth } from '../contexts/AuthContext'
 import { getCategoryTree } from '../api/categories'
@@ -9,7 +9,6 @@ import type { CategoryResponse } from '../types'
 const links = [
   { to: '/', label: '书签', icon: FiBookmark },
   { to: '/my-links', label: '我的', icon: FiGrid },
-  { to: '/calendar', label: '日历', icon: FiCalendar },
   { to: '/moments', label: '时刻', icon: FiEdit },
   { to: '/system', label: '系统', icon: FiServer },
   { to: '/settings', label: '设置', icon: FiSettings },

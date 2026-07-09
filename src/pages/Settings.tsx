@@ -140,7 +140,6 @@ function ExternalLinkSection() {
                 <option value="">无图标</option>
                 <option value="FiMusic">音乐</option>
                 <option value="FiCamera">照片</option>
-                <option value="FiCalendar">日历</option>
                 <option value="FiFolder">文件</option>
                 <option value="FiShield">盾牌</option>
                 <option value="FiLock">锁</option>

@@ -251,18 +251,4 @@ export interface MomentResponse {
   updatedAt: string;
 }
 
-export interface DailyCount {
-  date: string;
-  count: number;
-}
-
-export interface CalendarEvent {
-  uid: string;
-  summary: string;
-  description: string | null;
-  location: string | null;
-  start: string;
-  end: string;
-  allDay: boolean;
-}
 

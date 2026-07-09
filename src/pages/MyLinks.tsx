@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react'
-import { FiExternalLink, FiMusic, FiCamera, FiCalendar, FiFolder, FiShield, FiLock, FiGlobe, FiCode } from 'react-icons/fi'
+import { FiExternalLink, FiMusic, FiCamera, FiFolder, FiShield, FiLock, FiGlobe, FiCode } from 'react-icons/fi'
 import { motion } from 'framer-motion'
 import { getExternalLinks } from '../api/external-links'
 import type { ExternalLinkResponse } from '../types'
 
 const iconMap: Record<string, React.ComponentType<{ size?: number }>> = {
-  FiMusic, FiCamera, FiCalendar, FiFolder, FiShield, FiLock, FiGlobe, FiCode, FiExternalLink,
+  FiMusic, FiCamera, FiFolder, FiShield, FiLock, FiGlobe, FiCode, FiExternalLink,
 }
 
 const DefaultIcon = FiExternalLink

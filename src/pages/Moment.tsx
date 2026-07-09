@@ -7,10 +7,8 @@ import {
   FiDownload,
 } from 'react-icons/fi'
 import toast from 'react-hot-toast'
-import { getMomentList, createMoment, uploadMomentFile, toggleLock, deleteMoment, getMomentFileUrl, getMomentDownloadUrl, getCalendarStats } from '../api/moment'
-import type { MomentResponse, PageResponse, DailyCount } from '../types'
-
-import CalendarHeatmap from '../components/CalendarHeatmap'
+import { getMomentList, createMoment, uploadMomentFile, toggleLock, deleteMoment, getMomentFileUrl, getMomentDownloadUrl } from '../api/moment'
+import type { MomentResponse, PageResponse } from '../types'
 
 type InputTab = 'TEXT' | 'IMAGE' | 'FILE'
 
@@ -65,10 +63,6 @@ export default function Moment() {
   const [revealedIds, setRevealedIds] = useState<Set<number>>(new Set())
   const [copiedId, setCopiedId] = useState<number | null>(null)
   const [selectedDate, setSelectedDate] = useState<string | null>(null)
-  const today = new Date()
-  const [calendarYear, setCalendarYear] = useState(today.getFullYear())
-  const [calendarMonth, setCalendarMonth] = useState(today.getMonth())
-  const [calendarData, setCalendarData] = useState<DailyCount[]>([])
 
   const fileInputRef = useRef<HTMLInputElement>(null)
   const textareaRef = useRef<HTMLTextAreaElement>(null)
@@ -90,10 +84,6 @@ export default function Moment() {
   }
 
   useEffect(() => { loadList(0) }, [selectedDate])
-
-  useEffect(() => {
-    getCalendarStats(calendarYear).then(res => setCalendarData(res.data)).catch(() => {})
-  }, [calendarYear])
 
   const resetInput = () => {
     setTextContent('')
@@ -334,30 +324,6 @@ export default function Moment() {
             </div>
           </motion.div>
 
-          {/* --- Calendar Heatmap --- */}
-          <CalendarHeatmap
-            data={calendarData}
-            year={calendarYear}
-            month={calendarMonth}
-            selectedDate={selectedDate}
-            onPrevMonth={() => {
-              if (calendarMonth === 0) {
-                setCalendarMonth(11)
-                setCalendarYear(y => y - 1)
-              } else {
-                setCalendarMonth(m => m - 1)
-              }
-            }}
-            onNextMonth={() => {
-              if (calendarMonth === 11) {
-                setCalendarMonth(0)
-                setCalendarYear(y => y + 1)
-              } else {
-                setCalendarMonth(m => m + 1)
-              }
-            }}
-            onSelectDate={setSelectedDate}
-          />
         </div>
 
         {/* --- Right Column: List (70%) --- */}

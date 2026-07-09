@@ -5,7 +5,6 @@ Scalefish 的前端仪表盘，基于 React 19 + TypeScript + Vite 8 + Tailwind 
 ## 功能
 
 - 书签管理面板（增删改查、分类、标签、搜索、点击统计）
-- 日历 / 事件管理
 - 通讯录 / 联系人管理
 - API Token 管理
 - 数据备份与恢复

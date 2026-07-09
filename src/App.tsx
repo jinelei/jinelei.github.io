@@ -11,7 +11,6 @@ import Settings from './pages/Settings'
 import MyLinks from './pages/MyLinks'
 import SystemOverview from './pages/SystemOverview'
 import ServiceManage from './pages/ServiceManage'
-import CalendarPage from './pages/CalendarPage'
 import Moment from './pages/Moment'
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
@@ -34,7 +33,6 @@ function AppRoutes() {
         <Route path="/settings" element={<Settings />} />
         <Route path="/system-overview" element={<SystemOverview />} />
         <Route path="/system/services" element={<ServiceManage />} />
-        <Route path="/calendar" element={<CalendarPage />} />
         <Route path="/moments" element={<Moment />} />
         <Route path="/chrome-ext" element={<ExtensionGuide />} />
         <Route path="*" element={<Navigate to="/" replace />} />
