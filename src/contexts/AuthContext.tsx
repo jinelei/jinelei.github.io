@@ -92,13 +92,25 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     restore()
   }, [clearSession])
 
-  // HTTP heartbeat polling — always runs (works for cert auth too)
+  // HTTP heartbeat polling — only runs when user is authenticated
   useEffect(() => {
+    if (!user) {
+      if (heartbeatTimerRef.current) {
+        clearInterval(heartbeatTimerRef.current)
+        heartbeatTimerRef.current = null
+      }
+      return
+    }
+
     const ping = async () => {
       try {
         await heartbeatApi()
       } catch {
         log.warn('Heartbeat failed, redirecting to login')
+        if (heartbeatTimerRef.current) {
+          clearInterval(heartbeatTimerRef.current)
+          heartbeatTimerRef.current = null
+        }
         clearSession()
         window.location.href = '/login'
       }
@@ -112,7 +124,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         heartbeatTimerRef.current = null
       }
     }
-  }, [clearSession])
+  }, [clearSession, user])
 
   const setAuthData = useCallback((data: { accessToken: string; refreshToken: string; user: UserInfo }) => {
     localStorage.setItem('scalefish_access_token', data.accessToken)
