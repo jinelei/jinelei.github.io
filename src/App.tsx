@@ -11,6 +11,7 @@ import Settings from './pages/Settings'
 import SystemOverview from './pages/SystemOverview'
 import ServiceManage from './pages/ServiceManage'
 import Moment from './pages/Moment'
+import ClientCerts from './pages/ClientCerts'
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const { user, loading } = useAuth()
@@ -33,6 +34,7 @@ function AppRoutes() {
         <Route path="/system/services" element={<ServiceManage />} />
         <Route path="/moments" element={<Moment />} />
         <Route path="/chrome-ext" element={<ExtensionGuide />} />
+        <Route path="/system/certificates" element={<ClientCerts />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Route>
     </Routes>

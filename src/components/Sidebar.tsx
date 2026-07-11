@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { NavLink, useNavigate, useLocation } from 'react-router-dom'
-import { FiBookmark, FiLogOut, FiX, FiSettings, FiChevronDown, FiServer, FiEdit } from 'react-icons/fi'
+import { FiBookmark, FiLogOut, FiX, FiSettings, FiChevronDown, FiServer, FiEdit, FiShield } from 'react-icons/fi'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useAuth } from '../contexts/AuthContext'
 import { getCategoryTree } from '../api/categories'
@@ -38,7 +38,7 @@ export default function Sidebar({ open, onClose, displayName }: SidebarProps) {
   }, [])
 
   const isBookmarkActive = location.pathname === '/' || location.pathname.startsWith('/bookmarks/')
-  const isSystemActive = location.pathname.startsWith('/system-') || location.pathname.startsWith('/system/')
+  const isSystemActive = location.pathname.startsWith('/system-') || location.pathname.startsWith('/system/') || location.pathname.startsWith('/client-cert')
 
   const isCategoryActive = (id: number) => location.pathname === `/bookmarks/${id}`
 
@@ -196,6 +196,19 @@ export default function Sidebar({ open, onClose, displayName }: SidebarProps) {
                                 }
                               >
                                 服务
+                              </NavLink>
+                              <NavLink
+                                to="/system/certificates"
+                                className={({ isActive }) =>
+                                  `flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-all duration-200 ${
+                                    isActive
+                                      ? 'bg-accent-500/10 text-accent-400 font-medium'
+                                      : 'text-gray-500 hover:text-gray-200 hover:bg-white/5'
+                                  }`
+                                }
+                              >
+                                <FiShield size={14} />
+                                证书
                               </NavLink>
                             </div>
                           </motion.div>
