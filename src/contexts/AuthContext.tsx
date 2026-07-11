@@ -6,7 +6,7 @@ import type { UserInfo } from '../types'
 
 const log = createLogger('AuthContext')
 
-const HEARTBEAT_INTERVAL = 60000
+const HEARTBEAT_INTERVAL = 10000
 
 interface AuthContextType {
   user: UserInfo | null
@@ -22,7 +22,6 @@ const AuthContext = createContext<AuthContextType | null>(null)
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<UserInfo | null>(null)
   const [loading, setLoading] = useState(true)
-  const [accessToken, setAccessToken] = useState<string | null>(() => localStorage.getItem('scalefish_access_token'))
   const heartbeatTimerRef = useRef<ReturnType<typeof setInterval> | null>(null)
 
   const refreshUser = useCallback(async () => {
@@ -35,70 +34,72 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   }, [])
 
-  const logout = useCallback(() => {
-    log.info('User logged out')
+  const clearSession = useCallback(() => {
     setUser(null)
-    setAccessToken(null)
     localStorage.removeItem('scalefish_access_token')
     localStorage.removeItem('scalefish_refresh_token')
-    window.location.href = '/login'
   }, [])
 
-  useEffect(() => {
-    const token = localStorage.getItem('scalefish_access_token')
-    const refresh = getStoredRefreshToken()
-    if (token && refresh) {
-      setAccessToken(token)
-      log.debug('Restoring session...')
-      const restore = async () => {
-        try {
-          const res = await getMe()
-          setUser(res.data)
-          log.info('Session restored: userId=%d', res.data.id)
-          return
-        } catch {
-          log.warn('Access token expired, attempting refresh...')
-        }
+  const logout = useCallback(() => {
+    log.info('User logged out')
+    if (heartbeatTimerRef.current) {
+      clearInterval(heartbeatTimerRef.current)
+      heartbeatTimerRef.current = null
+    }
+    clearSession()
+    window.location.href = '/login'
+  }, [clearSession])
 
+  // Session restore — works for both JWT and certificate-based auth
+  useEffect(() => {
+    const restore = async () => {
+      const token = localStorage.getItem('scalefish_access_token')
+      const refresh = getStoredRefreshToken()
+
+      if (token) {
+        log.debug('Restoring JWT session...')
+      }
+
+      try {
+        const res = await getMe()
+        setUser(res.data)
+        log.info('Session restored: userId=%d', res.data.id)
+        setLoading(false)
+        return
+      } catch {
+        log.warn('getMe() failed')
+      }
+
+      // JWT fallback: try refresh
+      if (token && refresh) {
         try {
           const res = await refreshTokenApi(refresh)
           const { accessToken, refreshToken: newRefresh, user: u } = res.data
           localStorage.setItem('scalefish_access_token', accessToken)
           localStorage.setItem('scalefish_refresh_token', newRefresh)
-          setAccessToken(accessToken)
           setUser(u)
           log.info('Session restored via refresh: userId=%d', u.id)
+          setLoading(false)
+          return
         } catch {
-          log.warn('Session restore failed, clearing tokens')
-          setAccessToken(null)
-          localStorage.removeItem('scalefish_access_token')
-          localStorage.removeItem('scalefish_refresh_token')
+          log.warn('Session restore failed')
         }
       }
-      restore().finally(() => setLoading(false))
-    } else {
-      log.debug('No stored session')
+
+      clearSession()
       setLoading(false)
     }
-  }, [])
+    restore()
+  }, [clearSession])
 
-  // HTTP heartbeat polling
+  // HTTP heartbeat polling — always runs (works for cert auth too)
   useEffect(() => {
-    if (!accessToken) {
-      if (heartbeatTimerRef.current) {
-        clearInterval(heartbeatTimerRef.current)
-        heartbeatTimerRef.current = null
-      }
-      return
-    }
-
     const ping = async () => {
       try {
         await heartbeatApi()
       } catch {
         log.warn('Heartbeat failed, redirecting to login')
-        localStorage.removeItem('scalefish_access_token')
-        localStorage.removeItem('scalefish_refresh_token')
+        clearSession()
         window.location.href = '/login'
       }
     }
@@ -111,12 +112,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         heartbeatTimerRef.current = null
       }
     }
-  }, [accessToken])
+  }, [clearSession])
 
   const setAuthData = useCallback((data: { accessToken: string; refreshToken: string; user: UserInfo }) => {
     localStorage.setItem('scalefish_access_token', data.accessToken)
     localStorage.setItem('scalefish_refresh_token', data.refreshToken)
-    setAccessToken(data.accessToken)
     setUser(data.user)
   }, [])
 
