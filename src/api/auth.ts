@@ -64,3 +64,8 @@ export async function heartbeat(): Promise<GenericResult<void>> {
   const res = await client.get('/auth/heartbeat')
   return res.data
 }
+
+export async function certStatus(): Promise<GenericResult<{ available: boolean }>> {
+  const res = await client.get('/auth/cert-status')
+  return res.data
+}

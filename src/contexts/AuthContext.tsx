@@ -132,9 +132,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setUser(data.user)
   }, [])
 
-  const login = useCallback(async (username: string, password: string): Promise<string | null> => {
-    log.info('Logging in: username=%s', username)
-    const res = await loginApi({ username, password })
+  const login = useCallback(async (username?: string, password?: string): Promise<string | null> => {
+    const isCertLogin = !username && !password
+    log.info('Logging in: %s', isCertLogin ? 'certificate' : 'username=' + username)
+    const res = await loginApi({ username: username || '', password: password || '' })
     const { accessToken, refreshToken: rt, user: u, totpRequired, totpToken } = res.data
     if (totpRequired && totpToken) {
       log.info('TOTP required for userId=%d', u.id)
