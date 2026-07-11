@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect, useCallback, useRef, type ReactNode } from 'react'
-import { login as loginApi, getMe, refreshToken as refreshTokenApi, verifyTotpLogin as verifyTotpLoginApi, heartbeat as heartbeatApi } from '../api/auth'
+import { login as loginApi, getMe, refreshToken as refreshTokenApi, verifyTotpLogin as verifyTotpLoginApi, heartbeat as heartbeatApi, logout as logoutApi } from '../api/auth'
 import { getStoredRefreshToken } from '../api/client'
 import { createLogger } from '../utils/logger'
 import type { UserInfo } from '../types'
@@ -13,7 +13,7 @@ interface AuthContextType {
   loading: boolean
   login: (username: string, password: string) => Promise<string | null>
   verifyTotpLogin: (totpToken: string, code: string) => Promise<void>
-  logout: () => void
+  logout: () => Promise<void>
   refreshUser: () => Promise<void>
 }
 
@@ -40,11 +40,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     localStorage.removeItem('scalefish_refresh_token')
   }, [])
 
-  const logout = useCallback(() => {
+  const logout = useCallback(async () => {
     log.info('User logged out')
     if (heartbeatTimerRef.current) {
       clearInterval(heartbeatTimerRef.current)
       heartbeatTimerRef.current = null
+    }
+    try {
+      await logoutApi()
+    } catch {
+      log.warn('Logout API call failed')
     }
     clearSession()
     window.location.href = '/login'
