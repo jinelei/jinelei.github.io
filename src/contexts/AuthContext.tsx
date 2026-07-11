@@ -11,7 +11,7 @@ const HEARTBEAT_INTERVAL = 10000
 interface AuthContextType {
   user: UserInfo | null
   loading: boolean
-  login: (username: string, password: string) => Promise<string | null>
+  login: (username?: string, password?: string) => Promise<string | null>
   verifyTotpLogin: (totpToken: string, code: string) => Promise<void>
   logout: () => Promise<void>
   refreshUser: () => Promise<void>
