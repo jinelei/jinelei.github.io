@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { NavLink, useNavigate, useLocation } from 'react-router-dom'
-import { FiBookmark, FiLogOut, FiX, FiSettings, FiChevronDown, FiServer, FiEdit, FiShield } from 'react-icons/fi'
+import { FiBookmark, FiLogOut, FiX, FiSettings, FiChevronDown, FiServer, FiEdit, FiShield, FiActivity, FiTerminal, FiGrid, FiBriefcase, FiUser, FiHeart } from 'react-icons/fi'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useAuth } from '../contexts/AuthContext'
 import { getCategoryTree } from '../api/categories'
@@ -41,6 +41,15 @@ export default function Sidebar({ open, onClose, displayName }: SidebarProps) {
   const isSystemActive = location.pathname.startsWith('/system-') || location.pathname.startsWith('/system/') || location.pathname.startsWith('/client-cert')
 
   const isCategoryActive = (id: number) => location.pathname === `/bookmarks/${id}`
+
+  const categoryIcon = (name: string) => {
+    switch (name) {
+      case '工作': return FiBriefcase
+      case '我的': return FiUser
+      case '个人': return FiHeart
+      default: return FiBookmark
+    }
+  }
 
   return (
     <AnimatePresence initial={false}>
@@ -119,23 +128,28 @@ export default function Sidebar({ open, onClose, displayName }: SidebarProps) {
                                   }`
                                 }
                               >
+                                <FiGrid size={14} />
                                 全部
                               </NavLink>
-                              {categoryList.map(cat => (
-                                <NavLink
-                                  key={cat.id}
-                                  to={`/bookmarks/${cat.id}`}
-                                  className={
-                                    `flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-all duration-200 ${
-                                      isCategoryActive(cat.id)
-                                        ? 'bg-accent-500/10 text-accent-400 font-medium'
-                                        : 'text-gray-500 hover:text-gray-200 hover:bg-white/5'
-                                    }`
-                                  }
-                                >
-                                  <span className="truncate">{cat.name}</span>
-                                </NavLink>
-                              ))}
+                              {categoryList.map(cat => {
+                                const CatIcon = categoryIcon(cat.name)
+                                return (
+                                  <NavLink
+                                    key={cat.id}
+                                    to={`/bookmarks/${cat.id}`}
+                                    className={
+                                      `flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-all duration-200 ${
+                                        isCategoryActive(cat.id)
+                                          ? 'bg-accent-500/10 text-accent-400 font-medium'
+                                          : 'text-gray-500 hover:text-gray-200 hover:bg-white/5'
+                                      }`
+                                    }
+                                  >
+                                    <CatIcon size={14} />
+                                    <span className="truncate">{cat.name}</span>
+                                  </NavLink>
+                                )
+                              })}
                             </div>
                           </motion.div>
                         )}
@@ -183,6 +197,7 @@ export default function Sidebar({ open, onClose, displayName }: SidebarProps) {
                                   }`
                                 }
                               >
+                                <FiActivity size={14} />
                                 概览
                               </NavLink>
                               <NavLink
@@ -195,6 +210,7 @@ export default function Sidebar({ open, onClose, displayName }: SidebarProps) {
                                   }`
                                 }
                               >
+                                <FiTerminal size={14} />
                                 服务
                               </NavLink>
                               <NavLink
