@@ -27,7 +27,7 @@ function findCategoryName(tree: CategoryResponse[], id: number): string | null {
 }
 
 export default function Layout() {
-  const [sidebarOpen, setSidebarOpen] = useState(true)
+  const [sidebarOpen, setSidebarOpen] = useState(() => window.innerWidth >= 768)
   const [userMenuOpen, setUserMenuOpen] = useState(false)
   const [displayName, setDisplayName] = useState('')
   const [categoryName, setCategoryName] = useState<string | null>(null)

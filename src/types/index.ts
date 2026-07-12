@@ -200,6 +200,7 @@ export interface ServiceConfigRequest {
   restartArgs?: string;
   logScript?: string;
   logArgs?: string;
+  url?: string;
   description?: string;
   sortOrder?: number;
 }
@@ -217,6 +218,7 @@ export interface ServiceConfigResponse {
   restartArgs: string | null;
   logScript: string | null;
   logArgs: string | null;
+  url: string | null;
   description: string | null;
   sortOrder: number | null;
   createdAt: string;

@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback } from 'react'
 import { motion } from 'framer-motion'
-import { FiServer, FiRefreshCw, FiPlay, FiSquare, FiRotateCcw, FiPlus, FiCopy, FiEdit2, FiTrash2, FiChevronDown } from 'react-icons/fi'
+import { FiServer, FiRefreshCw, FiPlay, FiSquare, FiRotateCcw, FiPlus, FiCopy, FiEdit2, FiTrash2, FiChevronDown, FiExternalLink } from 'react-icons/fi'
 import toast from 'react-hot-toast'
 import { getServiceConfigs, createServiceConfig, updateServiceConfig, deleteServiceConfig, executeStatus, executeStart, executeStop, executeRestart, executeLog } from '../api/system-services'
 import type { ServiceConfigResponse, ServiceConfigRequest, ScriptExecuteResponse } from '../types'
@@ -125,6 +125,7 @@ export default function ServiceManage() {
       restartArgs: svc.restartArgs || '',
       logScript: svc.logScript || '',
       logArgs: svc.logArgs || '',
+      url: svc.url || '',
       description: svc.description || '',
       sortOrder: svc.sortOrder ?? undefined,
     })
@@ -174,14 +175,14 @@ export default function ServiceManage() {
   return (
     <motion.div variants={container} initial="hidden" animate="show" className="space-y-6">
       {loading && services.length === 0 ? (
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-          {[1, 2].map(i => (
-            <div key={i} className="glass rounded-xl p-5 space-y-4">
-              <div className="h-6 w-32 bg-black/5 dark:bg-white/5 rounded-lg animate-pulse" />
-              <div className="h-20 bg-black/5 dark:bg-white/5 rounded-lg animate-pulse" />
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+          {[1, 2, 3, 4].map(i => (
+            <div key={i} className="glass rounded-xl p-4 space-y-3">
+              <div className="h-5 w-28 bg-black/5 dark:bg-white/5 rounded-lg animate-pulse" />
+              <div className="h-16 bg-black/5 dark:bg-white/5 rounded-lg animate-pulse" />
               <div className="flex gap-2">
-                <div className="h-8 w-16 bg-black/5 dark:bg-white/5 rounded-lg animate-pulse" />
-                <div className="h-8 w-16 bg-black/5 dark:bg-white/5 rounded-lg animate-pulse" />
+                <div className="h-7 w-14 bg-black/5 dark:bg-white/5 rounded-lg animate-pulse" />
+                <div className="h-7 w-14 bg-black/5 dark:bg-white/5 rounded-lg animate-pulse" />
               </div>
             </div>
           ))}
@@ -193,17 +194,29 @@ export default function ServiceManage() {
           <p className="text-xs text-gray-600 mt-1">点击下方图块新增</p>
         </motion.div>
       ) : (
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {services.map(svc => {
             const action = runningActions[svc.id]
             const status = statuses[svc.id]
             const isActive = status !== null && status !== undefined && status.exitCode === 0
             return (
-              <motion.div key={svc.id} variants={item} className="glass rounded-xl p-5 space-y-3">
+              <motion.div key={svc.id} variants={item} className="glass rounded-xl p-4 sm:p-5 space-y-3">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2.5 min-w-0">
                     <div className={`w-2.5 h-2.5 rounded-full shrink-0 ${action === 'status' ? 'bg-yellow-400 animate-pulse' : status ? 'bg-green-500' : 'bg-gray-500'}`} />
                     <h3 className="text-sm font-semibold text-gray-800 dark:text-gray-200 truncate">{svc.name}</h3>
+                    {svc.url && (
+                      <a
+                        href={svc.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={e => e.stopPropagation()}
+                        className="shrink-0 text-gray-400 hover:text-accent-400 transition-colors"
+                        title="打开服务地址"
+                      >
+                        <FiExternalLink size={14} />
+                      </a>
+                    )}
                   </div>
                   <div className="flex items-center gap-1 shrink-0">
                     <button
@@ -229,6 +242,7 @@ export default function ServiceManage() {
                           restartArgs: svc.restartArgs || '',
                           logScript: svc.logScript || '',
                           logArgs: svc.logArgs || '',
+                          url: svc.url || '',
                           description: svc.description || '',
                           sortOrder: svc.sortOrder ?? undefined,
                         })
@@ -465,6 +479,15 @@ export default function ServiceManage() {
                 placeholder="nginx"
               />
             </div>
+          </div>
+          <div>
+            <label className="text-xs text-gray-400 mb-1 block">服务地址</label>
+            <input
+              value={formData.url || ''}
+              onChange={e => updateField('url', e.target.value)}
+              className="w-full bg-surface-800 border border-surface-500 rounded-lg px-3 py-2 text-sm text-gray-300 outline-none focus:border-accent-500/70 transition-colors"
+              placeholder="https://example.com（可选）"
+            />
           </div>
           <div>
             <label className="text-xs text-gray-400 mb-1 block">排序序号</label>
