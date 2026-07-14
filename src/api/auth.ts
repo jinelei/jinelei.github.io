@@ -1,13 +1,16 @@
 import client from './client'
 import type { AuthResponse, LoginRequest, UserInfo, RegistrationStatus, GenericResult } from '../types'
+import { encryptPassword } from '../utils/crypto'
 
 export async function login(req: LoginRequest): Promise<GenericResult<AuthResponse>> {
-  const res = await client.post('/auth/login', req)
+  const encryptedPassword = await encryptPassword(req.password)
+  const res = await client.post('/auth/login', { username: req.username, encryptedPassword })
   return res.data
 }
 
 export async function register(req: LoginRequest & { name?: string; email?: string }): Promise<GenericResult<AuthResponse>> {
-  const res = await client.post('/auth/register', req)
+  const encryptedPassword = await encryptPassword(req.password)
+  const res = await client.post('/auth/register', { username: req.username, encryptedPassword, name: req.name, email: req.email })
   return res.data
 }
 
@@ -31,7 +34,11 @@ export async function getRegistrationStatus(): Promise<GenericResult<Registratio
 }
 
 export async function changePassword(oldPassword: string, newPassword: string): Promise<GenericResult<void>> {
-  const res = await client.post('/auth/change-password', { oldPassword, newPassword })
+  const [encryptedOldPassword, encryptedNewPassword] = await Promise.all([
+    encryptPassword(oldPassword),
+    encryptPassword(newPassword),
+  ])
+  const res = await client.post('/auth/change-password', { encryptedOldPassword, encryptedNewPassword })
   return res.data
 }
 
