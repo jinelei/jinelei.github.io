@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback } from 'react'
 import { motion } from 'framer-motion'
-import { FiServer, FiRefreshCw, FiPlay, FiSquare, FiRotateCcw, FiPlus, FiCopy, FiEdit2, FiTrash2, FiChevronDown, FiExternalLink } from 'react-icons/fi'
+import { FiServer, FiRefreshCw, FiPlay, FiSquare, FiRotateCcw, FiPlus, FiCopy, FiEdit2, FiTrash2, FiChevronDown, FiExternalLink, FiGrid, FiList } from 'react-icons/fi'
 import toast from 'react-hot-toast'
 import { getServiceConfigs, createServiceConfig, updateServiceConfig, deleteServiceConfig, executeStatus, executeStart, executeStop, executeRestart, executeLog } from '../api/system-services'
 import type { ServiceConfigResponse, ServiceConfigRequest, ScriptExecuteResponse } from '../types'
@@ -30,6 +30,7 @@ export default function ServiceManage() {
   const [formSubmitting, setFormSubmitting] = useState(false)
   const [logOpen, setLogOpen] = useState<Record<number, boolean>>({})
   const [logLoaded, setLogLoaded] = useState<Record<number, boolean>>({})
+  const [viewMode, setViewMode] = useState<'card' | 'list'>('card')
 
   const fetchServices = useCallback(async () => {
     setLoading(true)
@@ -174,6 +175,25 @@ export default function ServiceManage() {
 
   return (
     <motion.div variants={container} initial="hidden" animate="show" className="space-y-6">
+      <div className="flex items-center justify-between">
+        <h2 className="text-lg font-semibold text-gray-200">服务管理</h2>
+        <div className="flex items-center gap-1 bg-surface-800 rounded-lg p-1">
+          <button
+            onClick={() => setViewMode('card')}
+            className={`p-2 rounded-md transition-colors ${viewMode === 'card' ? 'bg-accent-500/20 text-accent-400' : 'text-gray-400 hover:text-gray-200'}`}
+            title="图块布局"
+          >
+            <FiGrid size={16} />
+          </button>
+          <button
+            onClick={() => setViewMode('list')}
+            className={`p-2 rounded-md transition-colors ${viewMode === 'list' ? 'bg-accent-500/20 text-accent-400' : 'text-gray-400 hover:text-gray-200'}`}
+            title="列表布局"
+          >
+            <FiList size={16} />
+          </button>
+        </div>
+      </div>
       {loading && services.length === 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {[1, 2, 3, 4].map(i => (
@@ -193,7 +213,7 @@ export default function ServiceManage() {
           <p className="text-sm text-gray-500">暂无服务配置</p>
           <p className="text-xs text-gray-600 mt-1">点击下方图块新增</p>
         </motion.div>
-      ) : (
+      ) : viewMode === 'card' ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {services.map(svc => {
             const action = runningActions[svc.id]
@@ -367,6 +387,99 @@ export default function ServiceManage() {
             onClick={openCreate}
             className="glass rounded-xl px-5 py-3 flex items-center gap-3 cursor-pointer border-2 border-dashed border-white/10 hover:border-accent-500/50 hover:bg-accent-500/5 transition-all"
           >
+            <div className="w-8 h-8 rounded-full bg-accent-500/10 flex items-center justify-center shrink-0">
+              <FiPlus size={16} className="text-accent-400" />
+            </div>
+            <span className="text-sm font-medium text-gray-400">新增服务</span>
+          </motion.div>
+        </div>
+      ) : (
+        <div className="space-y-2">
+          {services.map(svc => {
+            const action = runningActions[svc.id]
+            const status = statuses[svc.id]
+            const isActive = status !== null && status !== undefined && status.exitCode === 0
+            return (
+              <motion.div key={svc.id} variants={item}>
+                <div className="glass rounded-xl px-5 py-3 flex items-center gap-3">
+                  <div className={`w-2 h-2 rounded-full shrink-0 ${action === 'status' ? 'bg-yellow-400 animate-pulse' : status ? 'bg-green-500' : 'bg-gray-500'}`} />
+                  <div className="flex items-center gap-1.5 min-w-0 w-36 shrink-0">
+                    <span className="text-sm font-semibold text-gray-800 dark:text-gray-200 truncate">{svc.name}</span>
+                    {svc.url && (
+                      <a href={svc.url} target="_blank" rel="noopener noreferrer" onClick={e => e.stopPropagation()} className="shrink-0 text-gray-400 hover:text-accent-400 transition-colors" title="打开服务地址">
+                        <FiExternalLink size={12} />
+                      </a>
+                    )}
+                  </div>
+                  <div className="min-w-0 w-32 shrink-0">
+                    {action === 'status' ? (
+                      <span className="text-xs text-gray-500 animate-pulse">查询中...</span>
+                    ) : status ? (
+                      <span className="text-xs text-green-400 font-mono truncate block" title={status.output}>{statusText(status)}</span>
+                    ) : (
+                      <span className="text-xs text-gray-500">未查询</span>
+                    )}
+                  </div>
+                  {svc.description && (
+                    <p className="text-xs text-gray-500 truncate min-w-0 w-40 shrink-0 hidden lg:block">{svc.description}</p>
+                  )}
+                  <div className="flex items-center gap-1.5 ml-auto shrink-0">
+                    <button onClick={() => fetchStatus(svc)} disabled={!!action} className="p-1.5 rounded hover:bg-white/10 text-gray-400 hover:text-gray-200 transition-colors disabled:opacity-50" title="刷新状态">
+                      <FiRefreshCw size={12} className={action === 'status' ? 'animate-spin' : ''} />
+                    </button>
+                    {!isActive && svc.startScript && (
+                      <button onClick={() => handleAction(svc.id, 'start')} disabled={!!action} className="flex items-center gap-1 px-2 py-1 rounded-lg bg-green-600/20 text-green-400 border border-green-500/30 hover:bg-green-600/30 text-xs font-medium transition-colors disabled:opacity-50">
+                        {action === 'start' ? <FiRefreshCw size={11} className="animate-spin" /> : <FiPlay size={11} />}
+                        {action === 'start' ? '启动中' : '启动'}
+                      </button>
+                    )}
+                    {isActive && (
+                      <>
+                        <button onClick={() => handleAction(svc.id, 'stop')} disabled={!!action} className="flex items-center gap-1 px-2 py-1 rounded-lg bg-rose-600/20 text-rose-400 border border-rose-500/30 hover:bg-rose-600/30 text-xs font-medium transition-colors disabled:opacity-50">
+                          {action === 'stop' ? <FiRefreshCw size={11} className="animate-spin" /> : <FiSquare size={11} />}
+                          {action === 'stop' ? '停止中' : '停止'}
+                        </button>
+                        <button onClick={() => handleAction(svc.id, 'restart')} disabled={!!action} className="flex items-center gap-1 px-2 py-1 rounded-lg bg-yellow-600/20 text-yellow-400 border border-yellow-500/30 hover:bg-yellow-600/30 text-xs font-medium transition-colors disabled:opacity-50">
+                          {action === 'restart' ? <FiRefreshCw size={11} className="animate-spin" /> : <FiRotateCcw size={11} />}
+                          {action === 'restart' ? '重启中' : '重启'}
+                        </button>
+                      </>
+                    )}
+                    <div className="w-px h-5 bg-white/10 mx-1" />
+                    <button onClick={() => { setEditing(null); setFormData({ name: '', statusScript: svc.statusScript || '', statusArgs: svc.statusArgs || '', startScript: svc.startScript || '', startArgs: svc.startArgs || '', stopScript: svc.stopScript || '', stopArgs: svc.stopArgs || '', restartScript: svc.restartScript || '', restartArgs: svc.restartArgs || '', logScript: svc.logScript || '', logArgs: svc.logArgs || '', url: svc.url || '', description: svc.description || '', sortOrder: svc.sortOrder ?? undefined }); setFormOpen(true) }} className="p-1.5 rounded hover:bg-white/10 text-gray-400 hover:text-gray-200 transition-colors" title="复制配置">
+                      <FiCopy size={12} />
+                    </button>
+                    <button onClick={() => openEdit(svc)} className="p-1.5 rounded hover:bg-white/10 text-accent-400 hover:text-accent-300 transition-colors" title="编辑">
+                      <FiEdit2 size={12} />
+                    </button>
+                    <button onClick={() => handleDelete(svc)} className="p-1.5 rounded hover:bg-white/10 text-rose-400 hover:text-rose-300 transition-colors" title="删除">
+                      <FiTrash2 size={12} />
+                    </button>
+                    {svc.logScript && (
+                      <button onClick={() => { if (!logLoaded[svc.id]) fetchLog(svc); setLogOpen(prev => ({ ...prev, [svc.id]: !prev[svc.id] })) }} className="flex items-center gap-1 text-xs text-gray-500 hover:text-gray-300 transition-colors">
+                        <FiChevronDown size={12} className={`transition-transform duration-200 ${logOpen[svc.id] ? 'rotate-0' : '-rotate-90'}`} />
+                        日志
+                      </button>
+                    )}
+                  </div>
+                </div>
+                {logOpen[svc.id] && (
+                  <div className="mt-1 mx-5 mb-3 bg-black/20 dark:bg-white/5 rounded-lg p-3 max-h-[160px] overflow-y-auto">
+                    {runningActions[svc.id] === 'log' ? (
+                      <p className="text-xs text-gray-500 animate-pulse">查询中...</p>
+                    ) : logs[svc.id] ? (
+                      <pre className="text-xs text-gray-400 font-mono whitespace-pre-wrap break-all leading-relaxed">
+                        {logs[svc.id]!.output || '(无输出)'}
+                      </pre>
+                    ) : (
+                      <p className="text-xs text-gray-500">点击「日志」查询</p>
+                    )}
+                  </div>
+                )}
+              </motion.div>
+            )
+          })}
+          <motion.div variants={item} onClick={openCreate} className="glass rounded-xl px-5 py-3 flex items-center gap-3 cursor-pointer border-2 border-dashed border-white/10 hover:border-accent-500/50 hover:bg-accent-500/5 transition-all">
             <div className="w-8 h-8 rounded-full bg-accent-500/10 flex items-center justify-center shrink-0">
               <FiPlus size={16} className="text-accent-400" />
             </div>
