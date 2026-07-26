@@ -118,21 +118,6 @@ export interface UserInfo {
   totpEnabled?: boolean;
 }
 
-export interface CreateApiTokenRequest {
-  name: string;
-  expiresIn?: string;
-}
-
-export interface ApiTokenResponse {
-  id: number;
-  name: string;
-  token?: string;
-  tokenPrefix: string;
-  expiresAt: string | null;
-  lastUsedAt: string | null;
-  createdAt: string;
-}
-
 export interface DailyCount {
   date: string;
   count: number;

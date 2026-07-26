@@ -12,7 +12,11 @@ import type { CategoryResponse } from '../types'
 const pageTitles: Record<string, [string, string]> = {
   '/': ['书签', '书签管家'],
   '/moments': ['时刻', '记录你的灵光一现'],
-  '/settings': ['设置', '账户 / Token / 插件'],
+  '/settings/account': ['账户', '账户 / 密码 / 两步验证'],
+  '/settings/certificates': ['证书', '客户端证书管理'],
+  '/settings/data': ['数据', '备份和恢复书签数据'],
+  '/settings/plugin': ['插件', 'Chrome 扩展'],
+  '/settings/other': ['其他', '品牌 / 图标刷新'],
 }
 
 function findCategoryName(tree: CategoryResponse[], id: number): string | null {
@@ -112,7 +116,7 @@ export default function Layout() {
                     {user?.name || user?.username}
                   </div>
                   <button
-                    onClick={() => { setUserMenuOpen(false); navigate('/settings') }}
+                    onClick={() => { setUserMenuOpen(false); navigate('/settings/account') }}
                     className="flex items-center gap-2 w-full px-3 py-2 text-xs text-gray-400 hover:text-gray-200 hover:bg-white/5 transition-colors"
                   >
                     <FiSettings size={13} />

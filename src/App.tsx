@@ -5,9 +5,11 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import Dashboard from './pages/Dashboard'
 import FilteredDashboard from './pages/FilteredDashboard'
-import ApiTokens from './pages/ApiTokens'
 import ExtensionGuide from './pages/ExtensionGuide'
-import Settings from './pages/Settings'
+import SettingsAccount from './pages/SettingsAccount'
+import SettingsData from './pages/SettingsData'
+import SettingsPlugin from './pages/SettingsPlugin'
+import SettingsOther from './pages/SettingsOther'
 import Moment from './pages/Moment'
 import ClientCerts from './pages/ClientCerts'
 
@@ -26,11 +28,14 @@ function AppRoutes() {
       <Route element={<ProtectedRoute><Layout /></ProtectedRoute>}>
         <Route path="/" element={<Dashboard />} />
         <Route path="/bookmarks/:categoryId" element={<FilteredDashboard />} />
-        <Route path="/tokens" element={<ApiTokens />} />
-        <Route path="/settings" element={<Settings />} />
+        <Route path="/settings" element={<Navigate to="/settings/account" replace />} />
+        <Route path="/settings/account" element={<SettingsAccount />} />
+        <Route path="/settings/data" element={<SettingsData />} />
+        <Route path="/settings/plugin" element={<SettingsPlugin />} />
+        <Route path="/settings/other" element={<SettingsOther />} />
         <Route path="/moments" element={<Moment />} />
         <Route path="/chrome-ext" element={<ExtensionGuide />} />
-        <Route path="/system/certificates" element={<ClientCerts />} />
+        <Route path="/settings/certificates" element={<ClientCerts />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Route>
     </Routes>

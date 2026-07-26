@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { NavLink, useNavigate, useLocation } from 'react-router-dom'
-import { FiBookmark, FiLogOut, FiX, FiSettings, FiChevronDown, FiServer, FiEdit, FiShield, FiGrid, FiBriefcase, FiUser, FiHeart } from 'react-icons/fi'
+import { FiBookmark, FiLogOut, FiX, FiSettings, FiChevronDown, FiEdit, FiShield, FiGrid, FiBriefcase, FiUser, FiHeart, FiArchive, FiChrome } from 'react-icons/fi'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useAuth } from '../contexts/AuthContext'
 import { getCategoryTree } from '../api/categories'
@@ -9,8 +9,15 @@ import type { CategoryResponse } from '../types'
 const links = [
   { to: '/', label: '书签', icon: FiBookmark },
   { to: '/moments', label: '时刻', icon: FiEdit },
-  { to: '/system', label: '系统', icon: FiServer },
   { to: '/settings', label: '设置', icon: FiSettings },
+]
+
+const settingsSubItems = [
+  { to: '/settings/account', label: '账户', icon: FiUser },
+  { to: '/settings/data', label: '数据', icon: FiArchive },
+  { to: '/settings/plugin', label: '插件', icon: FiChrome },
+  { to: '/settings/other', label: '其他', icon: FiGrid },
+  { to: '/settings/certificates', label: '证书', icon: FiShield },
 ]
 
 interface SidebarProps {
@@ -28,7 +35,7 @@ export default function Sidebar({ open, onClose, displayName }: SidebarProps) {
   const navigate = useNavigate()
   const location = useLocation()
   const [bookmarkMenuOpen, setBookmarkMenuOpen] = useState(false)
-  const [systemMenuOpen, setSystemMenuOpen] = useState(false)
+  const [settingsMenuOpen, setSettingsMenuOpen] = useState(false)
   const [categoryList, setCategoryList] = useState<{ id: number; name: string }[]>([])
 
   useEffect(() => {
@@ -38,7 +45,7 @@ export default function Sidebar({ open, onClose, displayName }: SidebarProps) {
   }, [])
 
   const isBookmarkActive = location.pathname === '/' || location.pathname.startsWith('/bookmarks/')
-  const isSystemActive = location.pathname.startsWith('/system-') || location.pathname.startsWith('/system/') || location.pathname.startsWith('/client-cert')
+  const isSettingsActive = location.pathname === '/settings' || location.pathname.startsWith('/settings/')
 
   const isCategoryActive = (id: number) => location.pathname === `/bookmarks/${id}`
 
@@ -157,13 +164,13 @@ export default function Sidebar({ open, onClose, displayName }: SidebarProps) {
                     </div>
                   )
                 }
-                if (to === '/system') {
+                if (to === '/settings') {
                   return (
                     <div key={to}>
                       <div
-                        onClick={() => setSystemMenuOpen(v => !v)}
+                        onClick={() => setSettingsMenuOpen(v => !v)}
                         className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-all duration-200 cursor-pointer ${
-                          isSystemActive
+                          isSettingsActive
                             ? 'bg-accent-500/10 text-accent-400 font-medium'
                             : 'text-gray-400 hover:text-gray-200 hover:bg-white/5'
                         }`}
@@ -173,12 +180,12 @@ export default function Sidebar({ open, onClose, displayName }: SidebarProps) {
                         <FiChevronDown
                           size={14}
                           className={`transition-transform duration-200 ${
-                            systemMenuOpen ? 'rotate-0' : '-rotate-90'
+                            settingsMenuOpen ? 'rotate-0' : '-rotate-90'
                           }`}
                         />
                       </div>
                       <AnimatePresence>
-                        {systemMenuOpen && (
+                        {settingsMenuOpen && (
                           <motion.div
                             initial={{ height: 0, opacity: 0 }}
                             animate={{ height: 'auto', opacity: 1 }}
@@ -187,19 +194,22 @@ export default function Sidebar({ open, onClose, displayName }: SidebarProps) {
                             className="overflow-hidden"
                           >
                             <div className="ml-2 mt-0.5 space-y-0.5 border-l border-white/5 pl-2">
-                              <NavLink
-                                to="/system/certificates"
-                                className={({ isActive }) =>
-                                  `flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-all duration-200 ${
-                                    isActive
-                                      ? 'bg-accent-500/10 text-accent-400 font-medium'
-                                      : 'text-gray-500 hover:text-gray-200 hover:bg-white/5'
-                                  }`
-                                }
-                              >
-                                <FiShield size={14} />
-                                证书
-                              </NavLink>
+                              {settingsSubItems.map(sub => (
+                                <NavLink
+                                  key={sub.to}
+                                  to={sub.to}
+                                  className={({ isActive }) =>
+                                    `flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-all duration-200 ${
+                                      isActive
+                                        ? 'bg-accent-500/10 text-accent-400 font-medium'
+                                        : 'text-gray-500 hover:text-gray-200 hover:bg-white/5'
+                                    }`
+                                  }
+                                >
+                                  <sub.icon size={14} />
+                                  {sub.label}
+                                </NavLink>
+                              ))}
                             </div>
                           </motion.div>
                         )}
