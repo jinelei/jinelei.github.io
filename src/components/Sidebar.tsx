@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { NavLink, useNavigate, useLocation } from 'react-router-dom'
-import { FiBookmark, FiLogOut, FiX, FiSettings, FiChevronDown, FiServer, FiEdit, FiShield, FiActivity, FiTerminal, FiGrid, FiBriefcase, FiUser, FiHeart } from 'react-icons/fi'
+import { FiBookmark, FiLogOut, FiX, FiSettings, FiChevronDown, FiServer, FiEdit, FiShield, FiGrid, FiBriefcase, FiUser, FiHeart } from 'react-icons/fi'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useAuth } from '../contexts/AuthContext'
 import { getCategoryTree } from '../api/categories'
@@ -187,32 +187,6 @@ export default function Sidebar({ open, onClose, displayName }: SidebarProps) {
                             className="overflow-hidden"
                           >
                             <div className="ml-2 mt-0.5 space-y-0.5 border-l border-white/5 pl-2">
-                              <NavLink
-                                to="/system-overview"
-                                className={({ isActive }) =>
-                                  `flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-all duration-200 ${
-                                    isActive
-                                      ? 'bg-accent-500/10 text-accent-400 font-medium'
-                                      : 'text-gray-500 hover:text-gray-200 hover:bg-white/5'
-                                  }`
-                                }
-                              >
-                                <FiActivity size={14} />
-                                概览
-                              </NavLink>
-                              <NavLink
-                                to="/system/services"
-                                className={({ isActive }) =>
-                                  `flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-all duration-200 ${
-                                    isActive
-                                      ? 'bg-accent-500/10 text-accent-400 font-medium'
-                                      : 'text-gray-500 hover:text-gray-200 hover:bg-white/5'
-                                  }`
-                                }
-                              >
-                                <FiTerminal size={14} />
-                                服务
-                              </NavLink>
                               <NavLink
                                 to="/system/certificates"
                                 className={({ isActive }) =>

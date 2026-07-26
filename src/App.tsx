@@ -8,8 +8,6 @@ import FilteredDashboard from './pages/FilteredDashboard'
 import ApiTokens from './pages/ApiTokens'
 import ExtensionGuide from './pages/ExtensionGuide'
 import Settings from './pages/Settings'
-import SystemOverview from './pages/SystemOverview'
-import ServiceManage from './pages/ServiceManage'
 import Moment from './pages/Moment'
 import ClientCerts from './pages/ClientCerts'
 
@@ -30,8 +28,6 @@ function AppRoutes() {
         <Route path="/bookmarks/:categoryId" element={<FilteredDashboard />} />
         <Route path="/tokens" element={<ApiTokens />} />
         <Route path="/settings" element={<Settings />} />
-        <Route path="/system-overview" element={<SystemOverview />} />
-        <Route path="/system/services" element={<ServiceManage />} />
         <Route path="/moments" element={<Moment />} />
         <Route path="/chrome-ext" element={<ExtensionGuide />} />
         <Route path="/system/certificates" element={<ClientCerts />} />

@@ -13,8 +13,6 @@ const pageTitles: Record<string, [string, string]> = {
   '/': ['书签', '书签管家'],
   '/moments': ['时刻', '记录你的灵光一现'],
   '/settings': ['设置', '账户 / Token / 插件'],
-  '/system-overview': ['系统', '概览'],
-  '/system/services': ['系统', '服务'],
 }
 
 function findCategoryName(tree: CategoryResponse[], id: number): string | null {
