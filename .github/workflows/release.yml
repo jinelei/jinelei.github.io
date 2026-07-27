@@ -23,7 +23,7 @@ jobs:
 
       - run: npm run build
 
-      - run: zip -r scalefish-ui.zip dist/
+      - run: cd dist && zip -r ../scalefish-ui.zip .
 
       - uses: softprops/action-gh-release@v2
         with:
