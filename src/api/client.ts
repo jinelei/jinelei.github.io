@@ -7,7 +7,7 @@ const log = createLogger('api-client')
 const REFRESH_KEY = 'scalefish_refresh_token'
 
 const client = axios.create({
-  baseURL: '/api',
+  baseURL: 'https://jinelei.asia/api',
   headers: { 'Content-Type': 'application/json' },
   paramsSerializer: { indexes: null },
 })

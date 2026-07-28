@@ -49,7 +49,7 @@ export async function deleteAllMoments(): Promise<void> {
 }
 
 export function getMomentFileUrl(id: number): string {
-  return `/api/moments/${id}/file`;
+  return `https://jinelei.asia/api/moments/${id}/file`;
 }
 
 export async function getCalendarStats(year: number): Promise<GenericResult<DailyCount[]>> {
@@ -58,5 +58,5 @@ export async function getCalendarStats(year: number): Promise<GenericResult<Dail
 }
 
 export function getMomentDownloadUrl(id: number): string {
-  return `/api/moments/${id}/download`;
+  return `https://jinelei.asia/api/moments/${id}/download`;
 }
