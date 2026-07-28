@@ -1,0 +1,17 @@
+name: Sync to jinelei.github.io
+
+on:
+  push:
+    branches: [ gh-page ]
+
+jobs:
+  trigger-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger deploy in jinelei.github.io
+        run: |
+          curl -X POST \
+            -H "Accept: application/vnd.github.v3+json" \
+            -H "Authorization: Bearer ${{ secrets.PAT }}" \
+            https://api.github.com/repos/jinelei/jinelei.github.io/actions/workflows/deploy.yml/dispatches \
+            -d '{"ref":"main"}'
