@@ -1,4 +1,5 @@
 import { createLogger } from './logger'
+import { API_BASE_URL } from '../config'
 
 const log = createLogger('crypto')
 
@@ -7,7 +8,7 @@ let publicKeyBase64: string | null = null
 const ALGORITHM = { name: 'RSA-OAEP', hash: 'SHA-256' }
 
 async function fetchPublicKey(): Promise<void> {
-  const res = await fetch('https://jinelei.asia/api/auth/public-key')
+  const res = await fetch(`${API_BASE_URL}/auth/public-key`)
   if (!res.ok) throw new Error('获取加密密钥失败')
   const json = await res.json()
   publicKeyBase64 = json.data.key as string

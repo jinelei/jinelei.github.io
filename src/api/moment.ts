@@ -1,5 +1,6 @@
 import client from './client';
 import type { GenericResult, PageResponse, MomentRequest, MomentResponse, DailyCount } from '../types';
+import { API_BASE_URL } from '../config';
 
 export async function getMomentList(page = 0, size = 20, date?: string): Promise<GenericResult<PageResponse<MomentResponse>>> {
   const params: Record<string, unknown> = { page, size };
@@ -49,7 +50,7 @@ export async function deleteAllMoments(): Promise<void> {
 }
 
 export function getMomentFileUrl(id: number): string {
-  return `https://jinelei.asia/api/moments/${id}/file`;
+  return `${API_BASE_URL}/moments/${id}/file`;
 }
 
 export async function getCalendarStats(year: number): Promise<GenericResult<DailyCount[]>> {
@@ -58,5 +59,5 @@ export async function getCalendarStats(year: number): Promise<GenericResult<Dail
 }
 
 export function getMomentDownloadUrl(id: number): string {
-  return `https://jinelei.asia/api/moments/${id}/download`;
+  return `${API_BASE_URL}/moments/${id}/download`;
 }

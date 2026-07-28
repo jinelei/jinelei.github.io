@@ -1,13 +1,14 @@
 import axios from 'axios'
 import { refreshToken } from './auth'
 import { createLogger } from '../utils/logger'
+import { API_BASE_URL } from '../config'
 
 const log = createLogger('api-client')
 
 const REFRESH_KEY = 'scalefish_refresh_token'
 
 const client = axios.create({
-  baseURL: 'https://jinelei.asia/api',
+  baseURL: API_BASE_URL,
   headers: { 'Content-Type': 'application/json' },
   paramsSerializer: { indexes: null },
 })
