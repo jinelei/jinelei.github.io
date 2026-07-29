@@ -7,7 +7,7 @@ import {
   FiDownload,
 } from 'react-icons/fi'
 import toast from 'react-hot-toast'
-import { getMomentList, createMoment, uploadMomentFile, toggleLock, deleteMoment, getMomentFileUrl, getMomentDownloadUrl, getCalendarStats } from '../api/moment'
+import { getMomentList, createMoment, uploadMomentFile, toggleLock, deleteMoment, getFileBlob, downloadFile, getCalendarStats } from '../api/moment'
 import type { MomentResponse, PageResponse, DailyCount } from '../types'
 
 import CalendarHeatmap from '../components/CalendarHeatmap'
@@ -48,6 +48,25 @@ const tabs: { key: InputTab; label: string; icon: React.ComponentType<{ size?: n
   { key: 'IMAGE', label: '图片', icon: FiImage },
   { key: 'FILE', label: '文件', icon: FiFile },
 ]
+
+function AuthImg({ id, alt, className }: { id: number; alt?: string; className?: string }) {
+  const [src, setSrc] = useState<string>('')
+  useEffect(() => {
+    const url = `__scalefish_auth_img_${id}`
+    let blobUrl = srcCache.get(url)
+    if (blobUrl) { setSrc(blobUrl); return }
+    getFileBlob(id).then(blob => {
+      blobUrl = URL.createObjectURL(blob)
+      srcCache.set(url, blobUrl)
+      setSrc(blobUrl)
+    }).catch(() => setSrc(''))
+    return () => { if (blobUrl) URL.revokeObjectURL(blobUrl) }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id])
+  return src ? <img src={src} alt={alt || ''} className={className} /> : null
+}
+
+const srcCache = new Map<string, string>()
 
 export default function Moment() {
   const [tab, setTab] = useState<InputTab>('TEXT')
@@ -206,8 +225,7 @@ export default function Moment() {
 
   const handleCopyImage = async (id: number) => {
     try {
-      const resp = await fetch(getMomentFileUrl(id))
-      const blob = await resp.blob()
+      const blob = await getFileBlob(id)
       await navigator.clipboard.write([
         new ClipboardItem({ [blob.type]: blob }),
       ])
@@ -429,11 +447,10 @@ export default function Moment() {
                         {item.contentType === 'IMAGE' && item.filePath && (
                           <div className="mb-2">
                             {(isRevealed || !item.isLocked) ? (
-                              <img
-                                src={getMomentFileUrl(item.id)}
+                              <AuthImg
+                                id={item.id}
                                 alt={item.fileName || '图片'}
                                 className="max-h-48 rounded-lg object-contain bg-black/20"
-                                loading="lazy"
                               />
                             ) : (
                               <div className="h-24 rounded-lg bg-black/20 flex items-center justify-center text-xs text-gray-500">
@@ -512,24 +529,22 @@ export default function Moment() {
                                 >
                                   <FiCopy size={14} />
                                 </button>
-                                <a
-                                  href={getMomentDownloadUrl(item.id)}
-                                  download={item.fileName || 'image'}
+                                <button
+                                  onClick={() => downloadFile(item.id)}
                                   className="p-1.5 rounded-lg text-gray-500 hover:text-accent-400 hover:bg-white/5 transition-all duration-200 cursor-pointer block"
                                   title="下载图片"
                                 >
                                   <FiDownload size={14} />
-                                </a>
+                                </button>
                               </>
                             ) : item.contentType === 'FILE' && item.filePath ? (
-                              <a
-                                href={getMomentDownloadUrl(item.id)}
-                                download={item.fileName || 'file'}
+                              <button
+                                onClick={() => downloadFile(item.id)}
                                 className="p-1.5 rounded-lg text-gray-500 hover:text-accent-400 hover:bg-white/5 transition-all duration-200 cursor-pointer block"
                                 title="下载文件"
                               >
                                 <FiDownload size={14} />
-                              </a>
+                              </button>
                             ) : (
                               <button
                                 onClick={() => {

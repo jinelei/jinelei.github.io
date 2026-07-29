@@ -53,6 +53,23 @@ export function getMomentFileUrl(id: number): string {
   return `${API_BASE_URL}/moments/${id}/file`;
 }
 
+export async function getFileBlob(id: number): Promise<Blob> {
+  const res = await client.get(`/moments/${id}/file`, { responseType: 'blob' });
+  return res.data;
+}
+
+export async function downloadFile(id: number): Promise<void> {
+  const blob = await getFileBlob(id);
+  const res = await client.get(`/moments/${id}`);
+  const fileName = res.data.data.fileName || 'file';
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = fileName;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
 export async function getCalendarStats(year: number): Promise<GenericResult<DailyCount[]>> {
   const res = await client.get('/moments/stats/calendar', { params: { year } });
   return res.data;
