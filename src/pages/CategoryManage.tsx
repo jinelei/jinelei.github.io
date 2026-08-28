@@ -178,7 +178,7 @@ export default function CategoryManage() {
     ))
 
   return (
-    <motion.div variants={container} initial="hidden" animate="show" className="space-y-5">
+    <motion.div variants={container} initial="hidden" animate="show" className="p-4 sm:p-6 space-y-5">
       {loading ? (
         <div className="glass rounded-xl p-5 space-y-3">
           {Array.from({ length: 5 }).map((_, i) => (

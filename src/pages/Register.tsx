@@ -4,7 +4,7 @@ import { useAuth } from '../contexts/AuthContext'
 import { register as registerApi, getRegistrationStatus } from '../api/auth'
 
 export default function Register() {
-  const { user } = useAuth()
+  const { user, login } = useAuth()
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [confirm, setConfirm] = useState('')
@@ -43,11 +43,9 @@ export default function Register() {
     setSubmitting(true)
     setError('')
     try {
-      const res = await registerApi({ username, password, name: name.trim() || undefined, email: email.trim() || undefined })
-      const { accessToken, refreshToken } = res.data
-      localStorage.setItem('scalefish_access_token', accessToken)
-      localStorage.setItem('scalefish_refresh_token', refreshToken)
-      window.location.href = '/'
+      await registerApi({ username, password, name: name.trim() || undefined, email: email.trim() || undefined })
+      // After registration, log in the user (tokens are handled by AuthContext)
+      await login(username, password)
     } catch (err) {
       setError(err instanceof Error ? err.message : '注册失败')
       // If backend rejects because registration is disabled, update state

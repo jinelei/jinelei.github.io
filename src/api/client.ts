@@ -1,20 +1,30 @@
 import axios from 'axios'
-import { refreshToken } from './auth'
 import { createLogger } from '../utils/logger'
 import { API_BASE_URL } from '../config'
 
 const log = createLogger('api-client')
 
-const REFRESH_KEY = 'scalefish_refresh_token'
+let currentAccessToken: string | null = null
+let accessTokenGetter: () => string | null = () => null
+let setAccessToken: (token: string | null) => void = () => {}
+
+export function setAuthTokenAccessor(getter: () => string | null, setter: (token: string | null) => void) {
+  accessTokenGetter = getter
+  setAccessToken = (token) => {
+    currentAccessToken = token
+    setter(token)
+  }
+}
 
 const client = axios.create({
   baseURL: API_BASE_URL,
   headers: { 'Content-Type': 'application/json' },
   paramsSerializer: { indexes: null },
+  withCredentials: true,
 })
 
 client.interceptors.request.use((config) => {
-  const token = localStorage.getItem('scalefish_access_token')
+  const token = currentAccessToken ?? accessTokenGetter()
   if (token) {
     config.headers.Authorization = `Bearer ${token}`
   }
@@ -22,18 +32,24 @@ client.interceptors.request.use((config) => {
   return config
 })
 
-let isRefreshing = false
-let pendingQueue: Array<{ resolve: (token: string) => void; reject: (err: unknown) => void }> = []
+let refreshPromise: Promise<string> | null = null
 
-function processQueue(error: unknown, token: string | null) {
-  pendingQueue.forEach((p) => {
-    if (error) {
-      p.reject(error)
-    } else {
-      p.resolve(token!)
-    }
-  })
-  pendingQueue = []
+function doRefresh(): Promise<string> {
+  if (!refreshPromise) {
+    refreshPromise = client
+      .post('/auth/refresh')
+      .then((res) => {
+        const newToken = res.data.data.accessToken
+        currentAccessToken = newToken
+        setAccessToken(newToken)
+        log.info('Token refreshed successfully')
+        return newToken
+      })
+      .finally(() => {
+        refreshPromise = null
+      })
+  }
+  return refreshPromise
 }
 
 client.interceptors.response.use(
@@ -43,55 +59,40 @@ client.interceptors.response.use(
   },
   async (err) => {
     const originalRequest = err.config
-    if (originalRequest.url === '/auth/refresh') {
-      return Promise.reject(err)
+    const isAuthEndpoint = ['/auth/refresh', '/auth/login', '/auth/login-check', '/auth/register'].includes(originalRequest.url)
+    if (isAuthEndpoint) {
+      const msg = err.response?.data?.message || err.message || 'Network error'
+      return Promise.reject(new Error(msg))
     }
 
-    if (err.response?.status === 401 && !originalRequest._retry) {
-      log.warn('Received 401, attempting token refresh')
-      const refreshTokenStr = localStorage.getItem(REFRESH_KEY)
-      if (!refreshTokenStr) {
-        log.warn('No refresh token available, redirecting to login')
-        localStorage.removeItem('scalefish_access_token')
-        localStorage.removeItem(REFRESH_KEY)
-        window.location.href = '/login'
-        return Promise.reject(err)
-      }
-
-      if (isRefreshing) {
-        log.debug('Token refresh already in progress, queueing request')
-        return new Promise((resolve, reject) => {
-          pendingQueue.push({
-            resolve: (token: string) => {
-              originalRequest.headers.Authorization = `Bearer ${token}`
-              resolve(client(originalRequest))
-            },
-            reject,
-          })
-        })
-      }
-
-      originalRequest._retry = true
-      isRefreshing = true
+    if ((err.response?.status === 401 || err.response?.status === 403) && !originalRequest._retry) {
+      log.warn('Received %d, attempting token refresh', err.response.status)
 
       try {
-        const res = await refreshToken(refreshTokenStr)
-        const { accessToken, refreshToken: newRefresh } = res.data
-        localStorage.setItem('scalefish_access_token', accessToken)
-        localStorage.setItem(REFRESH_KEY, newRefresh)
-        log.info('Token refreshed successfully')
-        processQueue(null, accessToken)
-        originalRequest.headers.Authorization = `Bearer ${accessToken}`
-        return client(originalRequest)
+        const newToken = await doRefresh()
+        log.info('Retrying request with new token')
+        const retryConfig = {
+          method: originalRequest.method,
+          url: originalRequest.url,
+          data: originalRequest.data,
+          params: originalRequest.params,
+          headers: {
+            ...originalRequest.headers,
+            Authorization: `Bearer ${newToken}`,
+          },
+        }
+        return client(retryConfig)
       } catch (e) {
         log.error('Token refresh failed:', e)
-        processQueue(e, null)
-        localStorage.removeItem('scalefish_access_token')
-        localStorage.removeItem(REFRESH_KEY)
+        // 刷新失败：会话过期或被其他登录挤下线（FIFO），挤下线提示透传到登录页
+        const reason = e instanceof Error ? e.message : ''
+        if (reason.includes('其他设备') || reason.includes('已失效')) {
+          try { sessionStorage.setItem('authKickedMessage', reason) } catch { /* ignore */ }
+        }
+        currentAccessToken = null
+        setAccessToken(null)
         window.location.href = '/login'
         return Promise.reject(e)
-      } finally {
-        isRefreshing = false
       }
     }
 
@@ -100,9 +101,5 @@ client.interceptors.response.use(
     return Promise.reject(new Error(msg))
   },
 )
-
-export function getStoredRefreshToken(): string | null {
-  return localStorage.getItem(REFRESH_KEY)
-}
 
 export default client

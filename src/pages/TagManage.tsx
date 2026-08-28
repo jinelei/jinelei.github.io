@@ -84,7 +84,7 @@ export default function TagManage() {
   }
 
   return (
-    <motion.div variants={container} initial="hidden" animate="show" className="space-y-5">
+    <motion.div variants={container} initial="hidden" animate="show" className="p-4 sm:p-6 space-y-5">
       {loading ? (
         <div className="flex flex-wrap gap-3">
           {Array.from({ length: 8 }).map((_, i) => (

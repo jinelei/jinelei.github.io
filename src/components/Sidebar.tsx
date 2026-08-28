@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { NavLink, useNavigate, useLocation } from 'react-router-dom'
-import { FiBookmark, FiLogOut, FiX, FiSettings, FiChevronDown, FiEdit, FiShield, FiGrid, FiBriefcase, FiUser, FiHeart, FiArchive, FiChrome } from 'react-icons/fi'
+import { FiBookmark, FiLogOut, FiX, FiSettings, FiChevronDown, FiEdit, FiShield, FiGrid, FiBriefcase, FiUser, FiHeart, FiArchive, FiChrome, FiStar, FiPlayCircle, FiCode, FiTool, FiPackage } from 'react-icons/fi'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useAuth } from '../contexts/AuthContext'
 import { getCategoryTree } from '../api/categories'
@@ -54,6 +54,11 @@ export default function Sidebar({ open, onClose, displayName }: SidebarProps) {
       case '工作': return FiBriefcase
       case '我的': return FiUser
       case '个人': return FiHeart
+      case '专属': return FiStar
+      case '娱乐': return FiPlayCircle
+      case '研发': return FiCode
+      case '工具': return FiTool
+      case '资源': return FiPackage
       default: return FiBookmark
     }
   }

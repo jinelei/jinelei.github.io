@@ -251,7 +251,7 @@ export default function Moment() {
   }
 
   return (
-    <motion.div variants={container} initial="hidden" animate="show" className="max-w-5xl mx-auto pb-8">
+    <motion.div variants={container} initial="hidden" animate="show" className="p-4 sm:p-6 max-w-5xl mx-auto pb-8">
       <div className="flex flex-col lg:flex-row gap-4 lg:gap-6">
         {/* --- Left Column: Input + Calendar (30%) --- */}
         <div className="w-full lg:w-[30%] space-y-4 shrink-0">

@@ -1,66 +1,24 @@
-import { useState, useEffect, useCallback } from 'react'
-import { Outlet, useLocation, useNavigate } from 'react-router-dom'
-import { FiSun, FiMoon, FiMonitor, FiSettings, FiLogOut } from 'react-icons/fi'
-import { HiMenuAlt2 } from 'react-icons/hi'
-import Sidebar from './Sidebar'
+import { useState, useEffect } from 'react'
+import { Outlet, useNavigate, useLocation } from 'react-router-dom'
+import { FiSun, FiMoon, FiMonitor, FiSettings, FiLogOut, FiPlus, FiList } from 'react-icons/fi'
 import { useTheme } from '../contexts/ThemeContext'
 import { useAuth } from '../contexts/AuthContext'
 import { getAppConfig } from '../api/app-config'
-import { getCategoryTree } from '../api/categories'
-import type { CategoryResponse } from '../types'
+import { OPEN_CREATE_BOOKMARK_EVENT } from '../events'
 
-const pageTitles: Record<string, [string, string]> = {
-  '/': ['书签', '书签管家'],
-  '/moments': ['时刻', '记录你的灵光一现'],
-  '/settings/account': ['账户', '账户 / 密码 / 两步验证'],
-  '/settings/certificates': ['证书', '客户端证书管理'],
-  '/settings/data': ['数据', '备份和恢复书签数据'],
-  '/settings/plugin': ['插件', 'Chrome 扩展'],
-  '/settings/other': ['其他', '品牌 / 图标刷新'],
-}
-
-function findCategoryName(tree: CategoryResponse[], id: number): string | null {
-  for (const c of tree) {
-    if (c.id === id) return c.name
-    const found = findCategoryName(c.children, id)
-    if (found) return found
-  }
-  return null
-}
+const navLinks = [
+  { to: '/', label: '书签' },
+  { to: '/moments', label: '时刻' },
+  { to: '/settings', label: '设置' },
+]
 
 export default function Layout() {
-  const [sidebarOpen, setSidebarOpen] = useState(() => window.innerWidth >= 768)
   const [userMenuOpen, setUserMenuOpen] = useState(false)
   const [displayName, setDisplayName] = useState('')
-  const [categoryName, setCategoryName] = useState<string | null>(null)
   const { theme, cycleTheme } = useTheme()
   const { user, logout } = useAuth()
-  const location = useLocation()
   const navigate = useNavigate()
-
-  const isBookmarksCategory = location.pathname.startsWith('/bookmarks/') && location.pathname.split('/').length === 3
-  const catId = isBookmarksCategory ? Number(location.pathname.split('/')[2]) : null
-
-  const pageTitle = pageTitles[location.pathname]
-  const [title, subtitle] = pageTitle || (isBookmarksCategory ? ['书签', categoryName || '...'] : ['', ''])
-
-  const loadCategoryName = useCallback(async (id: number) => {
-    try {
-      const res = await getCategoryTree()
-      const name = findCategoryName(res.data, id)
-      setCategoryName(name)
-    } catch {
-      setCategoryName(null)
-    }
-  }, [])
-
-  useEffect(() => {
-    if (catId) {
-      loadCategoryName(catId)
-    } else {
-      setCategoryName(null)
-    }
-  }, [catId, loadCategoryName])
+  const location = useLocation()
 
   useEffect(() => {
     getAppConfig().then(res => {
@@ -71,73 +29,117 @@ export default function Layout() {
 
   useEffect(() => {
     const name = displayName || 'scalefish'
-    document.title = `${name} - ${subtitle || title}`
-  }, [displayName, location.pathname, title, subtitle])
-  const themeLabel = theme === 'light' ? '亮色' : theme === 'dark' ? '暗色' : '跟随系统'
+    document.title = name
+  }, [displayName])
+
+  const isBookmarkMode = location.pathname === '/' || location.pathname.startsWith('/bookmarks/')
+
+  const themeLabel = theme === 'light' ? '亮色模式' : theme === 'dark' ? '暗色模式' : '跟随系统'
+
+  const openCreateBookmark = () => {
+    window.dispatchEvent(new CustomEvent(OPEN_CREATE_BOOKMARK_EVENT))
+  }
 
   return (
-    <div className="flex h-screen bg-surface-900 overflow-hidden">
-      <Sidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} displayName={displayName} />
-      <div className="flex-1 flex flex-col min-w-0">
-        <header className="glass border-b border-white/5 h-14 flex items-center px-4 gap-3 shrink-0 relative z-30">
+    <div className="flex flex-col h-screen bg-surface-900 overflow-hidden">
+      <header className="glass border-b border-white/5 h-14 flex items-center px-4 gap-3 shrink-0 relative z-30">
+        <button onClick={() => navigate('/')} className="hidden sm:flex items-center gap-2.5 cursor-pointer mr-4">
+          <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-accent-500 to-purple-500 flex items-center justify-center text-white text-xs font-bold shadow-lg">
+            {(displayName || 'S')[0].toUpperCase()}
+          </div>
+          <span className="font-semibold text-sm tracking-wide hidden sm:inline">
+            <span className="gradient-text">{displayName || 'scalefish'}</span>
+          </span>
+        </button>
+        <nav className="flex items-center gap-1">
+          {navLinks.map(({ to, label }) => {
+            const isActive = to === '/'
+              ? location.pathname === '/' || location.pathname.startsWith('/bookmarks/') || location.pathname.startsWith('/manage')
+              : to === '/moments'
+                ? location.pathname.startsWith('/moments')
+                : location.pathname === '/settings' || location.pathname.startsWith('/settings/')
+            return (
+              <button
+                key={to}
+                onClick={() => navigate(to)}
+                className={`px-3 py-1.5 rounded-lg text-sm transition-all duration-200 cursor-pointer ${
+                  isActive
+                    ? 'bg-accent-500/10 text-accent-400 font-medium'
+                    : 'text-gray-400 hover:text-gray-200 hover:bg-white/5'
+                }`}
+              >
+                {label}
+              </button>
+            )
+          })}
+        </nav>
+        <div className="flex-1" />
+        {isBookmarkMode && (
           <button
-            onClick={() => setSidebarOpen((v) => !v)}
-            className="text-gray-400 hover:text-white transition-colors p-1"
+            onClick={openCreateBookmark}
+            title="新增书签"
+            className="flex items-center gap-1 text-xs font-medium text-white bg-accent-600 hover:bg-accent-500 transition-colors px-2.5 py-1.5 rounded-lg"
           >
-            <HiMenuAlt2 size={22} />
+            <FiPlus size={14} />
+            <span className="hidden sm:inline">新增书签</span>
           </button>
-          <button onClick={() => navigate('/')} className="flex items-baseline gap-2 min-w-0 cursor-pointer">
-            <span className="text-sm font-bold gradient-text truncate">{title}</span>
-            {subtitle && <span className="text-[11px] text-gray-500 truncate">{subtitle}</span>}
-          </button>
-          <div className="flex-1" />
+        )}
+        <div className="relative">
           <button
-            onClick={cycleTheme}
-            className="flex items-center gap-1.5 text-xs text-gray-500 hover:text-gray-300 transition-colors px-2 py-1 rounded-lg hover:bg-white/5"
-            title={themeLabel}
+            onClick={() => setUserMenuOpen((v) => !v)}
+            className="flex items-center gap-2 text-xs text-gray-400 hover:text-gray-200 transition-colors px-2 py-1 rounded-lg hover:bg-white/5"
           >
-            {theme === 'system' ? <FiMonitor size={14} /> : theme === 'light' ? <FiSun size={14} /> : <FiMoon size={14} />}
+            <span className="w-5 h-5 rounded-full bg-accent-600 flex items-center justify-center text-white text-[10px] font-medium">
+              {user?.username?.charAt(0).toUpperCase() || '?'}
+            </span>
+            <span className="hidden sm:inline">{user?.username}</span>
           </button>
-          <div className="relative">
-            <button
-              onClick={() => setUserMenuOpen((v) => !v)}
-              className="flex items-center gap-2 text-xs text-gray-400 hover:text-gray-200 transition-colors px-2 py-1 rounded-lg hover:bg-white/5"
-            >
-              <span className="w-5 h-5 rounded-full bg-accent-600 flex items-center justify-center text-white text-[10px] font-medium">
-                {user?.username?.charAt(0).toUpperCase() || '?'}
-              </span>
-              <span className="hidden sm:inline">{user?.username}</span>
-            </button>
-            {userMenuOpen && (
-              <>
-                <div className="fixed inset-0 z-40" onClick={() => setUserMenuOpen(false)} />
-                <div className="absolute right-0 top-full mt-1 z-50 w-40 glass rounded-lg py-1 shadow-xl border border-white/10">
-                  <div className="px-3 py-2 text-xs text-gray-400 border-b border-white/5">
-                    {user?.name || user?.username}
-                  </div>
+          {userMenuOpen && (
+            <>
+              <div className="fixed inset-0 z-40" onClick={() => setUserMenuOpen(false)} />
+              <div className="absolute right-0 top-full mt-1 z-50 w-44 glass rounded-lg py-1 shadow-xl border border-white/10">
+                <div className="px-3 py-2 text-xs text-gray-400 border-b border-white/5">
+                  {user?.name || user?.username}
+                </div>
+                <button
+                  onClick={cycleTheme}
+                  title="点击切换 亮色 / 暗色 / 跟随系统"
+                  className="flex items-center gap-2 w-full px-3 py-2 text-xs text-gray-400 hover:text-gray-200 hover:bg-white/5 transition-colors"
+                >
+                  {theme === 'system' ? <FiMonitor size={13} /> : theme === 'light' ? <FiSun size={13} /> : <FiMoon size={13} />}
+                  <span className="flex-1 text-left">{themeLabel}</span>
+                </button>
+                {isBookmarkMode && (
                   <button
-                    onClick={() => { setUserMenuOpen(false); navigate('/settings/account') }}
+                    onClick={() => { setUserMenuOpen(false); navigate('/manage') }}
                     className="flex items-center gap-2 w-full px-3 py-2 text-xs text-gray-400 hover:text-gray-200 hover:bg-white/5 transition-colors"
                   >
-                    <FiSettings size={13} />
-                    设置
+                    <FiList size={13} />
+                    管理书签
                   </button>
-                  <button
-                    onClick={() => { setUserMenuOpen(false); logout() }}
-                    className="flex items-center gap-2 w-full px-3 py-2 text-xs text-gray-400 hover:text-rose-400 hover:bg-white/5 transition-colors"
-                  >
-                    <FiLogOut size={13} />
-                    退出登录
-                  </button>
-                </div>
-              </>
-            )}
-          </div>
-        </header>
-        <main className="flex-1 overflow-auto p-4 sm:p-6">
-          <Outlet />
-        </main>
-      </div>
+                )}
+                <button
+                  onClick={() => { setUserMenuOpen(false); navigate('/settings') }}
+                  className="flex items-center gap-2 w-full px-3 py-2 text-xs text-gray-400 hover:text-gray-200 hover:bg-white/5 transition-colors"
+                >
+                  <FiSettings size={13} />
+                  设置
+                </button>
+                <button
+                  onClick={() => { setUserMenuOpen(false); logout() }}
+                  className="flex items-center gap-2 w-full px-3 py-2 text-xs text-gray-400 hover:text-rose-400 hover:bg-white/5 transition-colors"
+                >
+                  <FiLogOut size={13} />
+                  退出登录
+                </button>
+              </div>
+            </>
+          )}
+        </div>
+      </header>
+      <main className="flex-1 overflow-auto">
+        <Outlet />
+      </main>
     </div>
   )
 }

@@ -14,10 +14,11 @@ export interface PageResponse<T> {
 }
 
 export interface BatchBookmarkRequest {
-  ids: number[];
-  categoryId?: number | null;
-  addTagIds?: number[];
-  removeTagIds?: number[];
+  ids: number[]
+  categoryId?: number | null
+  clearCategory?: boolean
+  addTagIds?: number[]
+  removeTagIds?: number[]
 }
 
 export interface BookmarkRequest {
@@ -95,6 +96,7 @@ export interface BookmarkSearchParams {
 export interface LoginRequest {
   username: string;
   password: string;
+  rememberMe?: boolean;
 }
 
 export interface AuthResponse {

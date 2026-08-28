@@ -308,7 +308,7 @@ export default function BookmarkManage() {
   const hasFilters = searchKeyword || filterCategory !== undefined || filterPinned !== undefined
 
   return (
-    <motion.div variants={container} initial="hidden" animate="show" className="space-y-5">
+    <motion.div variants={container} initial="hidden" animate="show" className="p-4 sm:p-6 space-y-5">
       <div className="glass rounded-xl p-4 space-y-3">
         <div className="flex flex-col sm:flex-row flex-wrap gap-2 sm:gap-3 items-stretch sm:items-end">
           <div className="flex-1 min-w-0 relative">

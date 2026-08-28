@@ -38,3 +38,8 @@ export async function updateCategory(
 export async function deleteCategory(id: number): Promise<void> {
   await client.delete(`/categories/${id}`);
 }
+
+export async function mergeCategories(sourceId: number, targetId: number): Promise<GenericResult<number>> {
+  const res = await client.patch('/categories/merge', { sourceId, targetId });
+  return res.data;
+}

@@ -90,7 +90,7 @@ export default function ClientCerts() {
   }
 
   return (
-    <motion.div variants={container} initial="hidden" animate="show" className="max-w-4xl mx-auto space-y-5">
+    <motion.div variants={container} initial="hidden" animate="show" className="p-4 sm:p-6 max-w-4xl mx-auto space-y-5">
       <motion.div variants={item} className="glass rounded-xl p-5">
         <div className="flex items-center gap-2.5 mb-4">
           <div className="w-9 h-9 rounded-lg bg-accent-500/10 border border-accent-500/20 flex items-center justify-center">
