@@ -1,7 +1,11 @@
 name: Deploy Mussel to GitHub Pages
 
-# 从公开的 jinelei/mussel 仓库 main 分支构建 SPA 并部署到根域名
-# https://jinelei.github.io/
+# 从 jinelei/mussel 仓库 main 分支构建 SPA 并部署到根域名
+# https://jinelei.github.io/（mussel 为私有仓库，经 MUSSEL_SOURCE_TOKEN 访问）。
+# 构建产物有两个去向：
+#   1. 经 Actions 部署为线上站点（Pages Source = GitHub Actions）；
+#   2. 同步提交到本仓库 gh-page 分支，保证分支代码与线上产物一致。
+# 同步提交信息带 [skip ci]，且无变更时不提交，双重保证不会递归触发本工作流。
 
 on:
   push:
@@ -10,7 +14,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -21,6 +25,8 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    outputs:
+      mussel_sha: ${{ steps.meta.outputs.sha }}
     steps:
       - name: Checkout mussel source
         uses: actions/checkout@v4
@@ -28,6 +34,10 @@ jobs:
           repository: jinelei/mussel
           ref: main
           token: ${{ secrets.MUSSEL_SOURCE_TOKEN }}
+
+      - name: Record source revision
+        id: meta
+        run: echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
 
       - uses: actions/setup-node@v4
         with:
@@ -50,6 +60,12 @@ jobs:
         with:
           path: ./dist
 
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: ./dist
+
   deploy:
     needs: build
     runs-on: ubuntu-latest
@@ -59,3 +75,41 @@ jobs:
     steps:
       - id: deployment
         uses: actions/deploy-pages@v4
+
+  sync-branch:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist
+
+      - name: Checkout gh-page branch
+        uses: actions/checkout@v4
+        with:
+          ref: gh-page
+          path: gh-page-branch
+
+      - name: Sync built files into branch
+        # 保留分支上的 .github（工作流自身）与 .nojekyll，其余与 dist 完全一致
+        run: |
+          rsync -a --delete \
+            --exclude='.github' \
+            --exclude='.nojekyll' \
+            dist/ gh-page-branch/
+          touch gh-page-branch/.nojekyll
+
+      - name: Commit and push built files
+        run: |
+          cd gh-page-branch
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --staged --quiet; then
+            echo "gh-page 分支内容已是最新，无需提交"
+            exit 0
+          fi
+          git commit -m "deploy: mussel SPA ${{ needs.build.outputs.mussel_sha }} [skip ci]"
+          git push
