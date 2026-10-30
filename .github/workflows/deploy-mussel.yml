@@ -93,9 +93,11 @@ jobs:
           path: gh-page-branch
 
       - name: Sync built files into branch
-        # 保留分支上的 .github（工作流自身）与 .nojekyll，其余与 dist 完全一致
+        # --delete 会移除目标中多余的文件，必须排除 .git（检出元数据）、
+        # .github（工作流自身）与 .nojekyll，其余与 dist 完全一致
         run: |
           rsync -a --delete \
+            --exclude='.git' \
             --exclude='.github' \
             --exclude='.nojekyll' \
             dist/ gh-page-branch/
