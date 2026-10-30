@@ -3,9 +3,24 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
     <title>Mussel 书签</title>
-    <script type="module" crossorigin src="/assets/index-C3twumJV.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-D9HTR2AN.css">
+    <script>
+      // React 挂载前根据用户偏好/系统明暗设置好 .dark，避免暗黑闪烁（FOUC）
+      (function () {
+        try {
+          var stored = localStorage.getItem('mussel-theme')
+          var prefersDark = window.matchMedia(
+            '(prefers-color-scheme: dark)'
+          ).matches
+          var useDark =
+            stored === 'dark' || ((!stored || stored === 'system') && prefersDark)
+          if (useDark) document.documentElement.classList.add('dark')
+        } catch (e) {}
+      })()
+    </script>
+    <script type="module" crossorigin src="/assets/index-BvXzW4Wg.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-Dj_3uWPX.css">
   </head>
   <body>
     <div id="root"></div>
